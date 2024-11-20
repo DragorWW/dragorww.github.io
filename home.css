@@ -125,7 +125,7 @@ h1 span {
 
 .hero p {
     color: var(--text-secondary);
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
     max-width: 500px;
 }
 
@@ -196,6 +196,7 @@ button {
 .terminal-content {
     padding: 1rem;
     font-size: 0.875rem;
+    line-height: 1.4;
 }
 
 .prompt {
@@ -204,8 +205,16 @@ button {
 }
 
 .output {
-    color: var(--text-secondary);
-    margin-bottom: 1rem;
+    color: var(--text-primary);
+    opacity: 0.8;
+    margin-bottom: 0.25rem;
+    margin-left: 1rem;
+    display: block;
+    font-family: 'Fira Code', monospace;
+}
+
+.terminal-content p:last-child {
+    margin-top: 0.5rem;
 }
 
 /* Skills Section */
@@ -242,7 +251,7 @@ h2 {
     height: 8px;
     background-color: var(--border-color);
     border-radius: 4px;
-    margin-bottom: 1rem;
+    margin-bottom: 2rem;
     position: relative;
 }
 
@@ -258,12 +267,12 @@ h2 {
 }
 
 .skill-bar::after {
-    content: attr(style);
+    content: attr(data-skill);
     position: absolute;
-    right: 0;
+    left: 0;
     top: -1.5rem;
     color: var(--text-secondary);
-    font-size: 0.75rem;
+    font-size: 0.875rem;
 }
 
 /* Experience Section */
@@ -379,4 +388,51 @@ h2 {
     .skills-grid {
         grid-template-columns: 1fr;
     }
+}
+
+.tech-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.tech-stack span {
+    background-color: var(--accent-color);
+    color: var(--bg-color);
+    padding: 0.25rem 0.75rem;
+    border-radius: 0.25rem;
+    font-size: 0.75rem;
+}
+
+.tech-stack span:hover {
+    background-color: var(--accent-color);
+    color: var(--bg-color);
+    border-color: var(--accent-color);
+    transition: all 0.2s ease;
+}
+
+/* Стили для списков в секции experience */
+.content ul {
+    list-style: none;
+    margin: 1rem 0;
+}
+
+.content ul li {
+    position: relative;
+    padding-left: 1.5rem;
+    margin-bottom: 0.75rem;
+    color: var(--text-secondary);
+}
+
+.content ul li::before {
+    content: '▹';  /* или можно использовать '→' */
+    position: absolute;
+    left: 0;
+    color: var(--accent-color);
+}
+
+/* Последний элемент списка без отступа снизу */
+.content ul li:last-child {
+    margin-bottom: 0;
 }

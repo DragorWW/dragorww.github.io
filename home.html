@@ -3,8 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alex Chen | Software Engineer</title>
+    <title>Сергей Андреев | Head of Engineering</title>
+    <meta name="description" content="CTO и IT-Архитектор с опытом построения масштабируемых решений. Специализируюсь на оптимизации бизнес-процессов и развитии IT-систем.">
     <link rel="stylesheet" href="home.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/firacode@6.2.0/distr/fira_code.css">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iNCIgZmlsbD0iIzExMTExMSIvPgo8cG9seWxpbmUgcG9pbnRzPSI4IDIwIDE2IDEyIDggNCIgc3Ryb2tlPSIjRTJDMDhEIiBzdHJva2Utd2lkdGg9IjIiLz4KPGxpbmUgeDE9IjE4IiB5MT0iMjQiIHgyPSIyOCIgeTI9IjI0IiBzdHJva2U9IiNFMkMwOEQiIHN0cm9rZS13aWR0aD0iMiIvPgo8L3N2Zz4="/>
+    <link rel="icon" type="image/png" sizes="32x32" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAABu0lEQVRYCe1XQUoDQRCdSTxE8OSieFjwC4LgQfAD4t2DB/EHegoi5Bt68CpePXgVPIigFw+CBS8BQQ9CELw5yVSbKrZhJjs9k4yQDUyhq6vqVb+q7p7OxONiGqDf7y8j5wrYAlt0wzD8tGxr9YYQwge2wDboYPFAKXVPHQZYGHwE3oEH4Bj4AHzwFWwEQfBMe6sEEHwXfAXH4Bg8AY/ADngJXoG74Aq4BPbAF/AcPKKtVQKwz8EX8Bjsg0/gKrgD7oHXzDsD98EFcBvcBHfBM/DUKgEa4RvwGLwAz8Ft8AY8AffAG+YdgHvgPDgBj8Ar8Ag8sEoAm/AePAWPwDPwFLwG9"/>
 </head>
 <body>
     <div class="matrix-bg">
@@ -43,9 +47,10 @@
                 </div>
                 <h1>Сергей Андреев <span>Head of Engineering</span></h1>
                 <p>
-                    Амбассадор продуктовой разработки, IT Психолог, Архитектор, CTO
+                    Эксперт в построении эффективных IT-систем и команд. 
+                    Специализируюсь на масштабировании IT-решений и оптимизации бизнес-процессов.
                     <br>
-                    Biz+Dev=❤️
+                    10+ лет опыта в разработке • 5+ лет в управлении
                 </p>
                 <div class="cta-buttons">
                     <button class="primary">Download CV</button>
@@ -62,11 +67,11 @@
                 </div>
                 <div class="terminal-content">
                     <p><span class="prompt">$</span> whoami</p>
-                    <p class="output">Alex Chen</p>
-                    <p><span class="prompt">$</span> cat skills.txt</p>
-                    <p class="output">TypeScript • React • Node.js • Python • AWS</p>
-                    <p><span class="prompt">$</span> ls projects/</p>
-                    <p class="output">CryptoTracker.js  AIAssistant.py  CloudDash.go</p>
+                    <p class="output">Сергей Андреев</p>
+                    <p><span class="prompt">$</span> cat expertise.txt</p>
+                    <p class="output">IT Strategy • Team Leadership • Architecture Design • Process Optimization</p>
+                    <p><span class="prompt">$</span> ls achievements/</p>
+                    <p class="output">7_companies_platform.yml  analytics_system.py  lms_platform.js</p>
                     <p><span class="prompt">$</span> █</p>
                 </div>
             </div>
@@ -77,59 +82,149 @@
             <div class="skills-grid">
                 <div class="skill-card">
                     <h3>Frontend</h3>
-                    <div class="skill-bar" style="--level: 90%">React</div>
-                    <div class="skill-bar" style="--level: 85%">TypeScript</div>
-                    <div class="skill-bar" style="--level: 80%">Next.js</div>
-                    <div class="skill-bar" style="--level: 95%">Tailwind</div>
+                    <div class="skill-bar" style="--level: 90%" data-skill="React"></div>
+                    <div class="skill-bar" style="--level: 85%" data-skill="TypeScript"></div>
+                    <div class="skill-bar" style="--level: 80%" data-skill="Next.js"></div>
+                    <div class="skill-bar" style="--level: 95%" data-skill="Tailwind"></div>
                 </div>
                 <div class="skill-card">
                     <h3>Backend</h3>
-                    <div class="skill-bar" style="--level: 88%">Node.js</div>
-                    <div class="skill-bar" style="--level: 82%">Python</div>
-                    <div class="skill-bar" style="--level: 75%">Go</div>
-                    <div class="skill-bar" style="--level: 85%">GraphQL</div>
+                    <div class="skill-bar" style="--level: 88%" data-skill="Node.js"></div>
+                    <div class="skill-bar" style="--level: 82%" data-skill="Python"></div>
+                    <div class="skill-bar" style="--level: 75%" data-skill="Go"></div>
+                    <div class="skill-bar" style="--level: 85%" data-skill="GraphQL"></div>
+                </div>
+                <div class="skill-card">
+                    <h3>Leadership</h3>
+                    <div class="skill-bar" style="--level: 95%" data-skill="Team Management"></div>
+                    <div class="skill-bar" style="--level: 90%" data-skill="IT Strategy"></div>
+                    <div class="skill-bar" style="--level: 85%" data-skill="Process Optimization"></div>
+                    <div class="skill-bar" style="--level: 90%" data-skill="Budget Planning"></div>
                 </div>
             </div>
         </section>
 
         <section class="experience">
-            <h2>Experience</h2>
+            <h2>Опыт работы</h2>
             <div class="timeline">
                 <div class="timeline-item">
                     <div class="year">2023</div>
                     <div class="content">
-                        <h3>Senior Software Engineer</h3>
-                        <div class="company">Ethereum Foundation</div>
-                        <p>Leading development of core protocol improvements and Layer 2 scaling solutions.</p>
+                        <h3>CTO</h3>
+                        <div class="company">Ultimate Education, Москва</div>
+                        <p>Руководство IT-стратегией холдинга из 7 компаний:</p>
+                        <ul>
+                            <li>Масштабирование IT-решений для холдинга из 7 компаний</li>
+                            <li>Разработка и внедрение единой IT-стратегии</li>
+                            <li>Оптимизация бюджета и ресурсов через централизацию систем</li>
+                            <li>Создание комплексной аналитической платформы</li>
+                        </ul>
+                        <div class="tech-stack">
+                            <span>Kubernetes</span>
+                            <span>React</span>
+                            <span>TypeScript</span>
+                            <span>Python</span>
+                            <span>Django</span>
+                        </div>
                     </div>
                 </div>
+
+                <div class="timeline-item">
+                    <div class="year">2022</div>
+                    <div class="content">
+                        <h3>CTO</h3>
+                        <div class="company">XYZ School, Москва</div>
+                        <p>Ключевые достижения:</p>
+                        <ul>
+                            <li>Разработка и внедрение LMS системы</li>
+                            <li>Внедрение продуктовой аналитики на базе Metabase</li>
+                            <li>Автоматизация бизнес-процессов и интеграция систем</li>
+                        </ul>
+                    </div>
+                </div>
+
                 <div class="timeline-item">
                     <div class="year">2021</div>
                     <div class="content">
-                        <h3>Software Engineer</h3>
-                        <div class="company">Google</div>
-                        <p>Worked on Chrome DevTools team, improving developer experience and performance profiling tools.</p>
+                        <h3>Principal Developer</h3>
+                        <div class="company">SberTech, Санкт-Петербург</div>
+                        <p>Разработка внутреннего DevOps продукта:</p>
+                        <ul>
+                            <li>Оптимизация производительности (10x улучшение)</li>
+                            <li>Проектирование архитектуры React-прложений</li>
+                        </ul>
+                        <div class="tech-stack">
+                            <span>React</span>
+                            <span>TypeScript</span>
+                            <span>Java</span>
+                            <span>Kotlin</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="year">2020</div>
+                    <div class="content">
+                        <h3>Principal Developer</h3>
+                        <div class="company">MagDevelopment, Томск</div>
+                        <p>Развиие cargomart.ru:</p>
+                        <ul>
+                            <li>Разработка архитектуры React-приложения</li>
+                            <li>Внедрение CI/CD и автоматизация процессов</li>
+                            <li>Стандартизация API и тестирования</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="year">2019</div>
+                    <div class="content">
+                        <h3>Head of Frontend</h3>
+                        <div class="company">UserStory, Томск</div>
+                        <p>Руководство отделом фронтенд-разработки:</p>
+                        <ul>
+                            <li>Участие в разработке более 30 проектов</li>
+                            <li>Проектирование фронтенд архитектуры для 7 проектов</li>
+                            <li>Развитие от middle developer до руководителя отдела</li>
+                        </ul>
+                        <div class="tech-stack">
+                            <span>JavaScript</span>
+                            <span>React</span>
+                            <span>Redux</span>
+                            <span>Webpack</span>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
         <section class="contact">
-            <h2>Get in Touch</h2>
+            <h2>Связаться со мной</h2>
             <div class="social-links">
-                <a href="#" class="social-link">
+                <a href="https://github.com/dragorww" class="social-link">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
                     </svg>
                 </a>
-                <a href="#" class="social-link">
+                <a href="https://linkedin.com/in/dragorww" class="social-link">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
                         <rect x="2" y="9" width="4" height="12"></rect>
                         <circle cx="4" cy="4" r="2"></circle>
                     </svg>
                 </a>
-                <a href="#" class="social-link">
+                <a href="https://t.me/dragorww" class="social-link">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M22.5 2l-8.5 8.5M22.5 2L15 22l-4-10-10-4L22.5 2z"></path>
+                    </svg>
+                </a>
+                <a href="https://youtube.com/@dragorww" class="social-link">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path>
+                        <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon>
+                    </svg>
+                </a>
+                <a href="mailto:dragorww@gmail.com" class="social-link">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
                         <polyline points="22,6 12,13 2,6"></polyline>
@@ -146,18 +241,31 @@
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
 
-        const chars = 'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン0123456789';
-        const charArray = chars.split('');
+        // Программистские символы с лигатурами
+        const chars = '=>== === !== >= <= => -> <> <!-- --> /** */ || && ++ -- :: ... ?? ?. [] {} () <> </> #!/ /** */ // /* */ import export default class const let var function return await async try catch finally break continue for while if else switch case do';
+        const charArray = chars.split(' ');
         const fontSize = 14;
         const columns = canvas.width / fontSize;
         const drops = Array(Math.floor(columns)).fill(1);
 
-        function draw() {
+        let lastTime = 0;
+        const fps = 30; // Желаемый FPS
+        const frameInterval = 1000 / fps;
+
+        function draw(currentTime) {
+            requestAnimationFrame(draw);
+
+            // Ограничиваем частоту обновления
+            const deltaTime = currentTime - lastTime;
+            if (deltaTime < frameInterval) return;
+
+            lastTime = currentTime - (deltaTime % frameInterval);
+
             ctx.fillStyle = 'rgba(17, 17, 17, 0.05)';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
             ctx.fillStyle = '#E2C08D';
-            ctx.font = fontSize + 'px monospace';
+            ctx.font = `${fontSize}px "Fira Code", monospace`;
 
             for (let i = 0; i < drops.length; i++) {
                 const text = charArray[Math.floor(Math.random() * charArray.length)];
@@ -173,9 +281,12 @@
         window.addEventListener('resize', () => {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
+            drops.length = Math.floor(canvas.width / fontSize);
+            drops.fill(1);
         });
 
-        setInterval(draw, 33);
+        // Запускаем анимацию
+        requestAnimationFrame(draw);
     </script>
 </body>
 </html>
