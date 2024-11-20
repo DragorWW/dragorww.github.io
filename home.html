@@ -245,17 +245,27 @@
         const chars = '=>== === !== >= <= => -> <> <!-- --> /** */ || && ++ -- :: ... ?? ?. [] {} () <> </> #!/ /** */ // /* */ import export default class const let var function return await async try catch finally break continue for while if else switch case do';
         const charArray = chars.split(' ');
         const fontSize = 14;
-        const columns = canvas.width / fontSize;
-        const drops = Array(Math.floor(columns)).fill(1);
+
+        // Создаем временный canvas для измерения ширины символов
+        const measureCanvas = document.createElement('canvas');
+        const measureCtx = measureCanvas.getContext('2d');
+        measureCtx.font = `${fontSize}px "Fira Code", monospace`;
+
+        // Вычисляем максимальную ширину символа
+        const maxCharWidth = Math.max(...charArray.map(char => measureCtx.measureText(char).width));
+        const columnWidth = maxCharWidth + fontSize * 0.5; // Добавляем отступ между символами
+        
+        const columns = Math.floor(canvas.width / columnWidth);
+        const drops = Array(columns).fill(1);
+        const activeColumns = new Set(); // Отслеживаем активные колонки
 
         let lastTime = 0;
-        const fps = 30; // Желаемый FPS
+        const fps = 30;
         const frameInterval = 1000 / fps;
 
         function draw(currentTime) {
             requestAnimationFrame(draw);
 
-            // Ограничиваем частоту обновления
             const deltaTime = currentTime - lastTime;
             if (deltaTime < frameInterval) return;
 
@@ -267,12 +277,30 @@
             ctx.fillStyle = '#E2C08D';
             ctx.font = `${fontSize}px "Fira Code", monospace`;
 
-            for (let i = 0; i < drops.length; i++) {
-                const text = charArray[Math.floor(Math.random() * charArray.length)];
-                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+            // Активируем новые колонки с некоторой вероятностью
+            if (activeColumns.size < columns * 0.9 && Math.random() > 0.95) { // Максимум 30% колонок активны
+                let newColumn;
+                do {
+                    newColumn = Math.floor(Math.random() * columns);
+                } while (activeColumns.has(newColumn));
+                activeColumns.add(newColumn);
+                drops[newColumn] = 1;
+            }
 
-                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-                    drops[i] = 0;
+            // Обновляем только активные колонки
+            for (const i of activeColumns) {
+                const text = charArray[Math.floor(Math.random() * charArray.length)];
+                const x = i * columnWidth + (columnWidth - measureCtx.measureText(text).width) / 2;
+                ctx.fillText(text, x, drops[i] * fontSize);
+
+                // Если символ достиг низа экрана
+                if (drops[i] * fontSize > canvas.height) {
+                    if (Math.random() > 0.95) { // Вероятность деактивации колонки
+                        activeColumns.delete(i);
+                        drops[i] = 1;
+                    } else {
+                        drops[i] = 0;
+                    }
                 }
                 drops[i]++;
             }
@@ -281,11 +309,12 @@
         window.addEventListener('resize', () => {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
-            drops.length = Math.floor(canvas.width / fontSize);
+            const newColumns = Math.floor(canvas.width / columnWidth);
+            drops.length = newColumns;
             drops.fill(1);
+            activeColumns.clear(); // Сбрасываем активные колонки при изменении размера
         });
 
-        // Запускаем анимацию
         requestAnimationFrame(draw);
     </script>
 </body>
