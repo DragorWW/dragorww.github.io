@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alex Chen | Software Engineer</title>
+    <link rel="stylesheet" href="home.css">
+</head>
+<body>
+    <div class="matrix-bg">
+        <canvas id="matrix"></canvas>
+    </div>
+
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-content">
+                <div class="logo">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="4 17 10 11 4 5"></polyline>
+                        <line x1="12" y1="19" x2="20" y2="19"></line>
+                    </svg>
+                    <span>DragorWW</span>
+                </div>
+                <div class="nav-links">
+                    <a href="#" class="active">Home</a>
+                    <a href="#">Projects</a>
+                    <a href="#">Blog</a>
+                    <a href="#">Contact</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <section class="hero">
+            <div class="hero-content">
+                <div class="welcome">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="4 17 10 11 4 5"></polyline>
+                        <line x1="12" y1="19" x2="20" y2="19"></line>
+                    </svg>
+                    <span>WELCOME TO MY TERMINAL</span>
+                </div>
+                <h1>Сергей Андреев <span>Head of Engineering</span></h1>
+                <p>
+                    Амбассадор продуктовой разработки, IT Психолог, Архитектор, CTO
+                    <br>
+                    Biz+Dev=❤️
+                </p>
+                <div class="cta-buttons">
+                    <button class="primary">Download CV</button>
+                    <button class="secondary">Contact Me</button>
+                </div>
+            </div>
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <div class="dots">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+                <div class="terminal-content">
+                    <p><span class="prompt">$</span> whoami</p>
+                    <p class="output">Alex Chen</p>
+                    <p><span class="prompt">$</span> cat skills.txt</p>
+                    <p class="output">TypeScript • React • Node.js • Python • AWS</p>
+                    <p><span class="prompt">$</span> ls projects/</p>
+                    <p class="output">CryptoTracker.js  AIAssistant.py  CloudDash.go</p>
+                    <p><span class="prompt">$</span> █</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="skills">
+            <h2>Technical Skills</h2>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <h3>Frontend</h3>
+                    <div class="skill-bar" style="--level: 90%">React</div>
+                    <div class="skill-bar" style="--level: 85%">TypeScript</div>
+                    <div class="skill-bar" style="--level: 80%">Next.js</div>
+                    <div class="skill-bar" style="--level: 95%">Tailwind</div>
+                </div>
+                <div class="skill-card">
+                    <h3>Backend</h3>
+                    <div class="skill-bar" style="--level: 88%">Node.js</div>
+                    <div class="skill-bar" style="--level: 82%">Python</div>
+                    <div class="skill-bar" style="--level: 75%">Go</div>
+                    <div class="skill-bar" style="--level: 85%">GraphQL</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="experience">
+            <h2>Experience</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="year">2023</div>
+                    <div class="content">
+                        <h3>Senior Software Engineer</h3>
+                        <div class="company">Ethereum Foundation</div>
+                        <p>Leading development of core protocol improvements and Layer 2 scaling solutions.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="year">2021</div>
+                    <div class="content">
+                        <h3>Software Engineer</h3>
+                        <div class="company">Google</div>
+                        <p>Worked on Chrome DevTools team, improving developer experience and performance profiling tools.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="contact">
+            <h2>Get in Touch</h2>
+            <div class="social-links">
+                <a href="#" class="social-link">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                    </svg>
+                </a>
+                <a href="#" class="social-link">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                        <rect x="2" y="9" width="4" height="12"></rect>
+                        <circle cx="4" cy="4" r="2"></circle>
+                    </svg>
+                </a>
+                <a href="#" class="social-link">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                        <polyline points="22,6 12,13 2,6"></polyline>
+                    </svg>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        const canvas = document.getElementById('matrix');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const chars = 'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン0123456789';
+        const charArray = chars.split('');
+        const fontSize = 14;
+        const columns = canvas.width / fontSize;
+        const drops = Array(Math.floor(columns)).fill(1);
+
+        function draw() {
+            ctx.fillStyle = 'rgba(17, 17, 17, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = '#E2C08D';
+            ctx.font = fontSize + 'px monospace';
+
+            for (let i = 0; i < drops.length; i++) {
+                const text = charArray[Math.floor(Math.random() * charArray.length)];
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        }
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        setInterval(draw, 33);
+    </script>
+</body>
+</html>

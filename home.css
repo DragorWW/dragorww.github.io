@@ -1,0 +1,382 @@
+:root {
+    --bg-color: #111111;
+    --card-bg: #1A1A1A;
+    --border-color: #2A2A2A;
+    --text-primary: #E2E2E2;
+    --text-secondary: #9CA38F;
+    --text-tertiary: #666666;
+    --accent-color: #E2C08D;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: monospace;
+    background-color: var(--bg-color);
+    color: var(--text-primary);
+    line-height: 1.5;
+    position: relative;
+}
+
+/* Matrix Background */
+.matrix-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    opacity: 0.15;
+}
+
+.matrix-bg canvas {
+    display: block;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+    position: relative;
+}
+
+/* Navbar */
+.navbar {
+    background-color: var(--card-bg);
+    border-bottom: 1px solid var(--border-color);
+    height: 64px;
+    margin-bottom: 2rem;
+    position: relative;
+    backdrop-filter: blur(8px);
+}
+
+.nav-content {
+    height: 64px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--accent-color);
+}
+
+.nav-links {
+    display: flex;
+    gap: 2rem;
+}
+
+.nav-links a {
+    color: var(--text-tertiary);
+    text-decoration: none;
+    font-size: 0.875rem;
+    padding: 0.5rem 0;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+    color: var(--accent-color);
+    border-bottom-color: var(--accent-color);
+}
+
+/* Hero Section */
+.hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    padding: 4rem 0;
+}
+
+.hero-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.welcome {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--accent-color);
+    font-size: 0.875rem;
+    letter-spacing: 0.1em;
+    margin-bottom: 1.5rem;
+}
+
+h1 {
+    font-size: 3rem;
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+}
+
+h1 span {
+    display: block;
+    color: var(--accent-color);
+}
+
+.hero p {
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+    max-width: 500px;
+}
+
+.cta-buttons {
+    display: flex;
+    gap: 1rem;
+}
+
+button {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 0.5rem;
+    font-family: inherit;
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.primary {
+    background-color: var(--accent-color);
+    color: var(--bg-color);
+}
+
+.primary:hover {
+    opacity: 0.9;
+}
+
+.secondary {
+    background-color: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+}
+
+.secondary:hover {
+    background-color: var(--border-color);
+}
+
+/* Terminal Window */
+.terminal-window {
+    background-color: var(--card-bg);
+    border-radius: 0.5rem;
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+    backdrop-filter: blur(8px);
+}
+
+.terminal-header {
+    background-color: var(--border-color);
+    padding: 0.5rem;
+}
+
+.dots {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.dots span {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: var(--text-tertiary);
+}
+
+.dots span:nth-child(1) { background-color: #ff5f56; }
+.dots span:nth-child(2) { background-color: #ffbd2e; }
+.dots span:nth-child(3) { background-color: #27c93f; }
+
+.terminal-content {
+    padding: 1rem;
+    font-size: 0.875rem;
+}
+
+.prompt {
+    color: var(--accent-color);
+    margin-right: 0.5rem;
+}
+
+.output {
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+}
+
+/* Skills Section */
+.skills {
+    padding: 4rem 0;
+}
+
+h2 {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+    color: var(--text-primary);
+}
+
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.skill-card {
+    background-color: var(--card-bg);
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    border: 1px solid var(--border-color);
+    backdrop-filter: blur(8px);
+}
+
+.skill-card h3 {
+    color: var(--accent-color);
+    margin-bottom: 1rem;
+}
+
+.skill-bar {
+    height: 8px;
+    background-color: var(--border-color);
+    border-radius: 4px;
+    margin-bottom: 1rem;
+    position: relative;
+}
+
+.skill-bar::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: var(--level);
+    background-color: var(--accent-color);
+    border-radius: 4px;
+}
+
+.skill-bar::after {
+    content: attr(style);
+    position: absolute;
+    right: 0;
+    top: -1.5rem;
+    color: var(--text-secondary);
+    font-size: 0.75rem;
+}
+
+/* Experience Section */
+.experience {
+    padding: 4rem 0;
+}
+
+.timeline {
+    position: relative;
+    padding-left: 2rem;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 2px;
+    background-color: var(--border-color);
+}
+
+.timeline-item {
+    position: relative;
+    padding-bottom: 2rem;
+}
+
+.timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -2rem;
+    top: 0;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: var(--accent-color);
+    transform: translateX(-5px);
+}
+
+.year {
+    color: var(--accent-color);
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.content {
+    background-color: var(--card-bg);
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    border: 1px solid var(--border-color);
+    backdrop-filter: blur(8px);
+}
+
+.company {
+    color: var(--accent-color);
+    font-size: 0.875rem;
+    margin-bottom: 0.5rem;
+}
+
+/* Contact Section */
+.contact {
+    padding: 4rem 0;
+    text-align: center;
+}
+
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+}
+
+.social-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 50%;
+    color: var(--text-primary);
+    transition: all 0.2s;
+    backdrop-filter: blur(8px);
+}
+
+.social-link:hover {
+    background-color: var(--accent-color);
+    color: var(--bg-color);
+    border-color: var(--accent-color);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .hero {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        text-align: center;
+    }
+
+    .hero p {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .cta-buttons {
+        justify-content: center;
+    }
+
+    .nav-links {
+        display: none;
+    }
+
+    .skills-grid {
+        grid-template-columns: 1fr;
+    }
+}

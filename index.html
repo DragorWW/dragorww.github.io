@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terminal Style Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-content">
+                <div class="logo">
+                    <div class="logo-icon"></div>
+                    <span>G</span>
+                </div>
+                <div class="nav-links">
+                    <a href="#" class="active">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                        </svg>
+                        Home
+                    </a>
+                    <a href="#">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="18" y1="20" x2="18" y2="10"></line>
+                            <line x1="12" y1="20" x2="12" y2="4"></line>
+                            <line x1="6" y1="20" x2="6" y2="14"></line>
+                        </svg>
+                        Markets
+                    </a>
+                    <a href="#">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"></rect>
+                            <line x1="7" y1="2" x2="7" y2="22"></line>
+                            <line x1="17" y1="2" x2="17" y2="22"></line>
+                            <line x1="2" y1="12" x2="22" y2="12"></line>
+                            <line x1="2" y1="7" x2="7" y2="7"></line>
+                            <line x1="2" y1="17" x2="7" y2="17"></line>
+                            <line x1="17" y1="17" x2="22" y2="17"></line>
+                            <line x1="17" y1="7" x2="22" y2="7"></line>
+                        </svg>
+                        Gaming
+                    </a>
+                    <a href="#">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="16 18 22 12 16 6"></polyline>
+                            <polyline points="8 6 2 12 8 18"></polyline>
+                        </svg>
+                        HomeLab
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="grid">
+            <!-- Left Sidebar -->
+            <div class="sidebar">
+                <div class="card">
+                    <h2>Calendar</h2>
+                    <div class="calendar">
+                        <div class="calendar-header">
+                            <span>Mo</span>
+                            <span>Tu</span>
+                            <span>We</span>
+                            <span>Th</span>
+                            <span>Fr</span>
+                            <span>Sa</span>
+                            <span>Su</span>
+                        </div>
+                        <div class="calendar-days"></div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h2>RSS Feed</h2>
+                    <div class="feed">
+                        <div class="feed-item">
+                            <h3>CSS display contents</h3>
+                            <div class="meta">1d • Ahmad Shadeed</div>
+                        </div>
+                        <div class="feed-item">
+                            <h3>CSS @property and the New Style</h3>
+                            <div class="meta">4d • Ryan Mulligan</div>
+                        </div>
+                        <div class="feed-item">
+                            <h3>Center Items in First Row with Grid</h3>
+                            <div class="meta">15d • Ryan Mulligan</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="main-content">
+                <div class="card">
+                    <h2>Latest Updates</h2>
+                    <div class="updates">
+                        <div class="update-item">
+                            <h3>New Project Release</h3>
+                            <p>Released version 2.0 of the terminal portfolio template</p>
+                            <div class="meta">
+                                <span>2h ago</span>
+                                <span>•</span>
+                                <span>389 points</span>
+                                <span>•</span>
+                                <span>134 comments</span>
+                            </div>
+                        </div>
+                        <div class="update-item">
+                            <h3>New Project Release</h3>
+                            <p>Released version 2.0 of the terminal portfolio template</p>
+                            <div class="meta">
+                                <span>2h ago</span>
+                                <span>•</span>
+                                <span>389 points</span>
+                                <span>•</span>
+                                <span>134 comments</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h2>Videos</h2>
+                    <div class="videos">
+                        <div class="video-item">
+                            <div class="thumbnail">
+                                <img src="https://images.unsplash.com/photo-1579403124614-197f69d8187b?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3" alt="Advanced Slicer Settings">
+                                <span class="duration">4h</span>
+                            </div>
+                            <h3>Advanced Slicer Settings</h3>
+                            <div class="meta">Maker's Muse</div>
+                        </div>
+                        <div class="video-item">
+                            <div class="thumbnail">
+                                <img src="https://images.unsplash.com/photo-1517180102446-f3ece451e9d8?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3" alt="The easy way to understand flexbox">
+                                <span class="duration">6h</span>
+                            </div>
+                            <h3>The easy way to understand flexbox</h3>
+                            <div class="meta">Kevin Powell</div>
+                        </div>
+                        <div class="video-item">
+                            <div class="thumbnail">
+                                <img src="https://images.unsplash.com/photo-1587202372634-32705e3bf49c?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3" alt="Building the Lowest Rated PC">
+                                <span class="duration">23h</span>
+                            </div>
+                            <h3>Building the Lowest Rated PC</h3>
+                            <div class="meta">Linus Tech Tips</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Sidebar -->
+            <div class="sidebar">
+                <div class="card">
+                    <h2>Weather</h2>
+                    <div class="weather">
+                        <div class="temp">17°C</div>
+                        <div class="condition">Partly Cloudy</div>
+                        <div class="feels-like">Feels like 16°C</div>
+                        <div class="chart">
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                            <div class="bar active"></div>
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                        </div>
+                        <div class="times">
+                            <span>6am</span>
+                            <span>2pm</span>
+                            <span>10pm</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h2>Repository</h2>
+                    <div class="repository">
+                        <div class="repo-name">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                            </svg>
+                            glanceapp/glance
+                        </div>
+                        <div class="stats">
+                            <div class="stat">
+                                <span>Stars</span>
+                                <span>7,201</span>
+                            </div>
+                            <div class="stat">
+                                <span>Forks</span>
+                                <span>251</span>
+                            </div>
+                            <div class="stat">
+                                <span>Open Issues</span>
+                                <span>54</span>
+                            </div>
+                            <div class="stat">
+                                <span>Pull Requests</span>
+                                <span>9</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Generate calendar days
+        const calendar = document.querySelector('.calendar-days');
+        const currentDate = new Date().getDate();
+        
+        for (let i = 1; i <= 31; i++) {
+            const day = document.createElement('span');
+            day.textContent = i;
+            if (i === currentDate) {
+                day.classList.add('current');
+            }
+            calendar.appendChild(day);
+        }
+
+        // Generate random heights for weather bars
+        document.querySelectorAll('.chart .bar').forEach(bar => {
+            const height = Math.random() * 100;
+            bar.style.height = `${height}%`;
+        });
+    </script>
+</body>
+</html>
