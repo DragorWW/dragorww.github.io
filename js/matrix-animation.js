@@ -4,11 +4,12 @@ const ANIMATION_CONFIG = {
     FONT_SIZE: 30,
     FONT_FAMILY: 'Fira Code, monospace',
     COLUMN_SPACING: 0.5,
-    MAX_ACTIVE_COLUMNS_RATIO: 0.55,
-    SPAWN_RATE: 0.68,
-    DESPAWN_RATE: 0.98,
-    TRAIL_OPACITY: 0.05,
-    MIN_SCROLL_OPACITY: 0.2
+    MAX_ACTIVE_COLUMNS_RATIO: 1.55,
+    SPAWN_RATE: 0.3,
+    DESPAWN_RATE: 0.1,
+    TRAIL_OPACITY: 0.15,
+    MIN_SCROLL_OPACITY: 0.2,
+    SYMBOL_UPDATE_RATE: 0.2
 };
 
 const SYMBOL_CONFIG = {
@@ -23,8 +24,8 @@ const SYMBOL_CONFIG = {
     },
     MIN_OPACITY: 0.4,
     MAX_OPACITY: 0.8,
-    MIN_SPEED: 0.5,
-    MAX_SPEED: 1.3
+    MIN_SPEED: 0.01,
+    MAX_SPEED: 0.1
 };
 
 const SYMBOLS = {
@@ -48,6 +49,7 @@ class MatrixAnimation {
         this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
         
         this.isInitialized = false;
+        this.symbolUpdateCounters = new Map();
     }
 
     initialize() {
@@ -84,6 +86,8 @@ class MatrixAnimation {
         this.activeColumns = new Set();
         this.opacities = Array(this.columns).fill(SYMBOL_CONFIG.MAX_OPACITY);
         this.speeds = Array(this.columns).fill(1);
+        this.currentSymbols = new Map();
+        this.symbolUpdateCounters = new Map();
     }
 
     bindEvents() {
@@ -102,6 +106,8 @@ class MatrixAnimation {
         this.opacities.fill(SYMBOL_CONFIG.MAX_OPACITY);
         this.speeds.fill(1);
         this.activeColumns.clear();
+        this.currentSymbols.clear();
+        this.symbolUpdateCounters.clear();
     }
 
     handleScroll() {
@@ -124,31 +130,59 @@ class MatrixAnimation {
         this.updateActiveColumns();
     }
 
+    isColumnAvailable(column) {
+        const MIN_DISTANCE = 3;
+        
+        for (const activeColumn of this.activeColumns) {
+            if (Math.abs(activeColumn - column) < MIN_DISTANCE) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     spawnNewColumns() {
         if (this.activeColumns.size < this.columns * ANIMATION_CONFIG.MAX_ACTIVE_COLUMNS_RATIO && 
             Math.random() > ANIMATION_CONFIG.SPAWN_RATE) {
+            
+            let attempts = 10;
             let newColumn;
+            
             do {
                 newColumn = Math.floor(Math.random() * this.columns);
-            } while (this.activeColumns.has(newColumn));
+                attempts--;
+            } while ((this.activeColumns.has(newColumn) || !this.isColumnAvailable(newColumn)) && attempts > 0);
             
-            this.activeColumns.add(newColumn);
-            this.drops[newColumn] = 1;
-            this.speeds[newColumn] = SYMBOL_CONFIG.MIN_SPEED + 
-                Math.random() * (SYMBOL_CONFIG.MAX_SPEED - SYMBOL_CONFIG.MIN_SPEED);
-            this.opacities[newColumn] = SYMBOL_CONFIG.MIN_OPACITY + 
-                Math.random() * (SYMBOL_CONFIG.MAX_OPACITY - SYMBOL_CONFIG.MIN_OPACITY);
+            if (attempts > 0 && !this.activeColumns.has(newColumn) && this.isColumnAvailable(newColumn)) {
+                this.activeColumns.add(newColumn);
+                this.drops[newColumn] = 1;
+                this.speeds[newColumn] = SYMBOL_CONFIG.MIN_SPEED + 
+                    Math.random() * (SYMBOL_CONFIG.MAX_SPEED - SYMBOL_CONFIG.MIN_SPEED);
+                this.opacities[newColumn] = SYMBOL_CONFIG.MIN_OPACITY + 
+                    Math.random() * (SYMBOL_CONFIG.MAX_OPACITY - SYMBOL_CONFIG.MIN_OPACITY);
+            }
         }
     }
 
     updateActiveColumns() {
         for (const i of this.activeColumns) {
-            const categories = Object.keys(SYMBOLS);
-            const category = categories[Math.floor(Math.random() * categories.length)];
-            
-            const symbolsArray = SYMBOLS[category];
-            const text = symbolsArray[Math.floor(Math.random() * symbolsArray.length)];
-            
+            if (!this.currentSymbols.has(i) || 
+                !this.symbolUpdateCounters.has(i) ||
+                Math.random() < ANIMATION_CONFIG.SYMBOL_UPDATE_RATE) {
+                
+                const categories = Object.keys(SYMBOLS);
+                const category = categories[Math.floor(Math.random() * categories.length)];
+                const symbolsArray = SYMBOLS[category];
+                const text = symbolsArray[Math.floor(Math.random() * symbolsArray.length)];
+                
+                this.currentSymbols.set(i, {
+                    text,
+                    category
+                });
+                this.symbolUpdateCounters.set(i, 0);
+            }
+
+            const { text, category } = this.currentSymbols.get(i);
             const x = i * this.columnWidth + 
                 (this.columnWidth - this.measureCtx.measureText(text).width) / 2;
             
@@ -156,12 +190,16 @@ class MatrixAnimation {
             this.ctx.font = `${ANIMATION_CONFIG.FONT_SIZE}px ${ANIMATION_CONFIG.FONT_FAMILY}`;
             this.ctx.fillText(text, x, this.drops[i] * ANIMATION_CONFIG.FONT_SIZE);
 
+            this.symbolUpdateCounters.set(i, (this.symbolUpdateCounters.get(i) || 0) + 1);
+
             if (this.drops[i] * ANIMATION_CONFIG.FONT_SIZE > this.canvas.height) {
                 if (Math.random() > ANIMATION_CONFIG.DESPAWN_RATE) {
                     this.activeColumns.delete(i);
                     this.drops[i] = 1;
                     this.speeds[i] = 1;
                     this.opacities[i] = SYMBOL_CONFIG.MAX_OPACITY;
+                    this.currentSymbols.delete(i);
+                    this.symbolUpdateCounters.delete(i);
                 } else {
                     this.drops[i] = 0;
                 }

@@ -221,6 +221,7 @@ button {
     opacity: 0;
     transform: translateY(-10px);
     animation: slideIn 0.3s ease forwards;
+    padding-bottom: 1rem;
 }
 
 @keyframes slideIn {

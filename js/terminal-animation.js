@@ -1,6 +1,6 @@
 const commands = [
     {
-        command: './portfolio.sh --info',
+        command: './dragorww.me --info',
         output: `<div class="output">
             <span class="highlight">Name:</span> Сергей Андреев
             <span class="highlight">Role:</span> Head of Engineering
