@@ -68,30 +68,7 @@
                 </div>
                 <div class="terminal-content">
                     <div class="command-history">
-                        <p><span class="prompt">$</span> ./portfolio.sh --info</p>
-                        <div class="output typing">
-                            <span class="highlight">Name:</span> Сергей Андреев
-                            <span class="highlight">Role:</span> Head of Engineering
-                            <span class="highlight">Status:</span> Developing awesome things...
-                        </div>
-                        
-                        <p><span class="prompt">$</span> ./skills --list-top</p>
-                        <div class="output">
-                            <div class="skill-tag">React.js <span class="version">v18</span></div>
-                            <div class="skill-tag">Node.js <span class="version">v18</span></div>
-                            <div class="skill-tag">TypeScript <span class="version">v5</span></div>
-                            <div class="skill-tag">Python <span class="version">v3.11</span></div>
-                        </div>
-
-                        <p><span class="prompt">$</span> cat latest_project.log</p>
-                        <div class="output log-output">
-                            <span class="log-date">[2024]</span> Scaling educational platform
-                            <span class="log-details">• 7 companies integration</span>
-                            <span class="log-details">• 100k+ users</span>
-                            <span class="log-details">• 99.9% uptime</span>
-                        </div>
-
-                        <p><span class="prompt">$</span> <span class="cursor">█</span></p>
+                        <!-- Команды будут добавляться динамически -->
                     </div>
                 </div>
             </div>
@@ -256,8 +233,13 @@
 
     <script src="js/matrix-animation.js"></script>
     <script>
-        const matrixAnimation = new MatrixAnimation('matrix');
-        matrixAnimation.start();
+        // Запускаем анимацию с задержкой в 1 секунду
+        initMatrixAnimation('matrix', 1000);
+    </script>
+    <script src="js/terminal-animation.js"></script>
+    <script>
+        // Инициализируем анимацию терминала
+        initTerminalAnimation();
     </script>
 </body>
 </html>

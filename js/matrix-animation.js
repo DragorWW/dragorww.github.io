@@ -38,14 +38,26 @@ const SYMBOLS = {
 };
 
 class MatrixAnimation {
-    constructor(canvasId) {
+    constructor(canvasId, startDelay = 1000) {
         this.canvas = document.getElementById(canvasId);
         this.ctx = this.canvas.getContext('2d');
+        this.startDelay = startDelay;
+        
         this.setupCanvas();
+        this.ctx.fillStyle = 'rgba(17, 17, 17, 1)';
+        this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+        
+        this.isInitialized = false;
+    }
+
+    initialize() {
+        if (this.isInitialized) return;
+        
         this.setupMeasureCanvas();
         this.initializeArrays();
         this.bindEvents();
         this.lastTime = 0;
+        this.isInitialized = true;
     }
 
     setupCanvas() {
@@ -159,6 +171,17 @@ class MatrixAnimation {
     }
 
     start() {
-        requestAnimationFrame((time) => this.draw(time));
+        setTimeout(() => {
+            this.initialize();
+            requestAnimationFrame((time) => this.draw(time));
+        }, this.startDelay);
     }
-} 
+}
+
+const initMatrixAnimation = (canvasId, delay = 1000) => {
+    const matrixAnimation = new MatrixAnimation(canvasId, delay);
+    matrixAnimation.start();
+    return matrixAnimation;
+};
+
+window.initMatrixAnimation = initMatrixAnimation; 
