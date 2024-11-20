@@ -165,56 +165,134 @@ button {
 
 /* Terminal Window */
 .terminal-window {
-    background-color: var(--card-bg);
-    border-radius: 0.5rem;
-    overflow: hidden;
+    background: var(--card-bg);
+    border-radius: 8px;
     border: 1px solid var(--border-color);
-    backdrop-filter: blur(8px);
+    overflow: hidden;
+    font-family: 'Fira Code', monospace;
+    width: 100%;
+    max-width: 600px;
+    box-shadow: 0 10px 30px -10px rgba(0,0,0,0.5);
 }
 
 .terminal-header {
-    background-color: var(--border-color);
-    padding: 0.5rem;
+    background: var(--border-color);
+    padding: 8px 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.terminal-title {
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .dots {
     display: flex;
-    gap: 0.5rem;
+    gap: 6px;
 }
 
 .dots span {
     width: 12px;
     height: 12px;
     border-radius: 50%;
-    background-color: var(--text-tertiary);
+    background: var(--text-tertiary);
 }
 
-.dots span:nth-child(1) { background-color: #ff5f56; }
-.dots span:nth-child(2) { background-color: #ffbd2e; }
-.dots span:nth-child(3) { background-color: #27c93f; }
+.dots span:nth-child(1) { background: #ff5f56; }
+.dots span:nth-child(2) { background: #ffbd2e; }
+.dots span:nth-child(3) { background: #27c93f; }
 
 .terminal-content {
-    padding: 1rem;
+    padding: 16px;
     font-size: 0.875rem;
-    line-height: 1.4;
+    line-height: 1.6;
 }
 
 .prompt {
     color: var(--accent-color);
-    margin-right: 0.5rem;
+    margin-right: 8px;
 }
 
 .output {
-    color: var(--text-primary);
-    opacity: 0.8;
-    margin-bottom: 0.25rem;
-    margin-left: 1rem;
-    display: block;
-    font-family: 'Fira Code', monospace;
+    color: var(--text-secondary);
+    margin: 8px 0 16px;
+    padding-left: 24px;
 }
 
-.terminal-content p:last-child {
-    margin-top: 0.5rem;
+.highlight {
+    color: var(--accent-color);
+    display: block;
+}
+
+.skill-tag {
+    display: inline-block;
+    background: rgba(226, 192, 141, 0.1);
+    color: var(--accent-color);
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin: 4px;
+}
+
+.version {
+    color: var(--text-tertiary);
+    font-size: 0.75rem;
+}
+
+.log-output {
+    border-left: 2px solid var(--accent-color);
+    padding-left: 12px;
+}
+
+.log-date {
+    color: var(--accent-color);
+}
+
+.log-details {
+    display: block;
+    color: var(--text-secondary);
+    padding-left: 16px;
+    margin-top: 4px;
+}
+
+.cursor {
+    animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+    50% { opacity: 0; }
+}
+
+/* Эффект печатающегося текста */
+.typing {
+    overflow: hidden;
+    white-space: nowrap;
+    animation: typing 3s steps(40, end);
+}
+
+@keyframes typing {
+    from { width: 0 }
+    to { width: 100% }
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .terminal-window {
+        max-width: 100%;
+        margin: 0 auto;
+    }
+    
+    .terminal-content {
+        font-size: 0.75rem;
+    }
+    
+    .skill-tag {
+        margin: 2px;
+        font-size: 0.75rem;
+    }
 }
 
 /* Skills Section */
@@ -432,7 +510,7 @@ h2 {
     color: var(--accent-color);
 }
 
-/* Последний элемент списка без отступа снизу */
+/* Последний эле��ент списка без отступа снизу */
 .content ul li:last-child {
     margin-bottom: 0;
 }

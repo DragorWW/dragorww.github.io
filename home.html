@@ -64,15 +64,35 @@
                         <span></span>
                         <span></span>
                     </div>
+                    <div class="terminal-title">portfolio.sh</div>
                 </div>
                 <div class="terminal-content">
-                    <p><span class="prompt">$</span> whoami</p>
-                    <p class="output">Сергей Андреев</p>
-                    <p><span class="prompt">$</span> cat expertise.txt</p>
-                    <p class="output">IT Strategy • Team Leadership • Architecture Design • Process Optimization</p>
-                    <p><span class="prompt">$</span> ls achievements/</p>
-                    <p class="output">7_companies_platform.yml  analytics_system.py  lms_platform.js</p>
-                    <p><span class="prompt">$</span> █</p>
+                    <div class="command-history">
+                        <p><span class="prompt">$</span> ./portfolio.sh --info</p>
+                        <div class="output typing">
+                            <span class="highlight">Name:</span> Сергей Андреев
+                            <span class="highlight">Role:</span> Head of Engineering
+                            <span class="highlight">Status:</span> Developing awesome things...
+                        </div>
+                        
+                        <p><span class="prompt">$</span> ./skills --list-top</p>
+                        <div class="output">
+                            <div class="skill-tag">React.js <span class="version">v18</span></div>
+                            <div class="skill-tag">Node.js <span class="version">v18</span></div>
+                            <div class="skill-tag">TypeScript <span class="version">v5</span></div>
+                            <div class="skill-tag">Python <span class="version">v3.11</span></div>
+                        </div>
+
+                        <p><span class="prompt">$</span> cat latest_project.log</p>
+                        <div class="output log-output">
+                            <span class="log-date">[2024]</span> Scaling educational platform
+                            <span class="log-details">• 7 companies integration</span>
+                            <span class="log-details">• 100k+ users</span>
+                            <span class="log-details">• 99.9% uptime</span>
+                        </div>
+
+                        <p><span class="prompt">$</span> <span class="cursor">█</span></p>
+                    </div>
                 </div>
             </div>
         </section>
