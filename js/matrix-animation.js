@@ -38,6 +38,15 @@ const SYMBOLS = {
     BRACKETS: ['[]', '{}', '()', '<>', '</>']
 };
 
+const BACKGROUND_CONFIG = {
+    PIXEL_SIZE: 8,
+    MIN_OPACITY: 0.01,
+    MAX_OPACITY: 0.1,
+    FADE_SPEED: 0.001,
+    MAX_PIXELS: 300,
+    PIXEL_COLOR_RGB: '256, 256, 256'
+};
+
 class MatrixAnimation {
     constructor(canvasId, startDelay = 1000) {
         this.canvas = document.getElementById(canvasId);
@@ -50,6 +59,8 @@ class MatrixAnimation {
         
         this.isInitialized = false;
         this.symbolUpdateCounters = new Map();
+        this.pixels = [];
+        this.setupBackground();
     }
 
     initialize() {
@@ -98,6 +109,7 @@ class MatrixAnimation {
     handleResize() {
         this.canvas.width = window.innerWidth;
         this.canvas.height = window.innerHeight;
+        this.setupBackground();
         const newColumns = Math.floor(this.canvas.width / this.columnWidth);
         this.drops.length = newColumns;
         this.opacities.length = newColumns;
@@ -123,8 +135,20 @@ class MatrixAnimation {
 
         this.lastTime = currentTime;
 
-        this.ctx.fillStyle = `rgba(17, 17, 17, ${ANIMATION_CONFIG.TRAIL_OPACITY})`;
+        this.ctx.fillStyle = 'rgba(17, 17, 17, 1)';
         this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+
+        this.pixels.forEach(pixel => {
+            pixel.opacity += BACKGROUND_CONFIG.FADE_SPEED * pixel.fadeDirection;
+            
+            if (pixel.opacity <= BACKGROUND_CONFIG.MIN_OPACITY || 
+                pixel.opacity >= BACKGROUND_CONFIG.MAX_OPACITY) {
+                pixel.fadeDirection *= -1;
+            }
+
+            this.ctx.fillStyle = `rgba(${BACKGROUND_CONFIG.PIXEL_COLOR_RGB}, ${pixel.opacity})`;
+            this.ctx.fillRect(pixel.x, pixel.y, pixel.size, pixel.size);
+        });
 
         this.spawnNewColumns();
         this.updateActiveColumns();
@@ -206,6 +230,17 @@ class MatrixAnimation {
             }
             this.drops[i] += this.speeds[i];
         }
+    }
+
+    setupBackground() {
+        this.pixels = Array(BACKGROUND_CONFIG.MAX_PIXELS).fill(null).map(() => ({
+            x: Math.random() * this.canvas.width,
+            y: Math.random() * this.canvas.height,
+            size: BACKGROUND_CONFIG.PIXEL_SIZE + Math.random() * BACKGROUND_CONFIG.PIXEL_SIZE * 2,
+            opacity: BACKGROUND_CONFIG.MIN_OPACITY + 
+                Math.random() * (BACKGROUND_CONFIG.MAX_OPACITY - BACKGROUND_CONFIG.MIN_OPACITY),
+            fadeDirection: Math.random() > 0.5 ? 1 : -1
+        }));
     }
 
     start() {
