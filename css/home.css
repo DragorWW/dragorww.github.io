@@ -69,7 +69,7 @@ body {
 .logo {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
 }
 
 .logo svg {
@@ -77,43 +77,67 @@ body {
 }
 
 .logo:hover svg {
-    transform: scale(1.1);
+    transform: scale(1.05);
 }
 
-.logo svg path {
+.logo svg path,
+.logo svg circle {
     transition: all 0.3s ease;
 }
 
-/* Базовая анимация для пунктирных линий */
-.logo svg path[stroke="var(--primary-color)"] {
-    stroke-dasharray: 3 6;
+/* Анимация вертикальных линий */
+.logo svg .diagonal-line {
+    stroke-dasharray: 4 8;
     stroke-dashoffset: 0;
 }
 
-/* Анимация при наведении */
-.logo:hover svg path[stroke="var(--primary-color)"] {
-    animation: dash 1.5s linear infinite;
-    filter: drop-shadow(0 0 2px var(--primary-color));
+.logo:hover svg .diagonal-line {
+    animation: flow 2s linear infinite;
+    filter: drop-shadow(0 0 1px var(--primary-color));
 }
 
+.logo:hover svg .knowledge-node {
+    animation: pulse 2s ease-in-out infinite;
+    transform-origin: center;
+    transform-box: fill-box;
+}
+
+.logo:hover svg .knowledge-node.end {
+    animation-delay: 0.5s;
+}
+
+@keyframes flow {
+    to {
+        stroke-dashoffset: 24;
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+        filter: drop-shadow(0 0 1px var(--primary-color));
+    }
+    50% {
+        transform: scale(1.2);
+        filter: drop-shadow(0 0 2px var(--primary-color));
+    }
+}
+
+/* Эффект свечения для основного контура */
+.logo:hover svg path[stroke="currentColor"] {
+    filter: drop-shadow(0 0 1px currentColor);
+}
+
+/* Эффект для акцентной линии */
 .logo:hover svg path[stroke="var(--secondary-color)"] {
     filter: drop-shadow(0 0 2px var(--secondary-color));
 }
 
-/* Анимация движения пунктира */
-@keyframes dash {
-    to {
-        stroke-dashoffset: 18;
-    }
-}
-
-/* Добавляем плавное появление тени */
-.logo svg path[stroke="currentColor"] {
-    transition: filter 0.3s ease;
-}
-
-.logo:hover svg path[stroke="currentColor"] {
-    filter: drop-shadow(0 0 1px currentColor);
+/* Стиль текста */
+.logo span {
+    font-size: 1.4em;
+    font-weight: 500;
+    letter-spacing: 0.02em;
 }
 
 .nav-links {
@@ -915,7 +939,7 @@ h2 {
     transform: scale(1);
 }
 
-/* Состояния иконок для светлой темы */
+/* Состояния иконок дя светлой темы */
 [data-theme="light"] .theme-toggle-icon.sun {
     opacity: 1;
     transform: scale(1);
@@ -931,7 +955,7 @@ h2 {
     transform: scale(0.95);
 }
 
-/* Убираем outline при фокусе и заменяем его на свой стиль */
+/* Убираем outline при фокусе и заменяем его на свй стиль */
 .theme-toggle:focus {
     outline: none;
     box-shadow: 0 0 0 2px rgba(226, 192, 141, 0.2);

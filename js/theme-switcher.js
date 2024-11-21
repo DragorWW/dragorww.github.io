@@ -10,7 +10,7 @@
             '--bg-color': '#111111',
             '--text-color': '#ffffff',
             '--primary-color': '#E2C08D',
-            '--secondary-color': '#61AFEF'
+            '--secondary-color': '#98C379'
         }
     };
 
