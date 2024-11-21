@@ -396,6 +396,12 @@ h2 {
     border-radius: 0.5rem;
     border: 1px solid var(--border-color);
     backdrop-filter: blur(8px);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.skill-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
 .skill-card h3 {
@@ -409,6 +415,7 @@ h2 {
     border-radius: 4px;
     margin-bottom: 2rem;
     position: relative;
+    overflow: hidden;
 }
 
 .skill-bar::before {
@@ -420,6 +427,22 @@ h2 {
     width: var(--level);
     background-color: var(--accent-color);
     border-radius: 4px;
+}
+
+.skill-bar::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: var(--level);
+    height: 100%;
+    background: linear-gradient(90deg, var(--primary-color) 0%, var(--accent-color) 100%);
+    animation: fillBar 1.5s ease-out forwards;
+}
+
+@keyframes fillBar {
+    from { width: 0; }
+    to { width: var(--level); }
 }
 
 .skill-bar::after {
@@ -771,4 +794,111 @@ h2 {
 .welcome-text .highlight {
     color: var(--text-secondary);
     font-family: 'Fira Code', monospace;
+}
+
+/* Анимация для социальных иконок */
+.social-link {
+    transition: transform 0.2s ease;
+}
+
+.social-link:hover {
+    transform: translateY(-3px) scale(1.1);
+}
+
+/* Анимация для кнопок */
+.cta-buttons button {
+    position: relative;
+    overflow: hidden;
+}
+
+.cta-buttons button::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.6s ease, height 0.6s ease;
+}
+
+.cta-buttons button:hover::after {
+    width: 300%;
+    height: 300%;
+}
+
+/* Обновленные стили для переключателя темы */
+.theme-toggle {
+    background: none;
+    border: none;
+    padding: 4px;
+    cursor: pointer;
+    width: 26px;
+    height: 26px;
+    margin-left: 16px;
+    position: relative;
+    color: var(--text-color);
+    opacity: 0.7;
+    border-radius: 4px;
+    display: flex;
+    align-self: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.theme-toggle:hover {
+    opacity: 1;
+    background: rgba(226, 192, 141, 0.1); /* Цвет как у других элементов при наведении */
+}
+
+.theme-toggle-icon {
+    position: relative;
+    width: 18px;
+    height: 18px;
+    stroke-width: 1.5px;
+    transition: transform 0.3s ease, opacity 0.2s ease;
+}
+
+.theme-toggle-icon.sun {
+    position: absolute;
+    opacity: 0;
+    transform: scale(0.5);
+}
+
+.theme-toggle-icon.moon {
+    position: absolute;
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* Состояния иконок для светлой темы */
+[data-theme="light"] .theme-toggle-icon.sun {
+    opacity: 1;
+    transform: scale(1);
+}
+
+[data-theme="light"] .theme-toggle-icon.moon {
+    opacity: 0;
+    transform: scale(0.5);
+}
+
+/* Добавляем стили для активного состояния */
+.theme-toggle:active {
+    transform: scale(0.95);
+}
+
+/* Убираем outline при фокусе и заменяем его на свой стиль */
+.theme-toggle:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(226, 192, 141, 0.2);
+}
+
+/* Стили для мобильных устройств */
+@media (max-width: 768px) {
+    .theme-toggle {
+        margin-left: 12px;
+        padding: 3px;
+    }
 }

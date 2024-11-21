@@ -10,6 +10,14 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/firacode@6.2.0/distr/fira_code.css">
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iNCIgZmlsbD0iIzExMTExMSIvPgo8cG9seWxpbmUgcG9pbnRzPSI4IDIwIDE2IDEyIDggNCIgc3Ryb2tlPSIjRTJDMDhEIiBzdHJva2Utd2lkdGg9IjIiLz4KPGxpbmUgeDE9IjE4IiB5MT0iMjQiIHgyPSIyOCIgeTI9IjI0IiBzdHJva2U9IiNFMkMwOEQiIHN0cm9rZS13aWR0aD0iMiIvPgo8L3N2Zz4="/>
     <link rel="icon" type="image/png" sizes="32x32" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAABu0lEQVRYCe1XQUoDQRCdSTxE8OSieFjwC4LgQfAD4t2DB/EHegoi5Bt68CpePXgVPIigFw+CBS8BQQ9CELw5yVSbKrZhJjs9k4yQDUyhq6vqVb+q7p7OxONiGqDf7y8j5wrYAlt0wzD8tGxr9YYQwge2wDboYPFAKXVPHQZYGHwE3oEH4Bj4AHzwFWwEQfBMe6sEEHwXfAXH4Bg8AY/ADngJXoG74Aq4BPbAF/AcPKKtVQKwz8EX8Bjsg0/gKrgD7oHXzDsD98EFcBvcBHfBM/DUKgEa4RvwGLwAz8Ft8AY8AffAG+YdgHvgPDgBj8Ar8Ag8sEoAm/AePAWPwDPwFLwG9"/>
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="Сергей Андреев">
+    <meta name="keywords" content="CTO, Head of Engineering, IT Architecture, Team Management">
+    <link rel="preload" href="css/home.css" as="style">
+    <link rel="preload" href="js/matrix-animation.js" as="script">
+    <meta property="og:title" content="Сергей Андреев | Head of Engineering">
+    <meta property="og:description" content="CTO и IT-Архитектор с опытом построения масштабируемых решений">
+    <meta property="og:image" content="assets/og-image.jpg">
 </head>
 <body>
     <div class="matrix-bg">
@@ -31,6 +39,18 @@
                     <a href="#">Projects</a>
                     <a href="#">Blog</a>
                     <a href="#">Contact</a>
+                    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Переключить тему">
+                        <svg class="theme-toggle-icon sun" width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor">
+                            <circle cx="9" cy="9" r="4"></circle>
+                            <line x1="9" y1="1" x2="9" y2="3"></line>
+                            <line x1="9" y1="15" x2="9" y2="17"></line>
+                            <line x1="1" y1="9" x2="3" y2="9"></line>
+                            <line x1="15" y1="9" x2="17" y2="9"></line>
+                        </svg>
+                        <svg class="theme-toggle-icon moon" width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor">
+                            <path d="M16 10.34A7 7 0 1 1 7.66 2a7 7 0 0 0 8.34 8.34z"></path>
+                        </svg>
+                    </button>
                 </div>
             </div>
         </div>
@@ -168,7 +188,7 @@
                         <p>Разработка внутреннего DevOps продукта:</p>
                         <ul>
                             <li>Оптимизация производительности (10x улучшение)</li>
-                            <li>Проектирование архитектуры React-прложений</li>
+                            <li>Проектировани�� архитектуры React-прложений</li>
                         </ul>
                         <div class="tech-stack">
                             <span>React</span>
@@ -262,6 +282,7 @@
     <script src="js/matrix-animation.js"></script>
     <script src="js/terminal-animation.js"></script>
     <script src="js/console-easter-egg.js"></script>
+    <script src="js/theme-switcher.js"></script>
     <script>
         initMatrixAnimation('matrix', 1000);
         initTerminalAnimation();
