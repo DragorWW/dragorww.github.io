@@ -30,20 +30,27 @@ const commands = [
 class TerminalAnimation {
     constructor(containerId) {
         this.container = document.querySelector('.command-history');
+        this.terminalContent = document.querySelector('.terminal-content');
         this.commandDelay = 50;
         this.commandPause = 200;
         this.cursor = '<span class="cursor">█</span>';
+    }
+
+    scrollToBottom() {
+        this.terminalContent.scrollTop = this.terminalContent.scrollHeight;
     }
 
     async typeCommand(command) {
         const commandLine = document.createElement('p');
         commandLine.innerHTML = '<span class="prompt">$</span> ';
         this.container.appendChild(commandLine);
+        this.scrollToBottom();
 
         let currentCommand = '';
         for (let char of command) {
             currentCommand += char;
             commandLine.innerHTML = `<span class="prompt">$</span> ${currentCommand}${this.cursor}`;
+            this.scrollToBottom();
             await this.sleep(this.commandDelay);
         }
         
@@ -56,6 +63,7 @@ class TerminalAnimation {
         outputElement.innerHTML = output;
         outputElement.classList.add('output');
         this.container.appendChild(outputElement);
+        this.scrollToBottom();
         
         await this.sleep(300);
     }

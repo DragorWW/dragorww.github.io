@@ -181,18 +181,20 @@ button {
     border-radius: 8px;
     border: 1px solid var(--border-color);
     overflow: hidden;
-    font-family: 'Fira Code', monospace;
     width: 100%;
     max-width: 600px;
-    box-shadow: 0 10px 30px -10px rgba(0,0,0,0.5);
+    height: 300px;
+    display: flex;
+    flex-direction: column;
 }
 
 .terminal-header {
-    background: var(--border-color);
     padding: 8px 16px;
+    background: rgba(0, 0, 0, 0.2);
+    border-bottom: 1px solid var(--border-color);
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 16px;
 }
 
 .terminal-title {
@@ -219,9 +221,27 @@ button {
 .dots span:nth-child(3) { background: #27c93f; }
 
 .terminal-content {
+    flex: 1;
     padding: 16px;
-    font-size: 0.875rem;
-    line-height: 1.6;
+    font-family: 'Fira Code', monospace;
+    font-size: 14px;
+    line-height: 1.5;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--border-color) transparent;
+}
+
+.terminal-content::-webkit-scrollbar {
+    width: 6px;
+}
+
+.terminal-content::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.terminal-content::-webkit-scrollbar-thumb {
+    background-color: var(--border-color);
+    border-radius: 3px;
 }
 
 .prompt {
@@ -627,4 +647,10 @@ h2 {
     .profile-photo {
         margin: 0 auto;
     }
+}
+
+.command-history {
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
 }
