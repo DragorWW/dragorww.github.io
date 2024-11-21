@@ -3,9 +3,9 @@ const ANIMATION_CONFIG = {
     MIN_FRAME_TIME: 1000 / 60,
     FONT_SIZE: 30,
     FONT_FAMILY: 'Fira Code, monospace',
-    COLUMN_SPACING: 0.5,
-    MAX_ACTIVE_COLUMNS_RATIO: 1.55,
-    SPAWN_RATE: 0.3,
+    COLUMN_SPACING: 0.1,
+    MAX_ACTIVE_COLUMNS_RATIO: 5.55,
+    SPAWN_RATE: 0.5,
     DESPAWN_RATE: 0.1,
     TRAIL_OPACITY: 0.15,
     MIN_SCROLL_OPACITY: 0.2,
@@ -44,7 +44,10 @@ const BACKGROUND_CONFIG = {
     MAX_OPACITY: 0.1,
     FADE_SPEED: 0.001,
     MAX_PIXELS: 300,
-    PIXEL_COLOR_RGB: '256, 256, 256'
+    PIXEL_COLOR_RGB: '256, 256, 256',
+    MOUSE_INFLUENCE_RADIUS: 150,
+    MOUSE_REPEL_STRENGTH: 1,
+    RETURN_SPEED: 0.05
 };
 
 class MatrixAnimation {
@@ -53,14 +56,16 @@ class MatrixAnimation {
         this.ctx = this.canvas.getContext('2d');
         this.startDelay = startDelay;
         
+        this.mousePosition = { x: -1000, y: -1000 };
+        
         this.setupCanvas();
         this.ctx.fillStyle = 'rgba(17, 17, 17, 1)';
         this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
         
         this.isInitialized = false;
-        this.symbolUpdateCounters = new Map();
         this.pixels = [];
         this.setupBackground();
+        this.bindEvents();
     }
 
     initialize() {
@@ -104,6 +109,18 @@ class MatrixAnimation {
     bindEvents() {
         window.addEventListener('resize', () => this.handleResize());
         window.addEventListener('scroll', () => this.handleScroll());
+        
+        document.addEventListener('mousemove', (e) => {
+            const rect = this.canvas.getBoundingClientRect();
+            this.mousePosition = {
+                x: e.clientX - rect.left,
+                y: e.clientY - rect.top + window.scrollY
+            };
+        });
+
+        document.addEventListener('mouseleave', () => {
+            this.mousePosition = { x: -1000, y: -1000 };
+        });
     }
 
     handleResize() {
@@ -138,17 +155,7 @@ class MatrixAnimation {
         this.ctx.fillStyle = 'rgba(17, 17, 17, 1)';
         this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
 
-        this.pixels.forEach(pixel => {
-            pixel.opacity += BACKGROUND_CONFIG.FADE_SPEED * pixel.fadeDirection;
-            
-            if (pixel.opacity <= BACKGROUND_CONFIG.MIN_OPACITY || 
-                pixel.opacity >= BACKGROUND_CONFIG.MAX_OPACITY) {
-                pixel.fadeDirection *= -1;
-            }
-
-            this.ctx.fillStyle = `rgba(${BACKGROUND_CONFIG.PIXEL_COLOR_RGB}, ${pixel.opacity})`;
-            this.ctx.fillRect(pixel.x, pixel.y, pixel.size, pixel.size);
-        });
+        this.updatePixels();
 
         this.spawnNewColumns();
         this.updateActiveColumns();
@@ -236,11 +243,42 @@ class MatrixAnimation {
         this.pixels = Array(BACKGROUND_CONFIG.MAX_PIXELS).fill(null).map(() => ({
             x: Math.random() * this.canvas.width,
             y: Math.random() * this.canvas.height,
+            originalX: Math.random() * this.canvas.width,
+            originalY: Math.random() * this.canvas.height,
             size: BACKGROUND_CONFIG.PIXEL_SIZE + Math.random() * BACKGROUND_CONFIG.PIXEL_SIZE * 2,
             opacity: BACKGROUND_CONFIG.MIN_OPACITY + 
                 Math.random() * (BACKGROUND_CONFIG.MAX_OPACITY - BACKGROUND_CONFIG.MIN_OPACITY),
             fadeDirection: Math.random() > 0.5 ? 1 : -1
         }));
+    }
+
+    updatePixels() {
+        this.pixels.forEach(pixel => {
+            pixel.opacity += BACKGROUND_CONFIG.FADE_SPEED * pixel.fadeDirection;
+            
+            if (pixel.opacity <= BACKGROUND_CONFIG.MIN_OPACITY || 
+                pixel.opacity >= BACKGROUND_CONFIG.MAX_OPACITY) {
+                pixel.fadeDirection *= -1;
+            }
+
+            if (this.mousePosition) {
+                const dx = pixel.x - this.mousePosition.x;
+                const dy = pixel.y - this.mousePosition.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+
+                if (distance < BACKGROUND_CONFIG.MOUSE_INFLUENCE_RADIUS) {
+                    const force = (BACKGROUND_CONFIG.MOUSE_INFLUENCE_RADIUS - distance) / BACKGROUND_CONFIG.MOUSE_INFLUENCE_RADIUS;
+                    pixel.x += (dx / distance) * force * BACKGROUND_CONFIG.MOUSE_REPEL_STRENGTH;
+                    pixel.y += (dy / distance) * force * BACKGROUND_CONFIG.MOUSE_REPEL_STRENGTH;
+                }
+            }
+
+            pixel.x += (pixel.originalX - pixel.x) * BACKGROUND_CONFIG.RETURN_SPEED;
+            pixel.y += (pixel.originalY - pixel.y) * BACKGROUND_CONFIG.RETURN_SPEED;
+
+            this.ctx.fillStyle = `rgba(${BACKGROUND_CONFIG.PIXEL_COLOR_RGB}, ${pixel.opacity})`;
+            this.ctx.fillRect(pixel.x, pixel.y, pixel.size, pixel.size);
+        });
     }
 
     start() {
