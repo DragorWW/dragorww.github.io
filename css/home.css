@@ -80,19 +80,40 @@ body {
     transform: scale(1.1);
 }
 
-.logo svg path,
-.logo svg circle {
+.logo svg path {
     transition: all 0.3s ease;
 }
 
+/* Базовая анимация для пунктирных линий */
+.logo svg path[stroke="var(--primary-color)"] {
+    stroke-dasharray: 3 6;
+    stroke-dashoffset: 0;
+}
+
+/* Анимация при наведении */
 .logo:hover svg path[stroke="var(--primary-color)"] {
-    stroke-width: 2.5;
+    animation: dash 1.5s linear infinite;
     filter: drop-shadow(0 0 2px var(--primary-color));
 }
 
-.logo:hover svg circle {
-    transform: scale(1.2);
-    filter: drop-shadow(0 0 2px var(--primary-color));
+.logo:hover svg path[stroke="var(--secondary-color)"] {
+    filter: drop-shadow(0 0 2px var(--secondary-color));
+}
+
+/* Анимация движения пунктира */
+@keyframes dash {
+    to {
+        stroke-dashoffset: 18;
+    }
+}
+
+/* Добавляем плавное появление тени */
+.logo svg path[stroke="currentColor"] {
+    transition: filter 0.3s ease;
+}
+
+.logo:hover svg path[stroke="currentColor"] {
+    filter: drop-shadow(0 0 1px currentColor);
 }
 
 .nav-links {
@@ -922,4 +943,5 @@ h2 {
         margin-left: 12px;
         padding: 3px;
     }
+}
 }
