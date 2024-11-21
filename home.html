@@ -28,9 +28,24 @@
         <div class="container">
             <div class="nav-content">
                 <div class="logo">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <polyline points="4 17 10 11 4 5"></polyline>
-                        <line x1="12" y1="19" x2="20" y2="19"></line>
+                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Основа - стилизованная буква D -->
+                        <path d="M8 4h12a8 8 0 0 1 8 8v8a8 8 0 0 1-8 8H8V4z" 
+                              stroke="currentColor" 
+                              fill="none" 
+                              stroke-width="2"/>
+                        
+                        <!-- Центральный элемент - стилизованный символ кода/данных -->
+                        <path d="M13 12l6 4-6 4" 
+                              stroke="var(--primary-color)" 
+                              fill="none" 
+                              stroke-width="2"
+                              stroke-linecap="round" 
+                              stroke-linejoin="round"/>
+                        
+                        <!-- Дополнительный элемент - точка подключения -->
+                        <circle cx="22" cy="16" r="2" 
+                                fill="var(--primary-color)"/>
                     </svg>
                     <span>DragorWW</span>
                 </div>
@@ -188,7 +203,7 @@
                         <p>Разработка внутреннего DevOps продукта:</p>
                         <ul>
                             <li>Оптимизация производительности (10x улучшение)</li>
-                            <li>Проектировани�� архитектуры React-прложений</li>
+                            <li>Проектировани архитектуры React-прложений</li>
                         </ul>
                         <div class="tech-stack">
                             <span>React</span>

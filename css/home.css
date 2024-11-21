@@ -69,9 +69,30 @@ body {
 .logo {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
-    color: var(--accent-color);
-    font-weight: 500;
+    gap: 10px;
+}
+
+.logo svg {
+    transition: transform 0.3s ease;
+}
+
+.logo:hover svg {
+    transform: scale(1.1);
+}
+
+.logo svg path,
+.logo svg circle {
+    transition: all 0.3s ease;
+}
+
+.logo:hover svg path[stroke="var(--primary-color)"] {
+    stroke-width: 2.5;
+    filter: drop-shadow(0 0 2px var(--primary-color));
+}
+
+.logo:hover svg circle {
+    transform: scale(1.2);
+    filter: drop-shadow(0 0 2px var(--primary-color));
 }
 
 .nav-links {
