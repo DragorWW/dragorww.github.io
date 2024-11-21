@@ -175,6 +175,204 @@ button {
     background-color: var(--border-color);
 }
 
+/* Terminal Window */
+.terminal-window {
+    background: var(--card-bg);
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    overflow: hidden;
+    width: 100%;
+    max-width: 600px;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+}
+
+.terminal-header {
+    padding: 8px 16px;
+    background: rgba(0, 0, 0, 0.2);
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.terminal-title {
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.dots {
+    display: flex;
+    gap: 6px;
+}
+
+.dots span {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--text-tertiary);
+}
+
+.dots span:nth-child(1) { background: #ff5f56; }
+.dots span:nth-child(2) { background: #ffbd2e; }
+.dots span:nth-child(3) { background: #27c93f; }
+
+.terminal-content {
+    flex: 1;
+    padding: 16px;
+    font-family: 'Fira Code', monospace;
+    font-size: 14px;
+    line-height: 1.5;
+    overflow-y: auto;
+    height: 300px;
+}
+
+.terminal-content .prompt {
+    color: var(--accent-color);
+    margin-right: 8px;
+}
+
+.terminal-content .error {
+    color: #e06c75;
+}
+
+.terminal-content .highlight {
+    color: var(--accent-color);
+    display: block;
+    margin-top: 8px;
+}
+
+.terminal-content .welcome-message {
+    color: var(--text-secondary);
+    margin-bottom: 16px;
+}
+
+.terminal-content .help-output {
+    color: var(--text-secondary);
+    white-space: pre-wrap;
+}
+
+.terminal-content .skill-tag {
+    display: inline-block;
+    background: rgba(226, 192, 141, 0.1);
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin: 4px;
+}
+
+.terminal-content .version {
+    color: var(--text-secondary);
+    font-size: 0.9em;
+}
+
+.terminal-content::-webkit-scrollbar {
+    width: 6px;
+}
+
+.terminal-content::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.terminal-content::-webkit-scrollbar-thumb {
+    background-color: var(--border-color);
+    border-radius: 3px;
+}
+
+.prompt {
+    color: var(--accent-color);
+    margin-right: 8px;
+}
+
+.output {
+    opacity: 0;
+    transform: translateY(-10px);
+    animation: slideIn 0.3s ease forwards;
+    margin-bottom: 1rem;
+}
+
+@keyframes slideIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.highlight {
+    color: var(--accent-color);
+    display: block;
+}
+
+.skill-tag {
+    display: inline-block;
+    background: rgba(226, 192, 141, 0.1);
+    color: var(--accent-color);
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin: 4px;
+}
+
+.version {
+    color: var(--text-tertiary);
+    font-size: 0.75rem;
+}
+
+.log-output {
+    border-left: 2px solid var(--accent-color);
+    padding-left: 12px;
+}
+
+.log-date {
+    color: var(--accent-color);
+}
+
+.log-details {
+    display: block;
+    color: var(--text-secondary);
+    padding-left: 16px;
+    margin-top: 4px;
+}
+
+.cursor {
+    animation: blink 1s step-end infinite;
+    font-weight: 100;
+}
+
+@keyframes blink {
+    50% { opacity: 0; }
+}
+
+/* Эффект печатающегося текста */
+.typing {
+    overflow: hidden;
+    white-space: nowrap;
+    animation: typing 3s steps(40, end);
+}
+
+@keyframes typing {
+    from { width: 0 }
+    to { width: 100% }
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .terminal-window {
+        max-width: 100%;
+        margin: 0 auto;
+    }
+    
+    .terminal-content {
+        font-size: 0.75rem;
+    }
+    
+    .skill-tag {
+        margin: 2px;
+        font-size: 0.75rem;
+    }
+}
+
 /* Skills Section */
 .skills {
     padding: 4rem 0;
@@ -395,6 +593,33 @@ h2 {
     margin-bottom: 0;
 }
 
+/* Добавляем стили для анимации */
+.command-history {
+    opacity: 1;
+}
+
+.output {
+    opacity: 0;
+    transform: translateY(-10px);
+    animation: slideIn 0.3s ease forwards;
+}
+
+@keyframes slideIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.cursor {
+    animation: blink 1s step-end infinite;
+    font-weight: 100;
+}
+
+@keyframes blink {
+    50% { opacity: 0; }
+}
+
 .profile-container {
     display: flex;
     align-items: center;
@@ -461,6 +686,13 @@ h2 {
     }
 }
 
+.command-history {
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Footer */
 .footer {
     padding: 1rem 0;
     margin-top: 4rem;
@@ -485,4 +717,58 @@ h2 {
         margin-top: 2rem;
         padding: 0.75rem 0;
     }
+}
+
+.ascii-art {
+    color: var(--accent-color);
+    font-size: 0.6rem;
+    line-height: 1;
+    margin-bottom: 1rem;
+    opacity: 0;
+    animation: fadeIn 1s ease forwards;
+}
+
+.welcome-text {
+    opacity: 0;
+    animation: fadeIn 1s ease 0.5s forwards;
+}
+
+.welcome-text .cmd {
+    color: var(--accent-color);
+    background: rgba(226, 192, 141, 0.1);
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
+.welcome-text .key {
+    color: var(--text-secondary);
+    border: 1px solid var(--text-tertiary);
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-size: 0.8em;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.welcome-text .path {
+    color: var(--accent-color);
+    opacity: 0.8;
+}
+
+.welcome-text .branch {
+    color: #98C379;  /* Зеленый цвет для ветки */
+}
+
+.welcome-text .highlight {
+    color: var(--text-secondary);
+    font-family: 'Fira Code', monospace;
 }
