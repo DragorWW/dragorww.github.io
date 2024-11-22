@@ -9,14 +9,105 @@
 @import './footer.css';
 
 :root {
-    --bg-color: #111111;
-    --card-bg: #1A1A1A;
-    --border-color: #2A2A2A;
-    --text-primary: #E2E2E2;
-    --text-secondary: #9CA38F;
-    --text-tertiary: #666666;
-    --accent-color: #E2C08D;
-    --bg-color-rgb: 17, 17, 17;
+    /* Light theme (default) */
+    --bg-color-light: #E8E4D9;
+    --text-color-light: #2B2926;
+    --primary-color-light: #D4A76A;
+    --secondary-color-light: #B47267;
+    --card-bg-light: #EFE9DD;
+    --border-color-light: #D5CEC2;
+    --text-primary-light: #2B2926;
+    --text-secondary-light: #6B665E;
+    --text-tertiary-light: #A39E93;
+    --accent-color-light: #D4A76A;
+    
+    /* RGB versions - Light */
+    --bg-color-rgb-light: 232, 228, 217;
+    --text-color-rgb-light: 43, 41, 38;
+    --primary-color-rgb-light: 212, 167, 106;
+    --secondary-color-rgb-light: 180, 114, 103;
+    --card-bg-rgb-light: 239, 233, 221;
+    --border-color-rgb-light: 213, 206, 194;
+    --text-primary-rgb-light: 43, 41, 38;
+    --text-secondary-rgb-light: 107, 102, 94;
+    --text-tertiary-rgb-light: 163, 158, 147;
+    --accent-color-rgb-light: 212, 167, 106;
+
+    /* Dark theme */
+    --bg-color-dark: #111111;
+    --text-color-dark: #ffffff;
+    --primary-color-dark: #E2C08D;
+    --secondary-color-dark: #C17B6F;
+    --card-bg-dark: #1A1A1A;
+    --border-color-dark: #2A2A2A;
+    --text-primary-dark: #E2E2E2;
+    --text-secondary-dark: #9CA38F;
+    --text-tertiary-dark: #666666;
+    --accent-color-dark: #E2C08D;
+    
+    /* RGB versions - Dark */
+    --bg-color-rgb-dark: 17, 17, 17;
+    --text-color-rgb-dark: 255, 255, 255;
+    --primary-color-rgb-dark: 226, 192, 141;
+    --secondary-color-rgb-dark: 193, 123, 111;
+    --card-bg-rgb-dark: 26, 26, 26;
+    --border-color-rgb-dark: 42, 42, 42;
+    --text-primary-rgb-dark: 226, 226, 226;
+    --text-secondary-rgb-dark: 156, 163, 143;
+    --text-tertiary-rgb-dark: 102, 102, 102;
+    --accent-color-rgb-dark: 226, 192, 141;
+}
+
+/* Default theme (light) */
+:root {
+    --bg-color: var(--bg-color-light);
+    --text-color: var(--text-color-light);
+    --primary-color: var(--primary-color-light);
+    --secondary-color: var(--secondary-color-light);
+    --card-bg: var(--card-bg-light);
+    --border-color: var(--border-color-light);
+    --text-primary: var(--text-primary-light);
+    --text-secondary: var(--text-secondary-light);
+    --text-tertiary: var(--text-tertiary-light);
+    --accent-color: var(--accent-color-light);
+    
+    /* RGB versions */
+    --bg-color-rgb: var(--bg-color-rgb-light);
+    --text-color-rgb: var(--text-color-rgb-light);
+    --primary-color-rgb: var(--primary-color-rgb-light);
+    --secondary-color-rgb: var(--secondary-color-rgb-light);
+    --card-bg-rgb: var(--card-bg-rgb-light);
+    --border-color-rgb: var(--border-color-rgb-light);
+    --text-primary-rgb: var(--text-primary-rgb-light);
+    --text-secondary-rgb: var(--text-secondary-rgb-light);
+    --text-tertiary-rgb: var(--text-tertiary-rgb-light);
+    --accent-color-rgb: var(--accent-color-rgb-light);
+}
+
+/* Dark theme */
+:root[data-theme="dark"] {
+    --bg-color: var(--bg-color-dark);
+    --text-color: var(--text-color-dark);
+    --primary-color: var(--primary-color-dark);
+    --secondary-color: var(--secondary-color-dark);
+    --card-bg: var(--card-bg-dark);
+    --border-color: var(--border-color-dark);
+    --text-primary: var(--text-primary-dark);
+    --text-secondary: var(--text-secondary-dark);
+    --text-tertiary: var(--text-tertiary-dark);
+    --accent-color: var(--accent-color-dark);
+    
+    /* RGB versions */
+    --bg-color-rgb: var(--bg-color-rgb-dark);
+    --text-color-rgb: var(--text-color-rgb-dark);
+    --primary-color-rgb: var(--primary-color-rgb-dark);
+    --secondary-color-rgb: var(--secondary-color-rgb-dark);
+    --card-bg-rgb: var(--card-bg-rgb-dark);
+    --border-color-rgb: var(--border-color-rgb-dark);
+    --text-primary-rgb: var(--text-primary-rgb-dark);
+    --text-secondary-rgb: var(--text-secondary-rgb-dark);
+    --text-tertiary-rgb: var(--text-tertiary-rgb-dark);
+    --accent-color-rgb: var(--accent-color-rgb-dark);
 }
 
 * {

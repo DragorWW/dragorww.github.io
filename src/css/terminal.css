@@ -1,9 +1,8 @@
 /* Terminal Component Styles */
 .terminal {
-    background: rgba(26, 26, 26, 0.3);
+    border: 1px solid var(--border-color);
     backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
-    border: 1px solid rgba(48, 48, 48, 0.3);
     border-radius: 8px;
     overflow: hidden;
     width: 100%;
@@ -11,13 +10,13 @@
     height: 400px;
     display: flex;
     flex-direction: column;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 32px rgba(var(--bg-color-rgb), 0.1);
 }
 
 .terminal__header {
     padding: 8px 16px;
-    background: rgba(0, 0, 0, 0.3);
-    border-bottom: 1px solid rgba(48, 48, 48, 0.3);
+    background: rgba(var(--bg-color-rgb), 0.5);
+    border-bottom: 1px solid var(--border-color);
     display: flex;
     align-items: center;
     gap: 16px;
@@ -31,6 +30,18 @@
     margin-left: auto;
     margin-right: auto;
 }
+
+.terminal__content {
+    background: rgba(var(--card-bg-rgb), 0.5);
+    flex: 1;
+    padding: 16px;
+    font-family: 'Fira Code', monospace;
+    font-size: 14px;
+    line-height: 1.5;
+    overflow-y: auto;
+    height: 300px;
+}
+
 
 .terminal__dots {
     display: flex;
@@ -51,7 +62,8 @@
 /* Terminal Skills */
 .terminal-skill {
     display: inline-block;
-    background: rgba(226, 192, 141, 0.1);
+    background: rgba(var(--bg-color-rgb), 0.1);
+    border: 1px solid var(--border-color);
     padding: 2px 8px;
     border-radius: 4px;
     margin: 4px;
@@ -67,16 +79,6 @@
 .terminal__dots-item--yellow { background: #ffbd2e; }
 .terminal__dots-item--green { background: #27c93f; }
 
-.terminal__content {
-    background: rgba(26, 26, 26, 0.4);
-    flex: 1;
-    padding: 16px;
-    font-family: 'Fira Code', monospace;
-    font-size: 14px;
-    line-height: 1.5;
-    overflow-y: auto;
-    height: 300px;
-}
 
 .terminal-welcome {
     color: var(--text-secondary);
@@ -91,7 +93,8 @@
 
 .terminal-welcome__cmd {
     color: var(--accent-color);
-    background: rgba(226, 192, 141, 0.1);
+    background: rgba(var(--bg-color-rgb), 0.1);
+    border: 1px solid var(--border-color);
     padding: 2px 6px;
     border-radius: 4px;
 }
