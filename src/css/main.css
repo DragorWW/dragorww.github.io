@@ -1,3 +1,5 @@
+@import 'https://cdn.jsdelivr.net/npm/firacode@6.2.0/distr/fira_code.css';
+
 @import './matrix-bg.css';
 @import './header.css';
 @import './theme-toggle.css';
@@ -36,4 +38,3 @@ h2 {
     margin-bottom: 2rem;
     color: var(--text-primary);
 }
-

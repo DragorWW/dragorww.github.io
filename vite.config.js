@@ -4,7 +4,19 @@ import {ViteEjsPlugin} from "vite-plugin-ejs";
 
 export default defineConfig({
   plugins: [
-    ViteEjsPlugin()
+    ViteEjsPlugin(),
+    {
+        name: 'reload-on-ejs-change',
+        handleHotUpdate({ file, server }) {
+            if (file.endsWith('.ejs')) {
+                server.ws.send({
+                    type: 'full-reload',
+                    path: '*'
+                });
+                return [];
+            }
+        },
+    }
   ],
   root: 'src',
   build: {
@@ -12,6 +24,12 @@ export default defineConfig({
     emptyOutDir: true
   },
   server: {
-    open: true
+    open: true,
+    watch: {
+        usePolling: true
+    },
+    hmr: {
+        overlay: true
+    }
   }
 }) 

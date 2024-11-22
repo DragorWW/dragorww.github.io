@@ -10,3 +10,10 @@ document.addEventListener('DOMContentLoaded', () => {
     initMatrixAnimation('matrix', 1000);
     initTerminalAnimation();
 }) 
+
+// Добавьте в начало файла
+if (import.meta.hot) {
+    import.meta.hot.accept((newModule) => {
+        console.log('HMR update');
+    });
+}
