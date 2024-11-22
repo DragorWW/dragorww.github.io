@@ -1,5 +1,3 @@
-
-
 /* Navbar */
 .navbar {
     height: 64px;
@@ -19,80 +17,6 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-}
-
-.logo {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-.logo svg {
-    transition: transform 0.3s ease;
-}
-
-.logo:hover svg {
-    transform: scale(1.05);
-}
-
-.logo svg path,
-.logo svg circle {
-    transition: all 0.3s ease;
-}
-
-/* Анимация вертикальных линий */
-.logo svg .diagonal-line {
-    stroke-dasharray: 4 8;
-    stroke-dashoffset: 0;
-}
-
-.logo:hover svg .diagonal-line {
-    animation: flow 2s linear infinite;
-    filter: drop-shadow(0 0 1px var(--primary-color));
-}
-
-.logo:hover svg .knowledge-node {
-    animation: pulse 2s ease-in-out infinite;
-    transform-origin: center;
-    transform-box: fill-box;
-}
-
-.logo:hover svg .knowledge-node.end {
-    animation-delay: 0.5s;
-}
-
-@keyframes flow {
-    to {
-        stroke-dashoffset: 24;
-    }
-}
-
-@keyframes pulse {
-    0%, 100% {
-        transform: scale(1);
-        filter: drop-shadow(0 0 1px var(--primary-color));
-    }
-    50% {
-        transform: scale(1.2);
-        filter: drop-shadow(0 0 2px var(--primary-color));
-    }
-}
-
-/* Эффект свечения для основного контура */
-.logo:hover svg path[stroke="currentColor"] {
-    filter: drop-shadow(0 0 1px currentColor);
-}
-
-/* Эффект для акцентной линии */
-.logo:hover svg path[stroke="var(--secondary-color)"] {
-    filter: drop-shadow(0 0 2px var(--secondary-color));
-}
-
-/* Стиль текста */
-.logo span {
-    font-size: 1.4em;
-    font-weight: 500;
-    letter-spacing: 0.02em;
 }
 
 .nav-links {
