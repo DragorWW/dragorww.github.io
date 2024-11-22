@@ -1,23 +1,28 @@
 /* Terminal Component Styles */
 .terminal {
-    background: var(--card-bg);
+    background: rgba(26, 26, 26, 0.3);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    border: 1px solid rgba(48, 48, 48, 0.3);
     border-radius: 8px;
-    border: 1px solid var(--border-color);
     overflow: hidden;
     width: 100%;
     max-width: 600px;
     height: 400px;
     display: flex;
     flex-direction: column;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
 }
 
 .terminal__header {
     padding: 8px 16px;
-    background: rgba(0, 0, 0, 0.2);
-    border-bottom: 1px solid var(--border-color);
+    background: rgba(0, 0, 0, 0.3);
+    border-bottom: 1px solid rgba(48, 48, 48, 0.3);
     display: flex;
     align-items: center;
     gap: 16px;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
 }
 
 .terminal__title {
@@ -63,6 +68,7 @@
 .terminal__dots-item--green { background: #27c93f; }
 
 .terminal__content {
+    background: rgba(26, 26, 26, 0.4);
     flex: 1;
     padding: 16px;
     font-family: 'Fira Code', monospace;

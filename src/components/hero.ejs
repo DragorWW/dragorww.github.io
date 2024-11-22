@@ -1,37 +1,39 @@
 <section class="hero">
-    <div class="hero-content">
-        <div class="welcome">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <polyline points="4 17 10 11 4 5"></polyline>
-                <line x1="12" y1="19" x2="20" y2="19"></line>
-            </svg>
-            <span class="welcome-text">Welcome to my Digital Garden</span>
+    <div class="hero__content">
+        <div class="hero__header">
+            <div class="hero__title-group">
+                <div class="hero__welcome">
+                    <span class="hero__welcome-text">Привет, я</span>
+                </div>
+                <div class="hero__intro">
+                    <div class="hero__photo">
+                        <div class="hero__photo-border"></div>
+                        <img class="hero__photo-image" src="/assets/profile.jpg" alt="Сергей Андреев">
+                    </div>
+                    
+                    <h1 class="hero__title">
+                        Сергей Андреев
+                        <span class="hero__title-accent">Head of Engineering</span>
+                    </h1>
+                </div>
+            </div>
         </div>
-        <%- include('./profile') %>
-        <p>
-            Эксперт в построении эффективных IT-систем и команд. 
-            Специализируюсь на масштабировании IT-решений и опимизации бизнес-процессов.
+
+        <p class="hero__description">
+            IT-архитектор и руководитель с фокусом на продуктовую разработку. 
+            Создаю эффективные команды и масштабируемые решения для бизнеса.
             <br>
-            10+ лет опыта в разработке • 5+ лет в управлении
+            <span class="hero__stats">10+ лет в разработке • Управляю командами 50+ человек • Оптимизирую процессы и бюджеты</span>
         </p>
-        <div class="cta-buttons">
-            <a 
-                href="https://hh.ru/resume/1924a0b3ff0284e9780039ed1f446c58496643" 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                class="cta-buttons__button_primary cta-buttons__button"
-            >
-                Резюме на hh.ru
-            </a>
-            <a 
-                class="cta-buttons__button_secondary cta-buttons__button" 
-                href="https://t.me/DragorWW"
-                target="_blank" 
-                rel="noopener noreferrer"
-            >
-                Написать в Telegram
-            </a>
+
+        <div class="hero__buttons">
+            <a href="https://hh.ru/resume/1924a0b3ff0284e9780039ed1f446c58496643" target="_blank" rel="noopener noreferrer" 
+               class="hero__button hero__button--primary">View on HH.ru</a>
+            <a href="https://t.me/dragorww" class="hero__button hero__button--secondary">Contact Me</a>
         </div>
     </div>
-    <%- include('./terminal') %>
+
+    <div class="hero__terminal">
+        <%- include('./terminal') %>
+    </div>
 </section> 
