@@ -38,6 +38,26 @@
     border-radius: 50%;
 }
 
+.highlight {
+    color: var(--accent-color);
+    display: block;
+}
+
+/* Terminal Skills */
+.terminal-skill {
+    display: inline-block;
+    background: rgba(226, 192, 141, 0.1);
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin: 4px;
+}
+
+.terminal-skill__version {
+    font-size: 0.8em;
+    color: var(--text-tertiary);
+    opacity: 0.8;
+}
+
 .terminal__dots-item--red { background: #ff5f56; }
 .terminal__dots-item--yellow { background: #ffbd2e; }
 .terminal__dots-item--green { background: #27c93f; }
@@ -68,15 +88,6 @@
     background: rgba(226, 192, 141, 0.1);
     padding: 2px 6px;
     border-radius: 4px;
-}
-
-.terminal-welcome__path {
-    color: var(--accent-color);
-    opacity: 0.8;
-}
-
-.terminal-welcome__branch {
-    color: #98C379;
 }
 
 /* Анимации */
@@ -114,6 +125,57 @@
 }
 
 .terminal-prompt {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.terminal-prompt__path {
     color: var(--accent-color);
-    margin-right: 8px;
+    opacity: 0.8;
+}
+
+.terminal-prompt__branch {
+    color: #98C379;
+}
+
+.terminal-prompt__symbol {
+    color: var(--accent-color);
+}
+
+.terminal-prompt__command {
+    color: var(--text-primary);
+}
+
+.terminal-prompt__cursor {
+    color: var(--accent-color);
+    animation: blink 1s step-end infinite;
+    font-weight: bold;
+    margin-left: 2px;
+}
+
+@keyframes blink {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0;
+    }
+}
+
+.log-output {
+    border-left: 2px solid var(--accent-color);
+    padding-left: 12px;
+}
+
+.log-date {
+    color: var(--accent-color);
+}
+
+.log-details {
+    display: block;
+    color: var(--text-secondary);
+    padding-left: 16px;
+    margin-top: 4px;
 }

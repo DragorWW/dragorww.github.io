@@ -1,4 +1,20 @@
 const AVAILABLE_COMMANDS = {
+    'welcome': {
+        description: 'Приветственное сообщение',
+        directory: '~/digital-garden',
+        branch: 'main',
+        command: 'cd ~/digital-garden',
+        execute: () => `
+            <div class="output log-output">
+                <div class="terminal-welcome">    
+                    Добро пожаловать в мой цифровой сад! 🌱
+                    <br><br>
+                    Здесь растут идеи, проекты и знания...
+                    <br>
+                    Исследуйте с помощью <span class="terminal-welcome__cmd">help</span>
+                </div>
+            </div>`
+    },
     'help': {
         description: 'Показать список доступных команд',
         execute: () => `
@@ -68,17 +84,55 @@ const AVAILABLE_COMMANDS = {
 };
 
 class TerminalAnimation {
+    currentInput = '';
+    commandHistory = [];
+    historyIndex = -1;
+    commandDelay = 50;
+    commandPause = 1000;
+    isAnimating = false;
+
+    directory = '';
+    branch = '';
+
     constructor() {
         this.container = document.querySelector('.terminal-history');
         this.terminalContent = document.querySelector('.terminal__content');
-        this.currentInput = '';
-        this.commandHistory = [];
-        this.historyIndex = -1;
-        this.commandDelay = 50;
-        this.commandPause = 1000;
-        this.isAnimating = false;
 
         this.initialize();
+    }
+
+    handlePrompt({
+        command = '',
+        showCursor = false,
+        action = 'create', // 'create', 'update', 'append'
+    } = {}) {
+        const promptHTML = `
+            <span class="terminal-prompt">
+                ${this.directory ? `<span class="terminal-prompt__path">${this.directory}</span>` : ''}
+                ${this.branch ? `<span class="terminal-prompt__branch">(${this.branch})</span>` : ''}
+                <span class="terminal-prompt__symbol">$</span> 
+                ${command ? `<span class="terminal-prompt__command">${command}</span>` : ''}
+                ${showCursor ? '<span class="terminal-prompt__cursor">█</span>' : ''}
+            </span>`;
+
+        switch (action) {
+            case 'create':
+                const promptElement = document.createElement('p');
+                promptElement.innerHTML = promptHTML;
+                return promptElement;
+            
+            case 'update':
+                const lastPrompt = this.container.lastElementChild;
+                lastPrompt.innerHTML = promptHTML;
+                return lastPrompt;
+            
+            case 'append':
+                const newPrompt = document.createElement('p');
+                newPrompt.innerHTML = promptHTML;
+                this.container.appendChild(newPrompt);
+                this.scrollToBottom();
+                return newPrompt;
+        }
     }
 
     async initialize() {
@@ -97,7 +151,7 @@ class TerminalAnimation {
         this.isAnimating = false;
         this.enableScroll();
         this.setupEventListeners();
-        this.createNewPrompt();
+        this.handlePrompt({ showCursor: true, action: 'append' });
     }
 
     disableScroll() {
@@ -125,51 +179,47 @@ class TerminalAnimation {
     }
 
 
-    async simulateCommand(command) {
-        const commandLine = document.createElement('p');
-        commandLine.innerHTML = '<span class="terminal-prompt">$</span> ';
-        this.container.appendChild(commandLine);
-        this.scrollToBottom();
+    async simulateCommand(commandName) {
+        let promptElement = this.handlePrompt({ action: 'append' });
+        
+        const command = AVAILABLE_COMMANDS[commandName.split(' ')[0]];
+
+        const text = command?.command || commandName;
+
 
         let currentText = '';
-        for (const char of command) {
+        for (const char of text) {
             await this.sleep(this.commandDelay);
             currentText += char;
-            commandLine.innerHTML = `<span class="terminal-prompt">$</span> ${currentText}`;
+            promptElement.innerHTML = this.handlePrompt({ 
+                command: currentText, 
+                action: 'create' 
+            }).innerHTML;
             this.scrollToBottom();
         }
 
         await this.sleep(500);
 
-        if (AVAILABLE_COMMANDS[command]) {
-            const output = AVAILABLE_COMMANDS[command].execute();
+        if (command) {
+            const output = command.execute();
             const outputElement = document.createElement('div');
             outputElement.classList.add('terminal-output');
             outputElement.innerHTML = output;
             this.container.appendChild(outputElement);
             this.scrollToBottom();
         }
+
+        if (command?.directory) {
+            this.directory = command.directory;
+        }
+
+        if (command?.branch) {
+            this.branch = command.branch;
+        }
     }
 
     async showWelcomeMessage() {
-        const welcomeMessage = `
-            <div class="terminal-output terminal-output--welcome">
-                <div class="terminal-welcome">
-                    <span class="terminal-welcome__highlight"><span class="terminal-prompt">$</span> cd ~/digital-garden</span>
-                    <br>
-                    Добро пожаловать в мой цифровой сад! 🌱
-                    <br><br>
-                    Здесь растут идеи, проекты и знания...
-                    <br>
-                    Исследуйте с помощью <span class="terminal-welcome__cmd">help</span>
-                    <br>
-                    <span class="terminal-welcome__path">~/digital-garden</span> 
-                    <span class="terminal-welcome__branch">(main) </span>
-                </div>
-            </div>
-        `;
-        this.container.innerHTML = welcomeMessage;
-        await this.sleep(1000);
+        await this.simulateCommand('welcome');
     }
 
     sleep(ms) {
@@ -189,14 +239,14 @@ class TerminalAnimation {
             this.executeCommand();
         } else if (e.key === 'Backspace') {
             this.currentInput = this.currentInput.slice(0, -1);
-            this.updatePrompt();
+            this.handlePrompt({ command: this.currentInput, showCursor: true, action: 'update' });
         } else if (e.key === 'ArrowUp') {
             this.navigateHistory(-1);
         } else if (e.key === 'ArrowDown') {
             this.navigateHistory(1);
         } else if (e.key.length === 1) {
             this.currentInput += e.key;
-            this.updatePrompt();
+            this.handlePrompt({ command: this.currentInput, showCursor: true, action: 'update' });
         }
     }
 
@@ -217,19 +267,7 @@ class TerminalAnimation {
             this.currentInput = this.commandHistory[this.historyIndex];
         }
         
-        this.updatePrompt();
-    }
-
-    updatePrompt() {
-        const promptElement = this.container.lastElementChild;
-        promptElement.innerHTML = `<span class="terminal-prompt">$</span> ${this.currentInput}<span class="terminal-prompt__cursor">█</span>`;
-    }
-
-    createNewPrompt() {
-        const promptElement = document.createElement('p');
-        promptElement.innerHTML = `<span class="terminal-prompt">$</span> <span class="terminal-prompt__cursor">█</span>`;
-        this.container.appendChild(promptElement);
-        this.scrollToBottom();
+        this.handlePrompt({ command: this.currentInput, showCursor: true, action: 'update' });
     }
 
     async executeCommand() {
@@ -240,7 +278,11 @@ class TerminalAnimation {
             this.historyIndex = -1;
             
             const promptElement = this.container.lastElementChild;
-            promptElement.innerHTML = `<span class="terminal-prompt">$</span> ${this.currentInput}`;
+            
+            promptElement.innerHTML = this.handlePrompt({ 
+                command: this.currentInput, 
+                action: 'update' 
+            }).innerHTML;
 
             if (command === 'clear') {
                 this.container.innerHTML = '';
@@ -261,7 +303,7 @@ class TerminalAnimation {
         }
 
         this.currentInput = '';
-        this.createNewPrompt();
+        this.handlePrompt({ showCursor: true, action: 'append' });
     }
 }
 
