@@ -3,13 +3,15 @@ import { resolve } from 'path'
 import {ViteEjsPlugin} from "vite-plugin-ejs";
 
 export default defineConfig({
-  plugins: [ViteEjsPlugin(
-    {title: 'My vue project!'},
-    {
-      ejs: {
-        // ejs options goes here.
-        beautify: true,
-      },
-    }
-  )]
+  plugins: [
+    ViteEjsPlugin()
+  ],
+  root: 'src',
+  build: {
+    outDir: '../dist',
+    emptyOutDir: true
+  },
+  server: {
+    open: true
+  }
 }) 

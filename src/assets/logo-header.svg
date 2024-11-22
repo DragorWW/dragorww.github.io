@@ -1,0 +1,25 @@
+<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- Основа - большая буква D -->
+    <path d="M14 6h16a12 12 0 0 1 12 12v12a12 12 0 0 1-12 12H14V6z" 
+          stroke="currentColor" 
+          fill="none" 
+          stroke-width="3"/>
+    
+    <!-- Широкая левая грань -->
+    <path d="M14 6v36" 
+          stroke="var(--secondary-color)" 
+          stroke-width="6"
+          stroke-linecap="round"/>
+    
+    <!-- Диагональная линия -->
+    <path class="diagonal-line" 
+          d="M24 15L32 33" 
+          stroke="var(--primary-color)" 
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-dasharray="4 8"/>
+    
+    <!-- Два узла на концах диагональной линии -->
+    <circle class="knowledge-node start" cx="24" cy="15" r="2" fill="var(--primary-color)"/>
+    <circle class="knowledge-node end" cx="32" cy="33" r="2" fill="var(--primary-color)"/>
+</svg> 
