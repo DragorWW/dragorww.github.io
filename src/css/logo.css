@@ -35,77 +35,82 @@
 .logo svg .diagonal-line {
     stroke-dasharray: 3 6;
     stroke-dashoffset: 0;
-    transition: stroke-width 0.3s ease;
+    transition: stroke-width 0.3s ease, filter 0.3s ease;
+    animation: flowLineIdle 8s linear infinite;
+    filter: drop-shadow(0 0 0.5px var(--primary-color));
 }
 
 .logo:hover svg .diagonal-line {
-    animation: flowLine 3s linear infinite;
+    animation: flowLine 2.5s linear infinite;
     filter: drop-shadow(0 0 2px var(--primary-color));
 }
 
-@keyframes flowLine {
+@keyframes flowLineIdle {
+    from {
+        stroke-dashoffset: 0;
+        filter: drop-shadow(0 0 0.5px var(--primary-color));
+    }
     to {
         stroke-dashoffset: 18;
+        filter: drop-shadow(0 0 1px var(--primary-color));
     }
 }
 
-/* Анимация узлов */
+@keyframes flowLine {
+    from {
+        stroke-dashoffset: 0;
+        filter: drop-shadow(0 0 2px var(--primary-color));
+    }
+    to {
+        stroke-dashoffset: 18;
+        filter: drop-shadow(0 0 3px var(--primary-color));
+    }
+}
+
+/* Анимация узлов в покое */
 .logo svg .knowledge-node {
-    transition: transform 0.3s ease, filter 0.3s ease;
+    transition: transform 0.3s ease, filter 0.3s ease, opacity 0.3s ease;
     transform-origin: center;
     transform-box: fill-box;
+    animation: pulseNodeIdle 8s ease-in-out infinite;
 }
 
-.logo:hover svg .knowledge-node {
-    animation: pulseNode 2s ease-in-out infinite;
+.logo svg .knowledge-node.end {
+    animation-delay: 4s;
 }
 
-.logo:hover svg .knowledge-node.end {
-    animation-delay: 0.7s;
-}
-
-/* Подсветка фона логотипа */
-.logo:hover svg .glow-bg {
-    animation: glowPath 2s ease-in-out infinite;
-}
-
-@keyframes glowPath {
-    0%, 100% {
-        stroke-opacity: 0.3;
-        stroke-width: 0.5;
-    }
-    50% {
-        stroke-opacity: 0.6;
-        stroke-width: 1;
-    }
-}
-
-/* Анимация узлов */
-.logo svg .knowledge-node.middle {
-    animation: pulseNodeSmall 2s ease-in-out infinite;
-    animation-play-state: paused;
-}
-
-.logo:hover svg .knowledge-node {
-    animation-play-state: running;
-}
-
-.logo:hover svg .knowledge-node.middle {
-    animation-delay: 0.35s;
+.logo:hover svg .knowledge-node.start {
+    animation: pulseNode 3s ease-in-out infinite;
 }
 
 .logo:hover svg .knowledge-node.end {
-    animation-delay: 0.7s;
+    animation: pulseNode 3s ease-in-out infinite;
+    animation-delay: 1.5s;
 }
 
-@keyframes pulseNodeSmall {
+@keyframes pulseNodeIdle {
     0%, 100% {
-        transform: scale(1);
-        fill-opacity: 0.5;
+        transform: scale(0.9);
+        filter: drop-shadow(0 0 1px var(--primary-color));
+        opacity: 0.8;
     }
     50% {
-        transform: scale(1.3);
-        fill-opacity: 0.8;
+        transform: scale(1.1);
+        filter: drop-shadow(0 0 2px var(--primary-color));
+        opacity: 0.9;
+    }
+}
+
+@keyframes pulseNode {
+    0%, 100% {
+        transform: scale(0.6);
+        filter: drop-shadow(0 0 1px var(--primary-color));
+        opacity: 0.6;
+    }
+    50% {
+        transform: scale(1.4);
+        filter: drop-shadow(0 0 3px var(--primary-color));
+        opacity: 1;
     }
 }
 
@@ -114,14 +119,4 @@
     text-shadow: 0 0 8px rgba(var(--primary-color-rgb), 0.3);
     letter-spacing: 0.03em;
 }
-
-@keyframes pulseNode {
-    0%, 100% {
-        transform: scale(1);
-        filter: drop-shadow(0 0 1px var(--primary-color));
-    }
-    50% {
-        transform: scale(1.15);
-        filter: drop-shadow(0 0 3px var(--primary-color));
-    }
-} 
+ 
