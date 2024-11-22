@@ -1,0 +1,67 @@
+/* Contact Section */
+.contact {
+    padding: 4rem 0;
+    text-align: center;
+}
+
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+}
+
+.social-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 50%;
+    color: var(--text-primary);
+    transition: all 0.2s;
+    backdrop-filter: blur(8px);
+}
+
+.social-link:hover {
+    background-color: var(--accent-color);
+    color: var(--bg-color);
+    border-color: var(--accent-color);
+}
+
+/* Footer */
+.footer {
+    padding: 1rem 0;
+    margin-top: 4rem;
+    backdrop-filter: blur(4px);
+    background: linear-gradient(
+        to top,
+        rgba(var(--bg-color-rgb), 0.3) 0%,
+        rgba(var(--bg-color-rgb), 0.1) 50%,
+        rgba(var(--bg-color-rgb), 0) 100%
+    );
+}
+
+.copyright {
+    text-align: center;
+    color: var(--text-tertiary);
+    font-size: 0.75rem;
+    opacity: 0.7;
+}
+
+/* Анимация для социальных иконок */
+.social-link {
+    transition: transform 0.2s ease;
+}
+
+.social-link:hover {
+    transform: translateY(-3px) scale(1.1);
+}
+
+@media (max-width: 768px) {
+    .footer {
+        margin-top: 2rem;
+        padding: 0.75rem 0;
+    }
+}

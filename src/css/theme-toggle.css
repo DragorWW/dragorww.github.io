@@ -1,0 +1,73 @@
+/* Обновленные стили для переключателя темы */
+.theme-toggle {
+    background: none;
+    border: none;
+    padding: 4px;
+    cursor: pointer;
+    width: 26px;
+    height: 26px;
+    margin-left: 16px;
+    position: relative;
+    color: var(--text-color);
+    opacity: 0.7;
+    border-radius: 4px;
+    display: flex;
+    align-self: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.theme-toggle:hover {
+    opacity: 1;
+    background: rgba(226, 192, 141, 0.1); /* Цвет как у других элементов при наведении */
+}
+
+.theme-toggle-icon {
+    position: relative;
+    width: 18px;
+    height: 18px;
+    stroke-width: 1.5px;
+    transition: transform 0.3s ease, opacity 0.2s ease;
+}
+
+.theme-toggle-icon.sun {
+    position: absolute;
+    opacity: 0;
+    transform: scale(0.5);
+}
+
+.theme-toggle-icon.moon {
+    position: absolute;
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* Состояния иконок дя светлой темы */
+[data-theme="light"] .theme-toggle-icon.sun {
+    opacity: 1;
+    transform: scale(1);
+}
+
+[data-theme="light"] .theme-toggle-icon.moon {
+    opacity: 0;
+    transform: scale(0.5);
+}
+
+/* Добавляем стили для активного состояния */
+.theme-toggle:active {
+    transform: scale(0.95);
+}
+
+/* Убираем outline при фокусе и заменяем его на свй стиль */
+.theme-toggle:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(226, 192, 141, 0.2);
+}
+
+/* Стили для мобильных устройств */
+@media (max-width: 768px) {
+    .theme-toggle {
+        margin-left: 12px;
+        padding: 3px;
+    }
+}

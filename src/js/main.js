@@ -1,5 +1,4 @@
-import '../css/home.css'
-import '../css/terminal.css'
+import '../css/main.css'
 
 import './matrix-animation.js'
 import './terminal-animation.js'

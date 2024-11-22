@@ -1,0 +1,39 @@
+@import './matrix-bg.css';
+@import './header.css';
+@import './theme-toggle.css';
+@import './hero.css';
+@import './terminal.css';
+@import './experience.css';
+@import './footer.css';
+
+:root {
+    --bg-color: #111111;
+    --card-bg: #1A1A1A;
+    --border-color: #2A2A2A;
+    --text-primary: #E2E2E2;
+    --text-secondary: #9CA38F;
+    --text-tertiary: #666666;
+    --accent-color: #E2C08D;
+    --bg-color-rgb: 17, 17, 17;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: monospace;
+    background-color: var(--bg-color);
+    color: var(--text-primary);
+    line-height: 1.5;
+    position: relative;
+}
+
+h2 {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+    color: var(--text-primary);
+}
+
