@@ -13,17 +13,17 @@
     <meta property="og:title" content="Сергей Андреев | Head of Engineering">
     <meta property="og:description" content="CTO и IT-Архитектор с опытом построения масштабируемых решений">
     <meta property="og:image" content="assets/og-image.jpg">
-  <script type="module" crossorigin src="/assets/index-BbymPr9P.js"></script>
-  <link rel="stylesheet" crossorigin href="/assets/index-D7twFUy3.css">
+  <script type="module" crossorigin src="/assets/index-D62xqM5Q.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-DMBDP_Ew.css">
 </head> 
 <body>
     <div class="matrix-bg">
         <canvas id="matrix"></canvas>
     </div>
 
-    <nav class="navbar">
+    <header class="header">
     <div class="container">
-        <div class="nav-content">
+        <div class="header__content">
             <div class="logo">
                 <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
     <!-- Фоновая форма для эффекта свечения -->
@@ -60,26 +60,28 @@
 </svg> 
                 <span class="logo-text">ragorWW</span>
             </div>
-            <div class="nav-links">
-                <a href="#home" class="active">Главная</a>
-                <a href="#experience">Мой опыт</a>
-                <a href="#contacts">Контакты</a>
-                <button class="theme-toggle" onclick="toggleTheme()" aria-label="Переключить тему">
-    <svg class="theme-toggle-icon sun" width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor">
-        <circle cx="9" cy="9" r="4"></circle>
-        <line x1="9" y1="1" x2="9" y2="3"></line>
-        <line x1="9" y1="15" x2="9" y2="17"></line>
-        <line x1="1" y1="9" x2="3" y2="9"></line>
-        <line x1="15" y1="9" x2="17" y2="9"></line>
-    </svg>
-    <svg class="theme-toggle-icon moon" width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor">
-        <path d="M16 10.34A7 7 0 1 1 7.66 2a7 7 0 0 0 8.34 8.34z"></path>
-    </svg>
-</button> 
+            <div class="header__right">
+                <nav class="header__nav">
+                    <a href="#home" class="header__nav-link header__nav-link--active">Главная</a>
+                    <a href="#experience" class="header__nav-link">Мой опыт</a>
+                    <a href="#contacts" class="header__nav-link">Контакты</a>
+                </nav>
+                <button class="header__theme-toggle" onclick="toggleTheme()" aria-label="Переключить тему">
+                    <svg class="header__theme-toggle-icon header__theme-toggle-icon--sun" width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor">
+                        <circle cx="9" cy="9" r="4"></circle>
+                        <line x1="9" y1="1" x2="9" y2="3"></line>
+                        <line x1="9" y1="15" x2="9" y2="17"></line>
+                        <line x1="1" y1="9" x2="3" y2="9"></line>
+                        <line x1="15" y1="9" x2="17" y2="9"></line>
+                    </svg>
+                    <svg class="header__theme-toggle-icon header__theme-toggle-icon--moon" width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor">
+                        <path d="M16 10.34A7 7 0 1 1 7.66 2a7 7 0 0 0 8.34 8.34z"></path>
+                    </svg>
+                </button> 
             </div>
         </div>
     </div>
-</nav> 
+</header> 
 
     <main class="container">
         <section class="hero">
@@ -107,7 +109,11 @@
             IT-архитектор и руководитель с фокусом на продуктовую разработку. 
             Создаю эффективные команды и масштабируемые решения для бизнеса.
             <br>
-            <span class="hero__stats">10+ лет в разработке • Управляю командами 50+ человек • Оптимизирую процессы и бюджеты</span>
+            <span class="hero__stats">
+                10+ лет в IT <span class="hero__stats-divider">•</span> 
+                Поставка до 2 релизов в день
+                <span class="hero__stats-divider">•</span> Архитектура сложных приложений и интеграций
+            </span>
         </p>
 
         <div class="hero__buttons">
