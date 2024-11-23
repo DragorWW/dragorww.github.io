@@ -27,7 +27,7 @@
 }
 
 .header__nav {
-    display: none;   
+    display: none;
 }
 
 @media screen and (min-width: 768px) {
@@ -97,7 +97,9 @@
     width: 18px;
     height: 18px;
     stroke-width: 1.5px;
-    transition: transform 0.3s ease, opacity 0.2s ease;
+    transition:
+        transform 0.3s ease,
+        opacity 0.2s ease;
 }
 
 .header__theme-toggle-icon--sun {
@@ -113,12 +115,12 @@
 }
 
 /* Состояния иконок для светлой темы */
-[data-theme="light"] .header__theme-toggle-icon--sun {
+[data-theme='light'] .header__theme-toggle-icon--sun {
     opacity: 1;
     transform: scale(1);
 }
 
-[data-theme="light"] .header__theme-toggle-icon--moon {
+[data-theme='light'] .header__theme-toggle-icon--moon {
     opacity: 0;
     transform: scale(0.5);
 }

@@ -104,11 +104,7 @@
     padding: 2rem 0;
     margin-top: 2rem;
     position: relative;
-    background: linear-gradient(
-        to bottom,
-        transparent,
-        rgba(var(--bg-color-rgb), 0.3)
-    );
+    background: linear-gradient(to bottom, transparent, rgba(var(--bg-color-rgb), 0.3));
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
 }
@@ -141,11 +137,11 @@
     .social-links::before {
         width: 90%;
     }
-    
+
     .social-links {
         gap: 1.5rem;
     }
-    
+
     .social-link {
         width: 40px;
         height: 40px;

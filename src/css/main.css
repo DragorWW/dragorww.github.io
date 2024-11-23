@@ -10,17 +10,17 @@
 
 :root {
     /* Light theme (default) */
-    --bg-color-light: #E8E4D9;
-    --text-color-light: #2B2926;
-    --primary-color-light: #D4A76A;
-    --secondary-color-light: #B47267;
-    --card-bg-light: #EFE9DD;
-    --border-color-light: #D5CEC2;
-    --text-primary-light: #2B2926;
-    --text-secondary-light: #6B665E;
-    --text-tertiary-light: #A39E93;
-    --accent-color-light: #D4A76A;
-    
+    --bg-color-light: #e8e4d9;
+    --text-color-light: #2b2926;
+    --primary-color-light: #d4a76a;
+    --secondary-color-light: #b47267;
+    --card-bg-light: #efe9dd;
+    --border-color-light: #d5cec2;
+    --text-primary-light: #2b2926;
+    --text-secondary-light: #6b665e;
+    --text-tertiary-light: #a39e93;
+    --accent-color-light: #d4a76a;
+
     /* RGB versions - Light */
     --bg-color-rgb-light: 232, 228, 217;
     --text-color-rgb-light: 43, 41, 38;
@@ -36,15 +36,15 @@
     /* Dark theme */
     --bg-color-dark: #111111;
     --text-color-dark: #ffffff;
-    --primary-color-dark: #E2C08D;
-    --secondary-color-dark: #C17B6F;
-    --card-bg-dark: #1A1A1A;
-    --border-color-dark: #2A2A2A;
-    --text-primary-dark: #E2E2E2;
-    --text-secondary-dark: #9CA38F;
+    --primary-color-dark: #e2c08d;
+    --secondary-color-dark: #c17b6f;
+    --card-bg-dark: #1a1a1a;
+    --border-color-dark: #2a2a2a;
+    --text-primary-dark: #e2e2e2;
+    --text-secondary-dark: #9ca38f;
     --text-tertiary-dark: #666666;
-    --accent-color-dark: #E2C08D;
-    
+    --accent-color-dark: #e2c08d;
+
     /* RGB versions - Dark */
     --bg-color-rgb-dark: 17, 17, 17;
     --text-color-rgb-dark: 255, 255, 255;
@@ -82,7 +82,7 @@
     --text-secondary: var(--text-secondary-light);
     --text-tertiary: var(--text-tertiary-light);
     --accent-color: var(--accent-color-light);
-    
+
     /* RGB versions */
     --bg-color-rgb: var(--bg-color-rgb-light);
     --text-color-rgb: var(--text-color-rgb-light);
@@ -97,7 +97,7 @@
 }
 
 /* Dark theme */
-:root[data-theme="dark"] {
+:root[data-theme='dark'] {
     --bg-color: var(--bg-color-dark);
     --text-color: var(--text-color-dark);
     --primary-color: var(--primary-color-dark);
@@ -108,7 +108,7 @@
     --text-secondary: var(--text-secondary-dark);
     --text-tertiary: var(--text-tertiary-dark);
     --accent-color: var(--accent-color-dark);
-    
+
     /* RGB versions */
     --bg-color-rgb: var(--bg-color-rgb-dark);
     --text-color-rgb: var(--text-color-rgb-dark);
@@ -208,7 +208,7 @@ body {
         font-size: 2rem;
         margin-bottom: 3rem;
     }
-    
+
     .section-title::before,
     .section-title::after {
         max-width: 80px;

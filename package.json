@@ -1,18 +1,21 @@
 {
-  "name": "homepage",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "dev": "vite", 
-    "build": "vite build",
-    "preview": "vite preview"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "vite": "^5.4.11",
-    "vite-plugin-ejs": "^1.7.0"
-  }
+    "name": "homepage",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "dev": "vite",
+        "build": "vite build",
+        "preview": "vite preview",
+        "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx,css,scss,html,ejs,json,md,svg}\"",
+        "format:check": "prettier --check \"src/**/*.{js,jsx,ts,tsx,css,scss,html,ejs,json,md,svg}\""
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+        "prettier": "^3.3.3",
+        "vite": "^5.4.11",
+        "vite-plugin-ejs": "^1.7.0"
+    }
 }
