@@ -1,5 +1,5 @@
-/* Navbar */
-.navbar {
+/* Header */
+.header {
     height: 64px;
     margin-bottom: 2rem;
     position: relative;
@@ -12,19 +12,32 @@
     );
 }
 
-.nav-content {
+.header__content {
     height: 64px;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.nav-links {
+/* Стили для правой части */
+.header__right {
     display: flex;
+    align-items: center;
     gap: 2rem;
 }
 
-.nav-links a {
+.header__nav {
+    display: none;   
+}
+
+@media screen and (min-width: 768px) {
+    .header__nav {
+        display: flex;
+        gap: 2rem;
+    }
+}
+
+.header__nav-link {
     color: var(--text-primary);
     text-decoration: none;
     font-size: 0.875rem;
@@ -34,29 +47,105 @@
     opacity: 0.8;
 }
 
-.nav-links a:hover,
-.nav-links a.active {
+.header__nav-link:hover,
+.header__nav-link--active {
     color: var(--accent-color);
     border-bottom-color: var(--accent-color);
     opacity: 1;
 }
 
-@media screen and (max-width: var(--tablet)) {
-    .nav-links {
-        gap: 1rem;
-    }
-
-    .nav-links a {
-        font-size: 0.8rem;
-    }
-}
-
-@media screen and (max-width: var(--mobile)) {
-    .navbar {
+@media screen and (max-width: 480px) {
+    .header {
         height: 56px;
     }
 
-    .nav-content {
+    .header__content {
+        height: 56px;
+    }
+
+    .logo-text {
+        font-size: 1.2em;
+    }
+}
+
+/* Стили для переключателя темы */
+.header__theme-toggle {
+    background: none;
+    border: none;
+    padding: 4px;
+    cursor: pointer;
+    width: 26px;
+    height: 26px;
+    margin-left: 16px;
+    position: relative;
+    color: var(--text-color);
+    opacity: 0.7;
+    border-radius: 4px;
+    display: flex;
+    align-self: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.header__theme-toggle:hover {
+    opacity: 1;
+    background: rgba(226, 192, 141, 0.1);
+}
+
+.header__theme-toggle-icon {
+    position: relative;
+    width: 18px;
+    height: 18px;
+    stroke-width: 1.5px;
+    transition: transform 0.3s ease, opacity 0.2s ease;
+}
+
+.header__theme-toggle-icon--sun {
+    position: absolute;
+    opacity: 0;
+    transform: scale(0.5);
+}
+
+.header__theme-toggle-icon--moon {
+    position: absolute;
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* Состояния иконок для светлой темы */
+[data-theme="light"] .header__theme-toggle-icon--sun {
+    opacity: 1;
+    transform: scale(1);
+}
+
+[data-theme="light"] .header__theme-toggle-icon--moon {
+    opacity: 0;
+    transform: scale(0.5);
+}
+
+.header__theme-toggle:active {
+    transform: scale(0.95);
+}
+
+.header__theme-toggle:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(226, 192, 141, 0.2);
+}
+
+@media screen and (max-width: 768px) {
+    .header__theme-toggle {
+        margin-left: 12px;
+        padding: 3px;
+    }
+}
+
+/* Стили для мобильных устройств */
+@media screen and (max-width: 768px) {
+    .header {
+        height: 56px;
+    }
+
+    .header__content {
         height: 56px;
     }
 

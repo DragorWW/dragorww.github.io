@@ -1,18 +1,25 @@
 /* Terminal Component Styles */
 .terminal {
-    border: 1px solid var(--border-color);
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
-    border-radius: 8px;
-    overflow: visible;
-    width: 100%;
-    max-width: 600px;
-    height: 400px;
-    display: flex;
-    flex-direction: column;
-    box-shadow: 0 8px 32px rgba(var(--bg-color-rgb), 0.1);
-    transition: all 0.3s ease;
-    position: relative;
+    display: none; /* Скрываем терминал по умолчанию */
+}
+
+/* Показываем терминал только на больших экранах */
+@media screen and (min-width: 1024px) {
+    .terminal {
+        display: flex; /* Возвращаем display: flex для больших экранов */
+        border: 1px solid var(--border-color);
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
+        border-radius: 8px;
+        overflow: visible;
+        width: 100%;
+        max-width: 600px;
+        height: 400px;
+        flex-direction: column;
+        box-shadow: 0 8px 32px rgba(var(--bg-color-rgb), 0.1);
+        transition: all 0.3s ease;
+        position: relative;
+    }
 }
 
 /* Добавляем псевдоэлементы для волн */

@@ -3,7 +3,6 @@
 @import './matrix-bg.css';
 @import './header.css';
 @import './logo.css';
-@import './theme-toggle.css';
 @import './hero.css';
 @import './terminal.css';
 @import './experience.css';
@@ -66,16 +65,15 @@
     --laptop: 1024px;
     --desktop: 1200px;
 
-    /* Media conditions для более удобного использования в медиа-запросах */
-    --mobile-and-up: "(min-width: 480px)";
-    --tablet-and-up: "(min-width: 768px)";
-    --laptop-and-up: "(min-width: 1024px)";
-    --desktop-and-up: "(min-width: 1200px)";
+    /* Media conditions используют определенные выше breakpoints */
+    --tablet-and-up: "(min-width: var(--tablet))";
+    --laptop-and-up: "(min-width: var(--laptop))";
+    --desktop-and-up: "(min-width: var(--desktop))";
     
-    --mobile-only: "(max-width: 479px)";
-    --tablet-only: "(min-width: 480px) and (max-width: 767px)";
-    --laptop-only: "(min-width: 768px) and (max-width: 1023px)";
-    --desktop-only: "(min-width: 1024px) and (max-width: 1199px)";
+    --mobile-only: "(max-width: calc(var(--mobile) - 1px))";
+    --tablet-only: "(min-width: var(--tablet)) and (max-width: calc(var(--laptop) - 1px))";
+    --laptop-only: "(min-width: var(--laptop)) and (max-width: calc(var(--desktop) - 1px))";
+    --desktop-only: "(min-width: var(--desktop))";
 
     /* Container widths */
     --container-padding: 1rem;

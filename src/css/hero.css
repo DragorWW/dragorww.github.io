@@ -255,3 +255,34 @@
     height: 120px;
     /* ... остальные стили для фото ... */
 }
+
+@media screen and (max-width: 1023px) {
+    .hero {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 2rem;
+    }
+    .hero__intro {
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .hero__content {
+        order: 1;
+    }
+
+    .hero__description {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .hero__buttons {
+        justify-content: center;
+    }
+
+    .hero__title-group {
+        align-items: center;
+        text-align: center;
+    }
+}
