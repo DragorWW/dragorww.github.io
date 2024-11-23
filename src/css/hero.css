@@ -58,11 +58,16 @@
 }
 
 .hero__stats {
-    display: block;
+    display: inline-block;
     margin-top: 1rem;
     color: var(--accent-color);
     font-size: 0.9rem;
-    letter-spacing: 0.5px;
+    line-height: 1.5;
+}
+
+.hero__stats-divider {
+    color: var(--secondary-color);
+    opacity: 0.6;
 }
 
 .hero__buttons {
@@ -195,6 +200,17 @@
 
     .hero__photo {
         margin: 0 auto;
+    }
+
+    .hero__stats {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.5rem 0;
+    }
+    
+    .hero__stats-divider {
+        margin: 0 0.5rem;
     }
 }
 
