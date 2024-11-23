@@ -323,7 +323,30 @@
     height: 16px;
 }
 
-/* Добавляем стиль для акцентного текста */
 .hero__accent {
+    color: var(--text-primary);
+}
+
+/* Обновляем стили для формулы */
+.hero__formula {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-family: 'Fira Code', monospace;
+    font-size: 0.95em;
+    color: var(--text-primary);
+}
+
+/* Добавляем стили для операторов */
+.hero__formula-operator {
     color: var(--accent-color);
+    margin: 0 0.25rem;
+    font-weight: 500;
+}
+
+.hero__formula-heart {
+    color: #ff6b6b;
+    font-size: 1.1em;
+    display: inline-block;
+    transform: translateY(-1px);
 }
