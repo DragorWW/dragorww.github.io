@@ -286,3 +286,35 @@
         text-align: center;
     }
 }
+
+/* Добавляем стили для соцсетей в hero секции */
+.hero__social {
+    display: flex;
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.hero__social-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 0.875rem;
+    transition: all 0.2s;
+}
+
+.hero__social-link:hover {
+    color: var(--accent-color);
+}
+
+.hero__social-icon {
+    width: 20px;
+    height: 20px;
+}
+
+@media screen and (max-width: 768px) {
+    .hero__social {
+        justify-content: center;
+    }
+}

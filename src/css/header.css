@@ -153,3 +153,33 @@
         font-size: 1.2em;
     }
 }
+
+/* Добавляем стили для соцсетей в шапке */
+.header__social {
+    display: none;
+    gap: 1rem;
+    align-items: center;
+    margin-left: 2rem;
+}
+
+.header__social-link {
+    color: var(--text-primary);
+    opacity: 0.8;
+    transition: all 0.2s;
+}
+
+.header__social-link:hover {
+    color: var(--accent-color);
+    opacity: 1;
+}
+
+.header__social-icon {
+    width: 20px;
+    height: 20px;
+}
+
+@media screen and (min-width: 1024px) {
+    .header__social {
+        display: flex;
+    }
+}
