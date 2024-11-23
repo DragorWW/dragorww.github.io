@@ -5,7 +5,7 @@
 
 .timeline {
     position: relative;
-    padding-left: 2rem;
+    padding-left: 2.5rem;
 }
 
 .timeline::before {
@@ -25,30 +25,84 @@
 
 .timeline-item {
     position: relative;
-    padding-bottom: 3rem;
+    padding-bottom: 2rem;
+}
+
+.timeline-item::after {
+    content: '';
+    position: absolute;
+    left: -2.5rem;
+    top: 12px;
+    width: 2.5rem;
+    height: 2px;
+    background: linear-gradient(
+        to right,
+        rgba(var(--accent-color-rgb), 0.5) 0%,
+        rgba(var(--accent-color-rgb), 0.5) 70%,
+        rgba(var(--accent-color-rgb), 0.1) 100%
+    );
 }
 
 .timeline-item::before {
     content: '';
     position: absolute;
-    left: -2rem;
+    left: -2.5rem;
     top: 6px;
     width: 12px;
     height: 12px;
     border-radius: 50%;
+    background-color: var(--card-bg);
+    border: 2px solid var(--accent-color);
+    transform: translateX(-6px);
+    z-index: 1;
+    transition: all 0.3s ease;
+}
+
+.timeline-item:hover::before {
     background-color: var(--accent-color);
-    transform: translateX(-5px);
     box-shadow: 0 0 10px rgba(var(--accent-color-rgb), 0.3);
+}
+
+.timeline-item.current::before {
+    background-color: var(--accent-color);
+    border-color: var(--accent-color);
+    animation: pulseCurrentJob 2s ease-in-out infinite;
+}
+
+.timeline-item.education::before {
+    border-style: dashed;
+}
+
+.timeline-item.education::after {
+    background: linear-gradient(
+        to right,
+        rgba(var(--accent-color-rgb), 0.5) 50%,
+        rgba(var(--accent-color-rgb), 0.1)
+    );
+    background-size: 6px 1px;
+    background-repeat: repeat-x;
+}
+
+@keyframes pulseCurrentJob {
+    0%, 100% {
+        box-shadow: 0 0 0 0 rgba(var(--accent-color-rgb), 0.4);
+        transform: translateX(-6px) scale(1);
+    }
+    50% {
+        box-shadow: 0 0 8px 2px rgba(var(--accent-color-rgb), 0.2);
+        transform: translateX(-6px) scale(1.1);
+    }
 }
 
 .year {
     color: var(--accent-color);
     font-weight: bold;
-    margin-bottom: 1rem;
+    margin-bottom: 0.75rem;
     display: flex;
     align-items: center;
     gap: 0.5rem;
     position: relative;
+    padding-top: 0;
 }
 
 .current-job {
@@ -72,27 +126,20 @@
 }
 
 .content {
-    background: linear-gradient(
-        145deg,
-        rgba(var(--card-bg-rgb), 0.7),
-        rgba(var(--card-bg-rgb), 0.4)
-    );
+    margin-left: -0.5rem;
+    background: rgba(var(--card-bg-rgb), 0.2);
     padding: 1.5rem;
     border-radius: 0.5rem;
-    border: 1px solid rgba(var(--border-color-rgb), 0.2);
-    backdrop-filter: blur(8px);
-    box-shadow: 
-        0 4px 6px -1px rgba(0, 0, 0, 0.1),
-        0 2px 4px -1px rgba(0, 0, 0, 0.06);
-    transition: all 0.3s ease;
+    border: 1px solid rgba(var(--border-color-rgb), 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    transition: all 0.2s ease;
 }
 
 .timeline-item:hover .content {
-    transform: translateY(-2px);
-    box-shadow: 
-        0 8px 12px -1px rgba(0, 0, 0, 0.15),
-        0 4px 6px -1px rgba(0, 0, 0, 0.1);
-    border-color: rgba(var(--accent-color-rgb), 0.3);
+    background: rgba(var(--card-bg-rgb), 0.25);
+    transform: translateY(-1px);
+    border-color: rgba(var(--accent-color-rgb), 0.15);
 }
 
 .company {
@@ -125,28 +172,15 @@
     margin-bottom: 0;
 }
 
-/* Анимация текущей работы */
-.timeline-item.current::before {
-    background-color: var(--accent-color);
-    animation: pulseCurrentJob 2s ease-in-out infinite;
-}
-
-@keyframes pulseCurrentJob {
-    0%, 100% {
-        box-shadow: 0 0 0 0 rgba(var(--accent-color-rgb), 0.4);
-    }
-    50% {
-        box-shadow: 0 0 0 4px rgba(var(--accent-color-rgb), 0);
-    }
-}
-
 /* Обновляем стили для элемента образования в общем таймлайне */
 .timeline-item.education .content {
-    background: linear-gradient(
-        145deg,
-        rgba(var(--card-bg-rgb), 0.5),
-        rgba(var(--card-bg-rgb), 0.3)
-    );
+    background: rgba(var(--card-bg-rgb), 0.15);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+.timeline-item.education:hover .content {
+    background: rgba(var(--card-bg-rgb), 0.2);
 }
 
 .timeline-item.education .university {
