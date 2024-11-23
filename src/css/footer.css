@@ -1,46 +1,116 @@
 /* Contact Section */
 .contact {
     padding: 4rem 0;
-    text-align: center;
+    position: relative;
 }
 
+/* Создаем стилизованную линию, похожую на таймлайн */
 .social-links {
     display: flex;
     justify-content: center;
-    gap: 1.5rem;
+    gap: 2rem;
+    position: relative;
+    padding: 2rem 0;
+}
+
+.social-links::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    height: 2px;
+    background: linear-gradient(
+        to right,
+        rgba(var(--accent-color-rgb), 0),
+        rgba(var(--accent-color-rgb), 0.5),
+        rgba(var(--accent-color-rgb), 0)
+    );
 }
 
 .social-link {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
     width: 48px;
     height: 48px;
-    background-color: var(--card-bg);
-    border: 1px solid var(--border-color);
-    border-radius: 50%;
-    color: var(--text-primary);
-    transition: all 0.2s;
+    background: rgba(var(--card-bg-rgb), 0.2);
+    border: 1px solid rgba(var(--accent-color-rgb), 0.1);
+    border-radius: 12px;
+    color: var(--accent-color);
+    transition: all 0.3s ease;
     backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    z-index: 1;
+}
+
+.social-link svg {
+    width: 24px;
+    height: 24px;
+    stroke-width: 1.5px;
+    transition: all 0.3s ease;
 }
 
 .social-link:hover {
-    background-color: var(--accent-color);
-    color: var(--bg-color);
-    border-color: var(--accent-color);
+    background: rgba(var(--accent-color-rgb), 0.1);
+    transform: translateY(-2px);
+    border-color: rgba(var(--accent-color-rgb), 0.3);
+}
+
+.social-link:hover svg {
+    transform: scale(1.1);
+    stroke-width: 2px;
+}
+
+.social-link::before,
+.social-link::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    width: 2px;
+    height: 1rem;
+    background: linear-gradient(
+        to bottom,
+        rgba(var(--accent-color-rgb), 0),
+        rgba(var(--accent-color-rgb), 0.3)
+    );
+    transition: all 0.3s ease;
+}
+
+.social-link::before {
+    top: -1rem;
+    transform: translateX(-50%);
+}
+
+.social-link::after {
+    bottom: -1rem;
+    transform: translateX(-50%);
+}
+
+.social-link:hover::before,
+.social-link:hover::after {
+    height: 1.2rem;
+    background: linear-gradient(
+        to bottom,
+        rgba(var(--accent-color-rgb), 0),
+        rgba(var(--accent-color-rgb), 0.5)
+    );
 }
 
 /* Footer */
 .footer {
-    padding: 1rem 0;
+    padding: 2rem 0;
     margin-top: 4rem;
-    backdrop-filter: blur(4px);
+    position: relative;
     background: linear-gradient(
-        to top,
-        rgba(var(--bg-color-rgb), 0.3) 0%,
-        rgba(var(--bg-color-rgb), 0.1) 50%,
-        rgba(var(--bg-color-rgb), 0) 100%
+        to bottom,
+        transparent,
+        rgba(var(--bg-color-rgb), 0.3)
     );
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
 }
 
 .copyright {
@@ -48,20 +118,36 @@
     color: var(--text-tertiary);
     font-size: 0.75rem;
     opacity: 0.7;
+    position: relative;
 }
 
-/* Анимация для социальных иконок */
-.social-link {
-    transition: transform 0.2s ease;
-}
-
-.social-link:hover {
-    transform: translateY(-3px) scale(1.1);
+.copyright::before {
+    content: '';
+    position: absolute;
+    top: -1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40%;
+    height: 1px;
+    background: linear-gradient(
+        to right,
+        rgba(var(--accent-color-rgb), 0),
+        rgba(var(--accent-color-rgb), 0.3),
+        rgba(var(--accent-color-rgb), 0)
+    );
 }
 
 @media (max-width: 768px) {
-    .footer {
-        margin-top: 2rem;
-        padding: 0.75rem 0;
+    .social-links::before {
+        width: 90%;
+    }
+    
+    .social-links {
+        gap: 1.5rem;
+    }
+    
+    .social-link {
+        width: 40px;
+        height: 40px;
     }
 }
