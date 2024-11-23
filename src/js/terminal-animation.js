@@ -21,11 +21,11 @@ class TerminalAnimation {
         'help - список всех команд'
     ];
 
-    hintDelay = 3000;        // Уменьшили с 5000 до 3000 мс
-    typeDelay = 80;          // Немного ускорили печать
-    eraseDelay = 40;         // Немного ускорили стирание
-    pauseDelay = 1500;       // Уменьшили паузу с 2000 до 1500 мс
-    betweenHintsDelay = 500; // Добавили небольшую паузу между подсказками
+    hintDelay = 1500;        // Уменьшили с 3000 до 1500 мс - первая подсказка появится быстрее
+    typeDelay = 60;          // Немного ускорили печать
+    eraseDelay = 30;         // Немного ускорили стирание
+    pauseDelay = 1000;       // Уменьшили паузу с 1500 до 1000 мс
+    betweenHintsDelay = 300; // Уменьшили паузу между подсказками с 500 до 300 мс
     hintIndex = 0;
     hintTimeout = null;
     isShowingHint = false;
@@ -459,7 +459,7 @@ class TerminalAnimation {
     }
 }
 
-// Улучшенный локальный fallback с использованием NLP.js
+// Улучшенный локальный fallback с и��пользованием NLP.js
 class LocalAI {
     constructor() {
         this.keywords = {

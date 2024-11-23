@@ -23,6 +23,7 @@ export default defineConfig({
     outDir: '../dist',
     emptyOutDir: true
   },
+  base: '/',
   server: {
     open: true,
     watch: {
