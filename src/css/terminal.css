@@ -157,8 +157,9 @@
 .terminal__prompt {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 4px;
     margin-bottom: 8px;
+    white-space: nowrap;
 }
 
 .terminal__prompt-path {
@@ -172,17 +173,19 @@
 
 .terminal__prompt-symbol {
     color: var(--accent-color);
+    margin: 0 4px;
 }
 
-.terminal__prompt-command {
+.terminal__prompt-input {
     color: var(--text-primary);
+    display: inline-flex;
+    align-items: center;
 }
 
 .terminal__prompt-cursor {
     color: var(--accent-color);
     animation: blink 1s step-end infinite;
     font-weight: bold;
-    margin-left: 2px;
 }
 
 @keyframes blink {

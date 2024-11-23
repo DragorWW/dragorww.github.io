@@ -1,18 +1,21 @@
 class TerminalAnimation {
+    // settings
+    commandDelay = 50;
+    commandPause = 1000;
+
+    // state
+    currentDirectory = '';
+    currentBranch = '';
     currentInput = '';
     commandHistory = [];
     historyIndex = -1;
-    commandDelay = 50;
-    commandPause = 1000;
     isAnimating = false;
 
-    directory = '';
-    branch = '';
 
     constructor() {
         this.container = document.querySelector('.terminal__history');
         this.terminalContent = document.querySelector('.terminal__content');
-        this.commands = this.loadCommands();
+        this.loadCommands();
         this.initialize();
     }
 
@@ -31,21 +34,23 @@ class TerminalAnimation {
                 }
             };
         });
-        return commands;
+
+        this.commands = commands;
     }
 
     handlePrompt({
         command = '',
         showCursor = false,
-        action = 'create', // 'create', 'update', 'append'
+        action = 'create',
     } = {}) {
         const promptHTML = `
             <span class="terminal__prompt">
-                ${this.directory ? `<span class="terminal__prompt-path">${this.directory}</span>` : ''}
-                ${this.branch ? `<span class="terminal__prompt-branch">(${this.branch})</span>` : ''}
+                ${this.currentDirectory ? `<span class="terminal__prompt-path">${this.currentDirectory}</span>` : ''}
+                ${this.currentBranch ? `<span class="terminal__prompt-branch">(${this.currentBranch})</span>` : ''}
                 <span class="terminal__prompt-symbol">$</span> 
-                ${command ? `<span class="terminal__prompt-command">${command}</span>` : ''}
-                ${showCursor ? '<span class="terminal__prompt-cursor">█</span>' : ''}
+                <span class="terminal__prompt-input">
+                ${command}
+                ${showCursor ? '<span class="terminal__prompt-cursor">█</span>' : ''}</span>
             </span>`;
 
         switch (action) {
@@ -132,11 +137,11 @@ class TerminalAnimation {
         }
 
         if (command?.directory) {
-            this.directory = command.directory;
+            this.currentDirectory = command.directory;
         }
 
         if (command?.branch) {
-            this.branch = command.branch;
+            this.currentBranch = command.branch;
         }
     }
 
