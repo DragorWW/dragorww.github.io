@@ -1,11 +1,19 @@
 (() => {
     function updateFavicon(theme) {
-        const favicon = document.querySelector('link[rel="icon"]');
-        const newFavicon = favicon.cloneNode();
-        // Используем разные файлы для разных тем
-        newFavicon.href = `/assets/favicon-${theme}.svg?v=${Date.now()}`;
-        favicon.remove();
-        document.head.appendChild(newFavicon);
+        // Находим все иконки
+        const favicons = document.querySelectorAll('link[rel="icon"]');
+        
+        // Скрываем все иконки
+        favicons.forEach(icon => {
+            icon.setAttribute('media', 'none');
+            icon.setAttribute('rel', 'icon');
+        });
+        
+        // Показываем нужную иконку
+        const activeIcon = document.querySelector(`link[rel="icon"][data-theme="${theme}"]`);
+        if (activeIcon) {
+            activeIcon.removeAttribute('media');
+        }
     }
 
     function toggleTheme() {
@@ -15,12 +23,12 @@
         document.documentElement.setAttribute('data-theme', newTheme);
         localStorage.setItem('theme', newTheme);
         
-        // Обновляем favicon с новой темой
+        // Обновляем favicon используя существующие теги
         updateFavicon(newTheme);
     }
 
     function initTheme() {
-        const savedTheme = localStorage.getItem('theme') || 'light';
+        const savedTheme = localStorage.getItem('theme') || 'dark';
         document.documentElement.setAttribute('data-theme', savedTheme);
         // Инициализируем favicon с сохраненной темой
         updateFavicon(savedTheme);
