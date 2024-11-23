@@ -1,0 +1,17 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Fira Code', Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+    background-color: var(--bg-color);
+    color: var(--text-primary);
+    line-height: 1.5;
+    position: relative;
+}
+
+html {
+    scroll-behavior: smooth;
+}
