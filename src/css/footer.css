@@ -1,6 +1,6 @@
 /* Contact Section */
 .contact {
-    padding: 4rem 0;
+    padding: 2rem 0;
     position: relative;
 }
 
@@ -10,7 +10,7 @@
     justify-content: center;
     gap: 2rem;
     position: relative;
-    padding: 2rem 0;
+    padding: 1rem 0;
 }
 
 .social-links::before {
@@ -102,7 +102,7 @@
 /* Footer */
 .footer {
     padding: 2rem 0;
-    margin-top: 4rem;
+    margin-top: 2rem;
     position: relative;
     background: linear-gradient(
         to bottom,

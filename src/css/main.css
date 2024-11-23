@@ -57,6 +57,8 @@
     --text-secondary-rgb-dark: 156, 163, 143;
     --text-tertiary-rgb-dark: 102, 102, 102;
     --accent-color-rgb-dark: 226, 192, 141;
+
+    --section-title-color: var(--text-primary);
 }
 
 /* Default theme (light) */
@@ -109,6 +111,8 @@
     --text-secondary-rgb: var(--text-secondary-rgb-dark);
     --text-tertiary-rgb: var(--text-tertiary-rgb-dark);
     --accent-color-rgb: var(--accent-color-rgb-dark);
+
+    --section-title-color: rgba(var(--accent-color-rgb), 0.9);
 }
 
 * {
@@ -125,10 +129,81 @@ body {
     position: relative;
 }
 
-h2 {
+/* Обновляем стили для заголовков секций */
+.section-title {
+    font-size: 2.5rem;
+    margin-bottom: 4rem;
+    text-align: center;
+    position: relative;
+    padding: 0 1rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    justify-content: center;
+}
+
+/* Добавляем декоративные элементы по бокам */
+.section-title::before,
+.section-title::after {
+    content: '';
+    height: 1px;
+    flex: 1;
+    max-width: 150px;
+    background: linear-gradient(
+        to var(--direction, right),
+        transparent,
+        rgba(var(--accent-color-rgb), 0.5) 50%,
+        transparent
+    );
+}
+
+.section-title::before {
+    --direction: right;
+}
+
+.section-title::after {
+    --direction: left;
+}
+
+/* Добавляем декоративные точки */
+.section-title span {
+    position: relative;
+    display: inline-block;
+    padding: 0 1rem;
+    color: var(--section-title-color);
+}
+
+.section-title span::before,
+.section-title span::after {
+    content: '•';
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--accent-color);
     font-size: 1.5rem;
-    margin-bottom: 2rem;
-    color: var(--text-primary);
+    opacity: 0.7;
+}
+
+.section-title span::before {
+    left: -0.5rem;
+}
+
+.section-title span::after {
+    right: -0.5rem;
+}
+
+/* Медиа-запрос для мобильных устройств */
+@media (max-width: 768px) {
+    .section-title {
+        font-size: 2rem;
+        margin-bottom: 3rem;
+    }
+    
+    .section-title::before,
+    .section-title::after {
+        max-width: 80px;
+    }
 }
 
 /* Общий компонент для тегов навыков */
@@ -162,4 +237,9 @@ h2 {
     gap: 8px;
     list-style: none;
     padding: 0;
+}
+
+/* В начало файла, после импортов */
+html {
+    scroll-behavior: smooth;
 }
