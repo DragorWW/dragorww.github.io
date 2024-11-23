@@ -350,3 +350,42 @@
     display: inline-block;
     transform: translateY(-1px);
 }
+
+.hero__stats-list {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 1rem;
+    /* font-size: 0.8rem; */
+    color: var(--text-secondary);
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.hero__stats-item {
+    position: relative;
+    padding-left: 1.5rem;
+    margin-bottom: 0;
+    line-height: 1.2;
+}
+
+.hero__stats-item::before {
+    content: '▹';
+    position: absolute;
+    left: 0;
+    color: var(--accent-color);
+}
+
+.hero__stats-item:last-child {
+    margin-bottom: 0;
+}
+
+@media screen and (max-width: 768px) {
+    .hero__stats-list {
+        font-size: 0.7rem;
+        text-align: left;
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 400px;
+    }
+}
