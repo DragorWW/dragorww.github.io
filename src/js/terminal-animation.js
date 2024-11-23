@@ -146,10 +146,13 @@ class TerminalAnimation {
 
     async tryAIResponse(command) {
         try {
-            const loadingElement = document.createElement('div');
-            loadingElement.classList.add('terminal__output', 'terminal__output--loading');
-            loadingElement.innerHTML = 'Думаю...';
+            // Используем шаблон для создания элемента загрузки
+            const loadingTemplate = document.getElementById('loading-template');
+            const loadingElement = loadingTemplate.content.cloneNode(true).firstElementChild;
             this.container.appendChild(loadingElement);
+            this.scrollToBottom();
+
+            await this.sleep(2000);
 
             const response = await fetch(this.MODEL_URL, {
                 method: 'POST',

@@ -95,7 +95,9 @@
     font-size: 14px;
     line-height: 1.5;
     overflow-y: auto;
-    height: 300px;
+    height: auto;
+    min-height: 300px;
+    max-height: 400px;
     outline: none;
 }
 
@@ -339,6 +341,40 @@
 }
 
 .terminal__output--loading {
-    color: var(--text-tertiary);
-    font-style: italic;
+    color: var(--accent-color);
+    font-style: normal;
+    font-size: 0.875rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 8px 0;
+    padding: 4px 0;
+    border-left: 2px solid var(--accent-color);
+    padding-left: 12px;
+}
+
+.terminal__output--loading::before {
+    content: "⠋";
+    animation: loadingSpinner 0.8s steps(10, end) infinite;
+    font-size: 1.2em;
+    order: -1;
+    color: var(--accent-color);
+    opacity: 0.8;
+}
+
+@keyframes loadingSpinner {
+    0% { content: "⠋"; }
+    10% { content: "⠙"; }
+    20% { content: "⠹"; }
+    30% { content: "⠸"; }
+    40% { content: "⠼"; }
+    50% { content: "⠴"; }
+    60% { content: "⠦"; }
+    70% { content: "⠧"; }
+    80% { content: "⠇"; }
+    90% { content: "⠏"; }
+}
+
+.terminal__output--loading::after {
+    content: none;
 }
