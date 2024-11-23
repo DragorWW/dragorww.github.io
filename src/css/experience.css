@@ -32,7 +32,7 @@
     content: '';
     position: absolute;
     left: -2rem;
-    top: 0;
+    top: 6px;
     width: 12px;
     height: 12px;
     border-radius: 50%;
@@ -44,17 +44,31 @@
 .year {
     color: var(--accent-color);
     font-weight: bold;
-    margin-bottom: 0.5rem;
+    margin-bottom: 1rem;
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    position: relative;
 }
 
 .current-job {
     font-size: 0.75rem;
     font-weight: normal;
+    background: rgba(var(--accent-color-rgb), 0.1);
     color: var(--accent-color);
-    opacity: 0.8;
+    padding: 2px 8px;
+    border-radius: 12px;
+    border: 1px solid rgba(var(--accent-color-rgb), 0.2);
+    animation: glow 2s ease-in-out infinite;
+}
+
+@keyframes glow {
+    0%, 100% {
+        box-shadow: 0 0 0 0 rgba(var(--accent-color-rgb), 0.2);
+    }
+    50% {
+        box-shadow: 0 0 8px 0 rgba(var(--accent-color-rgb), 0.4);
+    }
 }
 
 .content {
@@ -124,4 +138,24 @@
     50% {
         box-shadow: 0 0 0 4px rgba(var(--accent-color-rgb), 0);
     }
+}
+
+/* Обновляем стили для элемента образования в общем таймлайне */
+.timeline-item.education .content {
+    background: linear-gradient(
+        145deg,
+        rgba(var(--card-bg-rgb), 0.5),
+        rgba(var(--card-bg-rgb), 0.3)
+    );
+}
+
+.timeline-item.education .university {
+    font-weight: 500;
+    color: var(--accent-color);
+    margin-bottom: 0.5rem;
+}
+
+.timeline-item.education .faculty {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
 }
