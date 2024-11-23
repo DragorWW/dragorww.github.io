@@ -65,7 +65,7 @@
 }
 
 /* Стили для мобильных устройств */
-@media (max-width: 768px) {
+@media screen and (max-width: var(--tablet)) {
     .theme-toggle {
         margin-left: 12px;
         padding: 3px;

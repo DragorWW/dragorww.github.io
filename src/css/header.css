@@ -40,3 +40,27 @@
     border-bottom-color: var(--accent-color);
     opacity: 1;
 }
+
+@media screen and (max-width: var(--tablet)) {
+    .nav-links {
+        gap: 1rem;
+    }
+
+    .nav-links a {
+        font-size: 0.8rem;
+    }
+}
+
+@media screen and (max-width: var(--mobile)) {
+    .navbar {
+        height: 56px;
+    }
+
+    .nav-content {
+        height: 56px;
+    }
+
+    .logo-text {
+        font-size: 1.2em;
+    }
+}

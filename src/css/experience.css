@@ -224,3 +224,44 @@
 .content ul + .skill-tags {
     margin-top: 1.5rem;
 }
+
+@media screen and (max-width: var(--tablet)) {
+    .experience {
+        padding: 2rem 0;
+    }
+
+    .timeline {
+        padding-left: 2rem;
+    }
+
+    .content {
+        padding: 1rem;
+    }
+
+    .skill-tags {
+        gap: 6px;
+    }
+
+    .skill-tag {
+        font-size: 0.7rem;
+    }
+}
+
+@media screen and (max-width: var(--mobile)) {
+    .timeline {
+        padding-left: 1.5rem;
+    }
+
+    .timeline-item::before {
+        width: 10px;
+        height: 10px;
+    }
+
+    .timeline-item::after {
+        width: 1.5rem;
+    }
+
+    .year {
+        font-size: 0.9rem;
+    }
+}

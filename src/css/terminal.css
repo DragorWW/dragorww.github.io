@@ -381,3 +381,30 @@
 .terminal__output--loading::after {
     content: none;
 }
+
+@media screen and (max-width: var(--tablet)) {
+    .terminal {
+        max-width: 100%;
+        margin: 0 auto;
+        height: 350px;
+    }
+    
+    .terminal__content {
+        font-size: 0.75rem;
+    }
+
+    .terminal__title {
+        font-size: 0.8rem;
+    }
+}
+
+@media screen and (max-width: var(--mobile)) {
+    .terminal {
+        height: 300px;
+    }
+
+    .terminal__dots-item {
+        width: 10px;
+        height: 10px;
+    }
+}

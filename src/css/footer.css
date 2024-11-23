@@ -137,7 +137,7 @@
     );
 }
 
-@media (max-width: 768px) {
+@media screen and (max-width: var(--tablet)) {
     .social-links::before {
         width: 90%;
     }
@@ -149,5 +149,25 @@
     .social-link {
         width: 40px;
         height: 40px;
+    }
+}
+
+@media screen and (max-width: var(--mobile)) {
+    .contact {
+        padding: 1.5rem 0;
+    }
+
+    .social-links {
+        gap: 1rem;
+    }
+
+    .social-link {
+        width: 36px;
+        height: 36px;
+    }
+
+    .social-link svg {
+        width: 20px;
+        height: 20px;
     }
 }

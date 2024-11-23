@@ -59,6 +59,27 @@
     --accent-color-rgb-dark: 226, 192, 141;
 
     --section-title-color: var(--text-primary);
+
+    /* Breakpoints */
+    --mobile: 480px;
+    --tablet: 768px;
+    --laptop: 1024px;
+    --desktop: 1200px;
+
+    /* Media conditions для более удобного использования в медиа-запросах */
+    --mobile-and-up: "(min-width: 480px)";
+    --tablet-and-up: "(min-width: 768px)";
+    --laptop-and-up: "(min-width: 1024px)";
+    --desktop-and-up: "(min-width: 1200px)";
+    
+    --mobile-only: "(max-width: 479px)";
+    --tablet-only: "(min-width: 480px) and (max-width: 767px)";
+    --laptop-only: "(min-width: 768px) and (max-width: 1023px)";
+    --desktop-only: "(min-width: 1024px) and (max-width: 1199px)";
+
+    /* Container widths */
+    --container-padding: 1rem;
+    --container-max-width: 1200px;
 }
 
 /* Default theme (light) */
@@ -194,7 +215,7 @@ body {
 }
 
 /* Медиа-запрос для мобильных устройств */
-@media (max-width: 768px) {
+@media screen and (max-width: var(--tablet)) {
     .section-title {
         font-size: 2rem;
         margin-bottom: 3rem;
@@ -242,4 +263,31 @@ body {
 /* В начало файла, после импортов */
 html {
     scroll-behavior: smooth;
+}
+
+/* Обновляем стили контейнера */
+.container {
+    max-width: var(--container-max-width);
+    margin: 0 auto;
+    padding: 0 var(--container-padding);
+    position: relative;
+}
+
+/* Медиа-запросы для контейнера */
+@media (max-width: 1200px) {
+    .container {
+        max-width: 960px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .container {
+        max-width: 720px;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        max-width: 540px;
+    }
 }

@@ -171,7 +171,18 @@
 }
 
 /* Media Queries */
-@media (max-width: 768px) {
+@media screen and (max-width: var(--laptop)) {
+    .hero {
+        gap: 3rem;
+        padding: 3rem 0;
+    }
+
+    .hero__title {
+        font-size: 2.5rem;
+    }
+}
+
+@media screen and (max-width: var(--tablet)) {
     .hero {
         grid-template-columns: 1fr;
         gap: 2rem;
@@ -214,6 +225,20 @@
     }
 }
 
+@media screen and (max-width: var(--mobile)) {
+    .hero {
+        padding: 2rem 0;
+    }
+
+    .hero__title {
+        font-size: 2rem;
+    }
+
+    .hero__description {
+        font-size: 1rem;
+    }
+}
+
 .hero__header {
     display: flex;
     align-items: flex-start;
@@ -229,18 +254,4 @@
     width: 120px;
     height: 120px;
     /* ... остальные стили для фото ... */
-}
-
-/* Media Queries */
-@media (max-width: 768px) {
-    .hero__header {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        gap: 1rem;
-    }
-
-    .hero__photo {
-        margin-bottom: 1rem;
-    }
 }
