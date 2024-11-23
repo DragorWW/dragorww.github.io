@@ -193,3 +193,34 @@
     color: var(--text-secondary);
     font-size: 0.9rem;
 }
+
+/* Обновляем стили для тегов навыков */
+.skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 1rem;
+}
+
+.skill-tag {
+    font-size: 0.75rem;
+    color: var(--accent-color);
+    background: rgba(var(--accent-color-rgb), 0.05);
+    padding: 3px 8px;
+    border-radius: 4px;
+    border: 1px solid rgba(var(--accent-color-rgb), 0.1);
+    transition: all 0.2s ease;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+}
+
+.skill-tag:hover {
+    background: rgba(var(--accent-color-rgb), 0.1);
+    border-color: rgba(var(--accent-color-rgb), 0.2);
+    transform: translateY(-1px);
+}
+
+/* Добавляем небольшой отступ после списков, если за ними следуют теги */
+.content ul + .skill-tags {
+    margin-top: 1.5rem;
+}
