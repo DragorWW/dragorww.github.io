@@ -57,6 +57,10 @@
     line-height: 1.6;
 }
 
+.hero__description:last-of-type {
+    margin-bottom: 2rem;
+}
+
 .hero__stats {
     display: inline-block;
     margin-top: 1rem;
@@ -287,34 +291,22 @@
     }
 }
 
-/* Добавляем стили для соцсетей в hero секции */
-.hero__social {
-    display: flex;
-    gap: 1.5rem;
-    margin-top: 2rem;
-}
-
-.hero__social-link {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    color: var(--text-secondary);
-    text-decoration: none;
-    font-size: 0.875rem;
-    transition: all 0.2s;
-}
-
-.hero__social-link:hover {
+/* Добавляем стили для ссылок в описании */
+.hero__link {
     color: var(--accent-color);
+    text-decoration: none;
+    transition: all 0.2s;
+    border-bottom: 1px solid transparent;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
 }
 
-.hero__social-icon {
-    width: 20px;
-    height: 20px;
+.hero__link:hover {
+    border-bottom-color: var(--accent-color);
 }
 
-@media screen and (max-width: 768px) {
-    .hero__social {
-        justify-content: center;
-    }
+.hero__link-icon {
+    width: 16px;
+    height: 16px;
 }
