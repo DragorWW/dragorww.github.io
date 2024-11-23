@@ -101,3 +101,18 @@
 .content ul li:last-child {
     margin-bottom: 0;
 }
+
+/* Добавляем стили для индикатора текущей работы */
+.timeline-item.current::before {
+    background-color: var(--accent-color);
+    animation: pulseCurrentJob 2s ease-in-out infinite;
+}
+
+@keyframes pulseCurrentJob {
+    0%, 100% {
+        box-shadow: 0 0 0 0 rgba(var(--accent-color-rgb), 0.4);
+    }
+    50% {
+        box-shadow: 0 0 0 4px rgba(var(--accent-color-rgb), 0);
+    }
+}
