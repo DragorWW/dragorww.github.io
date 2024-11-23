@@ -220,8 +220,44 @@ class TerminalAnimation {
             const output = command.execute();
             const outputElement = document.createElement('div');
             outputElement.classList.add('terminal__output');
-            outputElement.innerHTML = output;
-            this.container.appendChild(outputElement);
+
+            // Если это команда projects, подготавливаем контейнер
+            if (commandName === 'projects') {
+                outputElement.innerHTML = '<ul class="terminal__projects"></ul>';
+                this.container.appendChild(outputElement);
+                
+                const projectsContainer = outputElement.querySelector('.terminal__projects');
+                const projectsHTML = output.match(/<li class="terminal__project">[\s\S]*?<\/li>/g);
+
+                // Добавляем проекты по одному
+                for (const projectHTML of projectsHTML) {
+                    const projectElement = document.createElement('div');
+                    projectElement.innerHTML = projectHTML;
+                    const project = projectElement.firstChild;
+                    
+                    project.style.opacity = '0';
+                    project.style.transform = 'translateY(-10px)';
+                    project.style.maxHeight = '0';
+                    project.style.overflow = 'hidden';
+                    project.style.transition = 'all 0.3s ease';
+                    
+                    projectsContainer.appendChild(project);
+                    
+                    await this.sleep(100); // Небольшая пауза перед анимацией
+                    
+                    const fullHeight = project.scrollHeight;
+                    project.style.maxHeight = fullHeight + 'px';
+                    project.style.opacity = '1';
+                    project.style.transform = 'translateY(0)';
+                    
+                    await this.sleep(300);
+                    this.scrollToBottom();
+                }
+            } else {
+                outputElement.innerHTML = output;
+                this.container.appendChild(outputElement);
+            }
+
             this.scrollToBottom();
         }
 
@@ -443,7 +479,7 @@ class LocalAI {
                 'Активно использую современные облачные технологии.'
             ],
             'образовани|обучени': [
-                'Постоянно развиваюсь в сфере технологий.',
+                'Постоянно развиваюсь в сфре технологий.',
                 'Особый интерес к AI и масштабированию систем.',
                 'Делюсь опытом через менторство и технические статьи.'
             ],
