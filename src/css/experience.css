@@ -15,12 +15,17 @@
     top: 0;
     height: 100%;
     width: 2px;
-    background-color: var(--border-color);
+    background: linear-gradient(
+        to bottom,
+        rgba(var(--accent-color-rgb), 0.1),
+        rgba(var(--accent-color-rgb), 0.5),
+        rgba(var(--accent-color-rgb), 0.1)
+    );
 }
 
 .timeline-item {
     position: relative;
-    padding-bottom: 2rem;
+    padding-bottom: 3rem;
 }
 
 .timeline-item::before {
@@ -33,26 +38,54 @@
     border-radius: 50%;
     background-color: var(--accent-color);
     transform: translateX(-5px);
+    box-shadow: 0 0 10px rgba(var(--accent-color-rgb), 0.3);
 }
 
 .year {
     color: var(--accent-color);
     font-weight: bold;
     margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.current-job {
+    font-size: 0.75rem;
+    font-weight: normal;
+    color: var(--accent-color);
+    opacity: 0.8;
 }
 
 .content {
-    background-color: var(--card-bg);
+    background: linear-gradient(
+        145deg,
+        rgba(var(--card-bg-rgb), 0.7),
+        rgba(var(--card-bg-rgb), 0.4)
+    );
     padding: 1.5rem;
     border-radius: 0.5rem;
-    border: 1px solid var(--border-color);
+    border: 1px solid rgba(var(--border-color-rgb), 0.2);
     backdrop-filter: blur(8px);
+    box-shadow: 
+        0 4px 6px -1px rgba(0, 0, 0, 0.1),
+        0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    transition: all 0.3s ease;
+}
+
+.timeline-item:hover .content {
+    transform: translateY(-2px);
+    box-shadow: 
+        0 8px 12px -1px rgba(0, 0, 0, 0.15),
+        0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    border-color: rgba(var(--accent-color-rgb), 0.3);
 }
 
 .company {
     color: var(--accent-color);
     font-size: 0.875rem;
     margin-bottom: 0.5rem;
+    font-weight: 500;
 }
 
 .tech-stack {
@@ -63,21 +96,21 @@
 }
 
 .tech-stack span {
-    background-color: var(--accent-color);
-    color: var(--bg-color);
+    background: rgba(var(--accent-color-rgb), 0.15);
+    color: var(--accent-color);
     padding: 0.25rem 0.75rem;
     border-radius: 0.25rem;
     font-size: 0.75rem;
-}
-
-.tech-stack span:hover {
-    background-color: var(--accent-color);
-    color: var(--bg-color);
-    border-color: var(--accent-color);
+    border: 1px solid rgba(var(--accent-color-rgb), 0.2);
     transition: all 0.2s ease;
 }
 
-/* Стили для списков в секции experience */
+.tech-stack span:hover {
+    background: rgba(var(--accent-color-rgb), 0.25);
+    border-color: rgba(var(--accent-color-rgb), 0.4);
+    transform: translateY(-1px);
+}
+
 .content ul {
     list-style: none;
     margin: 1rem 0;
@@ -91,18 +124,17 @@
 }
 
 .content ul li::before {
-    content: '▹';  /* или можно использовать '→' */
+    content: '▹';
     position: absolute;
     left: 0;
     color: var(--accent-color);
 }
 
-/* Последний элемент списка без отступа снизу */
 .content ul li:last-child {
     margin-bottom: 0;
 }
 
-/* Добавляем стили для индикатора текущей работы */
+/* Анимация текущей работы */
 .timeline-item.current::before {
     background-color: var(--accent-color);
     animation: pulseCurrentJob 2s ease-in-out infinite;
