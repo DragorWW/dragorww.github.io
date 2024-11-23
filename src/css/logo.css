@@ -23,11 +23,13 @@
 }
 
 /* Анимация основного контура */
-.logo svg path[stroke="currentColor"] {
-    transition: filter 0.3s ease, stroke-width 0.3s ease;
+.logo svg path[stroke='currentColor'] {
+    transition:
+        filter 0.3s ease,
+        stroke-width 0.3s ease;
 }
 
-.logo:hover svg path[stroke="currentColor"] {
+.logo:hover svg path[stroke='currentColor'] {
     filter: drop-shadow(0 0 2px var(--text-primary));
 }
 
@@ -35,7 +37,9 @@
 .logo svg .diagonal-line {
     stroke-dasharray: 3 6;
     stroke-dashoffset: 0;
-    transition: stroke-width 0.3s ease, filter 0.3s ease;
+    transition:
+        stroke-width 0.3s ease,
+        filter 0.3s ease;
     animation: flowLineIdle 8s linear infinite;
     filter: drop-shadow(0 0 0.5px var(--primary-color));
 }
@@ -69,7 +73,10 @@
 
 /* Анимация узлов в покое */
 .logo svg .knowledge-node {
-    transition: transform 0.3s ease, filter 0.3s ease, opacity 0.3s ease;
+    transition:
+        transform 0.3s ease,
+        filter 0.3s ease,
+        opacity 0.3s ease;
     transform-origin: center;
     transform-box: fill-box;
     animation: pulseNodeIdle 8s ease-in-out infinite;
@@ -89,7 +96,8 @@
 }
 
 @keyframes pulseNodeIdle {
-    0%, 100% {
+    0%,
+    100% {
         transform: scale(0.9);
         filter: drop-shadow(0 0 1px var(--primary-color));
         opacity: 0.8;
@@ -102,7 +110,8 @@
 }
 
 @keyframes pulseNode {
-    0%, 100% {
+    0%,
+    100% {
         transform: scale(0.6);
         filter: drop-shadow(0 0 1px var(--primary-color));
         opacity: 0.6;
@@ -119,4 +128,3 @@
     text-shadow: 0 0 8px rgba(var(--primary-color-rgb), 0.3);
     letter-spacing: 0.03em;
 }
- 

@@ -37,7 +37,7 @@
 /* Стили фокуса для всего терминала */
 .terminal:focus-within {
     border-color: rgba(var(--accent-color-rgb), 0.2);
-    box-shadow: 
+    box-shadow:
         0 8px 32px rgba(var(--bg-color-rgb), 0.1),
         0 0 0 1px rgba(var(--accent-color-rgb), 0.1);
 }
@@ -118,9 +118,15 @@
     border-radius: 50%;
 }
 
-.terminal__dots-item--red { background: #ff5f56; }
-.terminal__dots-item--yellow { background: #ffbd2e; }
-.terminal__dots-item--green { background: #27c93f; }
+.terminal__dots-item--red {
+    background: #ff5f56;
+}
+.terminal__dots-item--yellow {
+    background: #ffbd2e;
+}
+.terminal__dots-item--green {
+    background: #27c93f;
+}
 
 /* Команды и вывод */
 .terminal__output {
@@ -173,7 +179,9 @@
 .terminal__project {
     border-left: 2px solid var(--accent-color);
     padding-left: 12px;
-    transition: opacity 0.3s ease, transform 0.3s ease;
+    transition:
+        opacity 0.3s ease,
+        transform 0.3s ease;
     opacity: 0;
     transform: translateY(-10px);
 }
@@ -210,7 +218,8 @@
 }
 
 @keyframes pulseBorder {
-    0%, 100% {
+    0%,
+    100% {
         border-color: rgba(var(--accent-color-rgb), 0.1);
     }
     50% {
@@ -225,7 +234,7 @@
         margin: 0 auto;
         height: 350px;
     }
-    
+
     .terminal__content {
         font-size: 0.75rem;
     }
@@ -288,7 +297,8 @@
 }
 
 @keyframes blink {
-    0%, 100% {
+    0%,
+    100% {
         opacity: 1;
     }
     50% {
@@ -364,7 +374,7 @@
 }
 
 .terminal__output--loading::before {
-    content: "⠋";
+    content: '⠋';
     animation: loadingSpinner 0.8s steps(10, end) infinite;
     font-size: 1.2em;
     order: -1;
@@ -373,16 +383,36 @@
 }
 
 @keyframes loadingSpinner {
-    0% { content: "⠋"; }
-    10% { content: "⠙"; }
-    20% { content: "⠹"; }
-    30% { content: "⠸"; }
-    40% { content: "⠼"; }
-    50% { content: "⠴"; }
-    60% { content: "⠦"; }
-    70% { content: "⠧"; }
-    80% { content: "⠇"; }
-    90% { content: "⠏"; }
+    0% {
+        content: '⠋';
+    }
+    10% {
+        content: '⠙';
+    }
+    20% {
+        content: '⠹';
+    }
+    30% {
+        content: '⠸';
+    }
+    40% {
+        content: '⠼';
+    }
+    50% {
+        content: '⠴';
+    }
+    60% {
+        content: '⠦';
+    }
+    70% {
+        content: '⠧';
+    }
+    80% {
+        content: '⠇';
+    }
+    90% {
+        content: '⠏';
+    }
 }
 
 .terminal__output--loading::after {

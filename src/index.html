@@ -1,23 +1,20 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-    <%- include('./components/head', {
-        title: 'Сергей Андреев | Head of Engineering',
-        description: 'CTO и IT-Архитектор с опытом построения масштабируемых решений'
-    }) %>
-<body>
-    <div class="matrix-bg">
-        <canvas id="matrix"></canvas>
-    </div>
+    <%- include('./components/head', { title: 'Сергей Андреев | Head of Engineering', description:
+    'CTO и IT-Архитектор с опытом построения масштабируемых решений' }) %>
+    <body>
+        <div class="matrix-bg">
+            <canvas id="matrix"></canvas>
+        </div>
 
-    <%- include('./components/header') %>
+        <%- include('./components/header') %>
 
-    <main class="container">
-        <%- include('./components/hero') %>
-        <%- include('./components/experience') %>
-    </main>
+        <main class="container">
+            <%- include('./components/hero') %> <%- include('./components/experience') %>
+        </main>
 
-    <%- include('./components/footer') %>
+        <%- include('./components/footer') %>
 
-    <script type="module" src="./js/main.js"></script>
-</body>
-</html> 
+        <script type="module" src="./js/main.js"></script>
+    </body>
+</html>
