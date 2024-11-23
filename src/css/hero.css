@@ -312,3 +312,8 @@
     width: 16px;
     height: 16px;
 }
+
+/* Добавляем стиль для акцентного текста */
+.hero__accent {
+    color: var(--accent-color);
+}
