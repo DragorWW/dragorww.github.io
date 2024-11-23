@@ -226,3 +226,10 @@
 .terminal__info-term {
     font-weight: bold;
 }
+
+/* Стили для подсказок */
+.terminal__prompt-input.hint {
+    color: var(--text-tertiary);
+    opacity: 0.7;
+    font-style: italic;
+}

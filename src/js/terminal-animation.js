@@ -11,12 +11,31 @@ class TerminalAnimation {
     historyIndex = -1;
     isAnimating = false;
 
+    hints = [
+        'где ты работаешь?',
+        'какие проекты делал?',
+        'расскажи про опыт работы',
+        'как с тобой связаться?',
+        'какие технологии используешь?',
+        'где тебя найти в соцсетях?',
+        'help - список всех команд'
+    ];
+
+    hintDelay = 3000;        // Уменьшили с 5000 до 3000 мс
+    typeDelay = 80;          // Немного ускорили печать
+    eraseDelay = 40;         // Немного ускорили стирание
+    pauseDelay = 1500;       // Уменьшили паузу с 2000 до 1500 мс
+    betweenHintsDelay = 500; // Добавили небольшую паузу между подсказками
+    hintIndex = 0;
+    hintTimeout = null;
+    isShowingHint = false;
 
     constructor() {
         this.container = document.querySelector('.terminal__history');
         this.terminalContent = document.querySelector('.terminal__content');
         this.loadCommands();
         this.initialize();
+        this.startHintCycle();
     }
 
     loadCommands() {
@@ -42,15 +61,14 @@ class TerminalAnimation {
         command = '',
         showCursor = false,
         action = 'create',
+        isHint = false
     } = {}) {
         const promptHTML = `
             <span class="terminal__prompt">
                 ${this.currentDirectory ? `<span class="terminal__prompt-path">${this.currentDirectory}</span>` : ''}
                 ${this.currentBranch ? `<span class="terminal__prompt-branch">(${this.currentBranch})</span>` : ''}
                 <span class="terminal__prompt-symbol">$</span> 
-                <span class="terminal__prompt-input">
-                ${command}
-                ${showCursor ? '<span class="terminal__prompt-cursor">█</span>' : ''}</span>
+                <span class="terminal__prompt-input ${isHint ? 'hint' : ''}">${command}${showCursor ? '<span class="terminal__prompt-cursor">█</span>' : ''}</span>
             </span>`;
 
         switch (action) {
@@ -107,6 +125,7 @@ class TerminalAnimation {
 
         this.currentInput = '';
         this.handlePrompt({ showCursor: true, action: 'append' });
+        this.startHintCycle();
     }
 
     async simulateCommand(commandName) {
@@ -162,6 +181,12 @@ class TerminalAnimation {
         this.enableScroll();
         this.setupEventListeners();
         this.handlePrompt({ showCursor: true, action: 'append' });
+        
+        setTimeout(() => {
+            if (!this.currentInput) {
+                this.startHintCycle();
+            }
+        }, 1000);
     }
 
     disableScroll() {
@@ -205,8 +230,16 @@ class TerminalAnimation {
     }
 
     handleKeyPress(e) {
+        if (this.isShowingHint) {
+            this.isShowingHint = false;
+            clearTimeout(this.hintTimeout);
+            this.currentInput = '';
+            this.handlePrompt({ command: '', showCursor: true, action: 'update' });
+        }
+
         if (e.key === 'Enter') {
             this.executeCommand();
+            this.startHintCycle();
         } else if (e.key === 'Backspace') {
             this.currentInput = this.currentInput.slice(0, -1);
             this.handlePrompt({ command: this.currentInput, showCursor: true, action: 'update' });
@@ -238,6 +271,56 @@ class TerminalAnimation {
         }
         
         this.handlePrompt({ command: this.currentInput, showCursor: true, action: 'update' });
+    }
+
+    startHintCycle() {
+        if (!this.currentInput && !this.isAnimating) {
+            this.hintTimeout = setTimeout(() => this.showNextHint(), this.hintDelay);
+        }
+    }
+
+    async showNextHint() {
+        if (this.currentInput || this.isAnimating) return;
+
+        this.isShowingHint = true;
+        const hint = this.hints[this.hintIndex];
+        
+        // Печатаем подсказку
+        let currentText = '';
+        for (const char of hint) {
+            if (this.currentInput || !this.isShowingHint) break;
+            currentText += char;
+            this.handlePrompt({ 
+                command: currentText, 
+                showCursor: true, 
+                action: 'update',
+                isHint: true // Добавили флаг для подсказок
+            });
+            await this.sleep(this.typeDelay);
+        }
+
+        // Ждем перед стиранием
+        if (!this.currentInput && this.isShowingHint) {
+            await this.sleep(this.pauseDelay);
+        }
+
+        // Стираем подсказку
+        while (currentText.length > 0 && this.isShowingHint && !this.currentInput) {
+            currentText = currentText.slice(0, -1);
+            this.handlePrompt({ 
+                command: currentText, 
+                showCursor: true, 
+                action: 'update' 
+            });
+            await this.sleep(this.eraseDelay);
+        }
+
+        if (!this.currentInput) {
+            this.hintIndex = (this.hintIndex + 1) % this.hints.length;
+            await this.sleep(this.betweenHintsDelay); // Добавили паузу между подсказками
+            this.startHintCycle();
+        }
+        this.isShowingHint = false;
     }
 }
 
