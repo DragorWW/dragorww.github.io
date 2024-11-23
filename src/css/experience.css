@@ -88,29 +88,6 @@
     font-weight: 500;
 }
 
-.tech-stack {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    margin-top: 1rem;
-}
-
-.tech-stack span {
-    background: rgba(var(--accent-color-rgb), 0.15);
-    color: var(--accent-color);
-    padding: 0.25rem 0.75rem;
-    border-radius: 0.25rem;
-    font-size: 0.75rem;
-    border: 1px solid rgba(var(--accent-color-rgb), 0.2);
-    transition: all 0.2s ease;
-}
-
-.tech-stack span:hover {
-    background: rgba(var(--accent-color-rgb), 0.25);
-    border-color: rgba(var(--accent-color-rgb), 0.4);
-    transform: translateY(-1px);
-}
-
 .content ul {
     list-style: none;
     margin: 1rem 0;

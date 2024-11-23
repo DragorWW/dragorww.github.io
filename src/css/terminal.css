@@ -42,7 +42,6 @@
     height: 300px;
 }
 
-
 .terminal__dots {
     display: flex;
     gap: 6px;
@@ -54,44 +53,24 @@
     border-radius: 50%;
 }
 
-.highlight {
-    color: var(--accent-color);
-    display: block;
-}
-
-/* Terminal Skills */
-.terminal-skill {
-    display: inline-block;
-    background: rgba(var(--bg-color-rgb), 0.1);
-    border: 1px solid var(--border-color);
-    padding: 2px 8px;
-    border-radius: 4px;
-    margin: 4px;
-}
-
-.terminal-skill__version {
-    font-size: 0.8em;
-    color: var(--text-tertiary);
-    opacity: 0.8;
-}
-
 .terminal__dots-item--red { background: #ff5f56; }
 .terminal__dots-item--yellow { background: #ffbd2e; }
 .terminal__dots-item--green { background: #27c93f; }
 
+/* Команды и вывод */
+.terminal__output {
+    opacity: 0;
+    transform: translateY(-10px);
+    animation: slideIn 0.3s ease forwards;
+    margin-bottom: 1rem;
+}
 
-.terminal-welcome {
+.terminal__welcome {
     color: var(--text-secondary);
     margin-bottom: 16px;
 }
 
-.terminal-welcome__highlight {
-    color: var(--accent-color);
-    display: block;
-    margin-top: 8px;
-}
-
-.terminal-welcome__cmd {
+.terminal__cmd-hint {
     color: var(--accent-color);
     background: rgba(var(--bg-color-rgb), 0.1);
     border: 1px solid var(--border-color);
@@ -99,14 +78,62 @@
     border-radius: 4px;
 }
 
-/* Анимации */
-.terminal-output {
-    opacity: 0;
-    transform: translateY(-10px);
-    animation: slideIn 0.3s ease forwards;
-    margin-bottom: 1rem;
+/* Информационные блоки */
+.terminal__info {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 8px 16px;
+    align-items: baseline;
 }
 
+.terminal__info-term {
+    color: var(--accent-color);
+    font-weight: 500;
+}
+
+.terminal__info-desc {
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+/* Проекты */
+.terminal__projects {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.terminal__project {
+    border-left: 2px solid var(--accent-color);
+    padding-left: 12px;
+}
+
+.terminal__project-date {
+    color: var(--accent-color);
+    font-size: 0.875rem;
+    display: inline-block;
+    margin-right: 8px;
+}
+
+.terminal__project-title {
+    color: var(--text-primary);
+    font-size: 1rem;
+    margin: 0;
+    display: inline-block;
+    font-weight: normal;
+}
+
+.terminal__project-details {
+    list-style: none;
+    padding-left: 16px;
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    margin-top: 4px;
+}
+
+/* Анимации */
 @keyframes slideIn {
     to {
         opacity: 1;
@@ -126,38 +153,32 @@
     }
 }
 
-.output {
-    opacity: 0;
-    transform: translateY(-10px);
-    animation: slideIn 0.3s ease forwards;
-    margin-bottom: 1rem;
-}
-
-.terminal-prompt {
+/* Стили для промпта */
+.terminal__prompt {
     display: flex;
     align-items: center;
     gap: 8px;
     margin-bottom: 8px;
 }
 
-.terminal-prompt__path {
+.terminal__prompt-path {
     color: var(--accent-color);
     opacity: 0.8;
 }
 
-.terminal-prompt__branch {
-    color: #98C379;
+.terminal__prompt-branch {
+    color: var(--secondary-color);
 }
 
-.terminal-prompt__symbol {
+.terminal__prompt-symbol {
     color: var(--accent-color);
 }
 
-.terminal-prompt__command {
+.terminal__prompt-command {
     color: var(--text-primary);
 }
 
-.terminal-prompt__cursor {
+.terminal__prompt-cursor {
     color: var(--accent-color);
     animation: blink 1s step-end infinite;
     font-weight: bold;
@@ -173,18 +194,32 @@
     }
 }
 
-.log-output {
-    border-left: 2px solid var(--accent-color);
-    padding-left: 12px;
+/* Стили для ошибок */
+.terminal__output--error {
+    color: #ff5f56;
 }
 
-.log-date {
-    color: var(--accent-color);
+/* Стили для скрытых команд */
+.terminal__command {
+    display: none;
 }
 
-.log-details {
-    display: block;
+/* Стили для проектов */
+.terminal__project-details li {
+    margin-bottom: 4px;
     color: var(--text-secondary);
-    padding-left: 16px;
-    margin-top: 4px;
+}
+
+.terminal__project-title {
+    color: var(--accent-color);
+    font-weight: normal;
+}
+
+/* Дополнительные стили для информационных блоков */
+.terminal__info {
+    margin: 8px 0;
+}
+
+.terminal__info-term {
+    font-weight: bold;
 }

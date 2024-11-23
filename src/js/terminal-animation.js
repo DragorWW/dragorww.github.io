@@ -1,88 +1,3 @@
-const AVAILABLE_COMMANDS = {
-    'welcome': {
-        description: 'Приветственное сообщение',
-        directory: '~/digital-garden',
-        branch: 'main',
-        command: 'cd ~/digital-garden',
-        execute: () => `
-            <div class="output log-output">
-                <div class="terminal-welcome">    
-                    Добро пожаловать в мой цифровой сад! 🌱
-                    <br><br>
-                    Здесь растут идеи, проекты и знания...
-                    <br>
-                    Исследуйте с помощью <span class="terminal-welcome__cmd">help</span>
-                </div>
-            </div>`
-    },
-    'help': {
-        description: 'Показать список доступных команд',
-        execute: () => `
-            <div class="output log-output">
-                Доступные команды:
-                <br>
-                help             - Показать это сообщение<br>
-                about            - Обо мне<br>
-                skills           - Мои навыки<br>
-                contact          - Контактная информация<br>
-                projects         - Список проектов<br>
-                clear            - Очистить терминал
-            </div>`
-    },
-    'about': {
-        description: 'Информация обо мне',
-        execute: () => `
-            <div class="output log-output">
-                <span class="highlight">Name:</span> Сергей Андреев
-                <span class="highlight">Role:</span> Head of Engineering
-                <span class="highlight">Status:</span> Developing awesome things...
-            </div>`
-    },
-    'skills': {
-        description: 'Список навыков',
-        execute: () => `
-            <div class="output log-output">
-                <div class="terminal-skill">React.js <span class="terminal-skill__version">v18</span></div>
-                <div class="terminal-skill">Node.js <span class="terminal-skill__version">v18</span></div>
-                <div class="terminal-skill">TypeScript <span class="terminal-skill__version">v5</span></div>
-                <div class="terminal-skill">Python <span class="terminal-skill__version">v3.11</span></div>
-            </div>`
-    },
-    'clear': {
-        description: 'Очистить терминал',
-        execute: () => ''
-    },
-    'contact': {
-        description: 'Контактная информация',
-        execute: () => `
-            <div class="output log-output">
-                <span class="highlight">Email:</span> dragorww@gmail.com
-                <span class="highlight">Telegram:</span> @dragorww
-                <span class="highlight">GitHub:</span> github.com/dragorww
-            </div>`
-    },
-    'projects': {
-        description: 'Список проектов',
-        execute: () => `
-            <div class="output log-output">
-
-                <span class="log-date">[2024]</span> → Educational Platform
-                <span class="log-details">• 7 companies integration</span>
-                <span class="log-details">• 100k+ users</span>
-                <span class="log-details">• 99.9% uptime</span>
-
-                <span class="highlight">→ Educational Platform</span>
-                Масштабируемая платформа для 7 компаний
-                <br>
-                <span class="highlight">→ DevOps Dashboard</span>
-                Внутренний инструмент для SberTech
-                <br>
-                <span class="highlight">→ Cargo Management</span>
-                Логистическая платформа cargomart.ru
-            </div>`
-    }
-};
-
 class TerminalAnimation {
     currentInput = '';
     commandHistory = [];
@@ -95,10 +10,28 @@ class TerminalAnimation {
     branch = '';
 
     constructor() {
-        this.container = document.querySelector('.terminal-history');
+        this.container = document.querySelector('.terminal__history');
         this.terminalContent = document.querySelector('.terminal__content');
-
+        this.commands = this.loadCommands();
         this.initialize();
+    }
+
+    loadCommands() {
+        const commands = {};
+        document.querySelectorAll('.terminal__command').forEach(cmd => {
+            const commandName = cmd.dataset.command;
+            commands[commandName] = {
+                description: cmd.dataset.description || '',
+                directory: cmd.dataset.directory || '',
+                branch: cmd.dataset.branch || '',
+                command: cmd.dataset.command || commandName,
+                execute: () => {
+                    const template = cmd.querySelector('template');
+                    return template.innerHTML.trim();
+                }
+            };
+        });
+        return commands;
     }
 
     handlePrompt({
@@ -107,12 +40,12 @@ class TerminalAnimation {
         action = 'create', // 'create', 'update', 'append'
     } = {}) {
         const promptHTML = `
-            <span class="terminal-prompt">
-                ${this.directory ? `<span class="terminal-prompt__path">${this.directory}</span>` : ''}
-                ${this.branch ? `<span class="terminal-prompt__branch">(${this.branch})</span>` : ''}
-                <span class="terminal-prompt__symbol">$</span> 
-                ${command ? `<span class="terminal-prompt__command">${command}</span>` : ''}
-                ${showCursor ? '<span class="terminal-prompt__cursor">█</span>' : ''}
+            <span class="terminal__prompt">
+                ${this.directory ? `<span class="terminal__prompt-path">${this.directory}</span>` : ''}
+                ${this.branch ? `<span class="terminal__prompt-branch">(${this.branch})</span>` : ''}
+                <span class="terminal__prompt-symbol">$</span> 
+                ${command ? `<span class="terminal__prompt-command">${command}</span>` : ''}
+                ${showCursor ? '<span class="terminal__prompt-cursor">█</span>' : ''}
             </span>`;
 
         switch (action) {
@@ -132,6 +65,78 @@ class TerminalAnimation {
                 this.container.appendChild(newPrompt);
                 this.scrollToBottom();
                 return newPrompt;
+        }
+    }
+
+    async executeCommand() {
+        const command = this.currentInput.trim().toLowerCase();
+        
+        if (command) {
+            this.commandHistory.unshift(command);
+            this.historyIndex = -1;
+            
+            const promptElement = this.container.lastElementChild;
+            promptElement.innerHTML = this.handlePrompt({ 
+                command: this.currentInput, 
+                action: 'update' 
+            }).innerHTML;
+
+            if (command === 'clear') {
+                this.container.innerHTML = '';
+            } else {
+                const output = this.commands[command]
+                    ? this.commands[command].execute()
+                    : `<div class="terminal__output terminal__output--error">Command not found: ${command}. Type 'help' for available commands.</div>`;
+                
+                if (output) {
+                    const outputElement = document.createElement('div');
+                    outputElement.classList.add('terminal__output');
+                    outputElement.innerHTML = output;
+                    this.container.appendChild(outputElement);
+                    
+                    await this.sleep(10);
+                    this.scrollToBottom();
+                }
+            }
+        }
+
+        this.currentInput = '';
+        this.handlePrompt({ showCursor: true, action: 'append' });
+    }
+
+    async simulateCommand(commandName) {
+        let promptElement = this.handlePrompt({ action: 'append' });
+        const command = this.commands[commandName.split(' ')[0]];
+        const text = command?.command || commandName;
+
+        let currentText = '';
+        for (const char of text) {
+            await this.sleep(this.commandDelay);
+            currentText += char;
+            promptElement.innerHTML = this.handlePrompt({ 
+                command: currentText, 
+                action: 'create' 
+            }).innerHTML;
+            this.scrollToBottom();
+        }
+
+        await this.sleep(500);
+
+        if (command) {
+            const output = command.execute();
+            const outputElement = document.createElement('div');
+            outputElement.classList.add('terminal__output');
+            outputElement.innerHTML = output;
+            this.container.appendChild(outputElement);
+            this.scrollToBottom();
+        }
+
+        if (command?.directory) {
+            this.directory = command.directory;
+        }
+
+        if (command?.branch) {
+            this.branch = command.branch;
         }
     }
 
@@ -176,46 +181,6 @@ class TerminalAnimation {
     scrollToBottom() {
         this.savedScrollTop = this.terminalContent.scrollHeight - this.terminalContent.clientHeight;
         this.terminalContent.scrollTop = this.savedScrollTop;
-    }
-
-
-    async simulateCommand(commandName) {
-        let promptElement = this.handlePrompt({ action: 'append' });
-        
-        const command = AVAILABLE_COMMANDS[commandName.split(' ')[0]];
-
-        const text = command?.command || commandName;
-
-
-        let currentText = '';
-        for (const char of text) {
-            await this.sleep(this.commandDelay);
-            currentText += char;
-            promptElement.innerHTML = this.handlePrompt({ 
-                command: currentText, 
-                action: 'create' 
-            }).innerHTML;
-            this.scrollToBottom();
-        }
-
-        await this.sleep(500);
-
-        if (command) {
-            const output = command.execute();
-            const outputElement = document.createElement('div');
-            outputElement.classList.add('terminal-output');
-            outputElement.innerHTML = output;
-            this.container.appendChild(outputElement);
-            this.scrollToBottom();
-        }
-
-        if (command?.directory) {
-            this.directory = command.directory;
-        }
-
-        if (command?.branch) {
-            this.branch = command.branch;
-        }
     }
 
     async showWelcomeMessage() {
@@ -269,47 +234,9 @@ class TerminalAnimation {
         
         this.handlePrompt({ command: this.currentInput, showCursor: true, action: 'update' });
     }
-
-    async executeCommand() {
-        const command = this.currentInput.trim().toLowerCase();
-        
-        if (command) {
-            this.commandHistory.unshift(command);
-            this.historyIndex = -1;
-            
-            const promptElement = this.container.lastElementChild;
-            
-            promptElement.innerHTML = this.handlePrompt({ 
-                command: this.currentInput, 
-                action: 'update' 
-            }).innerHTML;
-
-            if (command === 'clear') {
-                this.container.innerHTML = '';
-            } else {
-                const output = AVAILABLE_COMMANDS[command]
-                    ? AVAILABLE_COMMANDS[command].execute()
-                    : `<div class="terminal-output terminal-output--error">Command not found: ${command}. Type 'help' for available commands.</div>`;
-                
-                if (output) {
-                    const outputElement = document.createElement('div');
-                    outputElement.innerHTML = output;
-                    this.container.appendChild(outputElement);
-                    
-                    await this.sleep(10);
-                    this.scrollToBottom();
-                }
-            }
-        }
-
-        this.currentInput = '';
-        this.handlePrompt({ showCursor: true, action: 'append' });
-    }
 }
 
 // Инициализация
-const initTerminalAnimation = () => {
-    const terminal = new TerminalAnimation();
-};
-
-window.initTerminalAnimation = initTerminalAnimation; 
+window.initTerminalAnimation = () => {
+    new TerminalAnimation();
+}; 
