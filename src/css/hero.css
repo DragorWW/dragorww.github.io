@@ -310,6 +310,8 @@
     display: inline-flex;
     align-items: center;
     gap: 0.25rem;
+    vertical-align: middle;
+    white-space: nowrap;
 }
 
 .hero__link:hover {
