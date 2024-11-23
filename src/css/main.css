@@ -65,16 +65,6 @@
     --laptop: 1024px;
     --desktop: 1200px;
 
-    /* Media conditions используют определенные выше breakpoints */
-    --tablet-and-up: "(min-width: var(--tablet))";
-    --laptop-and-up: "(min-width: var(--laptop))";
-    --desktop-and-up: "(min-width: var(--desktop))";
-    
-    --mobile-only: "(max-width: calc(var(--mobile) - 1px))";
-    --tablet-only: "(min-width: var(--tablet)) and (max-width: calc(var(--laptop) - 1px))";
-    --laptop-only: "(min-width: var(--laptop)) and (max-width: calc(var(--desktop) - 1px))";
-    --desktop-only: "(min-width: var(--desktop))";
-
     /* Container widths */
     --container-padding: 1rem;
     --container-max-width: 1200px;

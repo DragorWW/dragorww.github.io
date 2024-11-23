@@ -171,7 +171,7 @@
 }
 
 /* Media Queries */
-@media screen and (max-width: var(--laptop)) {
+@media screen and (max-width: 1024px) {
     .hero {
         gap: 3rem;
         padding: 3rem 0;
@@ -182,7 +182,7 @@
     }
 }
 
-@media screen and (max-width: var(--tablet)) {
+@media screen and (max-width: 768px) {
     .hero {
         grid-template-columns: 1fr;
         gap: 2rem;
@@ -225,7 +225,7 @@
     }
 }
 
-@media screen and (max-width: var(--mobile)) {
+@media screen and (max-width: 480px) {
     .hero {
         padding: 2rem 0;
     }

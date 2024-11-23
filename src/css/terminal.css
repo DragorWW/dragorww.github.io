@@ -1,12 +1,11 @@
 /* Terminal Component Styles */
 .terminal {
-    display: none; /* Скрываем терминал по умолчанию */
+    display: none;
 }
 
-/* Показываем терминал только на больших экранах */
 @media screen and (min-width: 1024px) {
     .terminal {
-        display: flex; /* Возвращаем display: flex для больших экранов */
+        display: flex;
         border: 1px solid var(--border-color);
         backdrop-filter: blur(4px);
         -webkit-backdrop-filter: blur(4px);
@@ -224,6 +223,7 @@
     .terminal {
         max-width: 100%;
         margin: 0 auto;
+        height: 350px;
     }
     
     .terminal__content {
@@ -387,31 +387,4 @@
 
 .terminal__output--loading::after {
     content: none;
-}
-
-@media screen and (max-width: var(--tablet)) {
-    .terminal {
-        max-width: 100%;
-        margin: 0 auto;
-        height: 350px;
-    }
-    
-    .terminal__content {
-        font-size: 0.75rem;
-    }
-
-    .terminal__title {
-        font-size: 0.8rem;
-    }
-}
-
-@media screen and (max-width: var(--mobile)) {
-    .terminal {
-        height: 300px;
-    }
-
-    .terminal__dots-item {
-        width: 10px;
-        height: 10px;
-    }
 }
