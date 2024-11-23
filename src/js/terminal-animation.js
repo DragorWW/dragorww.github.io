@@ -36,6 +36,12 @@ class TerminalAnimation {
         this.loadCommands();
         this.initialize();
         this.startHintCycle();
+        this.hasAISupport = 'userAgentData' in navigator && 'speechRecognition' in window;
+        
+        // Токен можно получить бесплатно на huggingface.co
+        this.HF_API_TOKEN = 'hf_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx';
+        this.MODEL_URL = 'https://api-inference.huggingface.co/models/facebook/blenderbot-400M-distill';
+        this.isInitializing = true;
     }
 
     loadCommands() {
@@ -63,12 +69,15 @@ class TerminalAnimation {
         action = 'create',
         isHint = false
     } = {}) {
+        // Показываем курсор только если терминал в фокусе или это инициализация
+        const shouldShowCursor = showCursor && (document.activeElement === this.terminalContent || this.isInitializing);
+        
         const promptHTML = `
             <span class="terminal__prompt">
                 ${this.currentDirectory ? `<span class="terminal__prompt-path">${this.currentDirectory}</span>` : ''}
                 ${this.currentBranch ? `<span class="terminal__prompt-branch">(${this.currentBranch})</span>` : ''}
                 <span class="terminal__prompt-symbol">$</span> 
-                <span class="terminal__prompt-input ${isHint ? 'hint' : ''}">${command}${showCursor ? '<span class="terminal__prompt-cursor">█</span>' : ''}</span>
+                <span class="terminal__prompt-input ${isHint ? 'hint' : ''}">${command}${shouldShowCursor ? '<span class="terminal__prompt-cursor">█</span>' : ''}</span>
             </span>`;
 
         switch (action) {
@@ -86,7 +95,7 @@ class TerminalAnimation {
                 const newPrompt = document.createElement('p');
                 newPrompt.innerHTML = promptHTML;
                 this.container.appendChild(newPrompt);
-                this.scrollToBottom();
+                this.terminalContent.scrollTop = this.terminalContent.scrollHeight;
                 return newPrompt;
         }
     }
@@ -95,6 +104,7 @@ class TerminalAnimation {
         const command = this.currentInput.trim().toLowerCase();
         
         if (command) {
+            this.isAnimating = true;
             this.commandHistory.unshift(command);
             this.historyIndex = -1;
             
@@ -107,25 +117,82 @@ class TerminalAnimation {
             if (command === 'clear') {
                 this.container.innerHTML = '';
             } else {
-                const output = this.commands[command]
-                    ? this.commands[command].execute()
-                    : `<div class="terminal__output terminal__output--error">Command not found: ${command}. Type 'help' for available commands.</div>`;
+                let output;
+                
+                if (this.commands[command]) {
+                    output = this.commands[command].execute();
+                } else {
+                    output = await this.tryAIResponse(command);
+                }
                 
                 if (output) {
                     const outputElement = document.createElement('div');
                     outputElement.classList.add('terminal__output');
                     outputElement.innerHTML = output;
                     this.container.appendChild(outputElement);
-                    
                     await this.sleep(10);
-                    this.scrollToBottom();
                 }
             }
+
+            this.isAnimating = false;
         }
 
         this.currentInput = '';
         this.handlePrompt({ showCursor: true, action: 'append' });
+        await this.sleep(10);
+        this.terminalContent.scrollTop = this.terminalContent.scrollHeight;
         this.startHintCycle();
+    }
+
+    async tryAIResponse(command) {
+        try {
+            const loadingElement = document.createElement('div');
+            loadingElement.classList.add('terminal__output', 'terminal__output--loading');
+            loadingElement.innerHTML = 'Думаю...';
+            this.container.appendChild(loadingElement);
+
+            const response = await fetch(this.MODEL_URL, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${this.HF_API_TOKEN}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    inputs: {
+                        text: `Context: You are a helpful assistant for Sergey Andreev's personal website. 
+                               He is a CTO with experience in educational projects.
+                               Current question: ${command}`,
+                        max_length: 100
+                    }
+                })
+            });
+
+            loadingElement.remove();
+
+            if (!response.ok) {
+                throw new Error('API Error');
+            }
+
+            const data = await response.json();
+            const aiResponse = data.generated_text || data[0].generated_text;
+
+            return `<div class="terminal__output terminal__output--ai">
+                <div class="terminal__output-header">🤖 AI Response:</div>
+                <div class="terminal__output-content">${aiResponse}</div>
+            </div>`;
+
+        } catch (error) {
+            console.error('AI Error:', error);
+            
+            // Если API недоступен, используем локальный fallback
+            const localAI = new LocalAI();
+            const fallbackResponse = localAI.generateResponse(command);
+
+            return `<div class="terminal__output terminal__output--ai">
+                <div class="terminal__output-header">🤖 Local AI:</div>
+                <div class="terminal__output-content">${fallbackResponse}</div>
+            </div>`;
+        }
     }
 
     async simulateCommand(commandName) {
@@ -167,6 +234,7 @@ class TerminalAnimation {
     async initialize() {
         this.disableScroll();
         this.isAnimating = true;
+        this.isInitializing = true;
         
         await this.showWelcomeMessage();
         
@@ -178,9 +246,15 @@ class TerminalAnimation {
 
         await this.sleep(this.commandPause);
         this.isAnimating = false;
+        this.isInitializing = false;
         this.enableScroll();
         this.setupEventListeners();
-        this.handlePrompt({ showCursor: true, action: 'append' });
+        
+        // Не показываем курсор при инициализации, если терминал не в фокусе
+        this.handlePrompt({ 
+            showCursor: document.activeElement === this.terminalContent, 
+            action: 'append' 
+        });
         
         setTimeout(() => {
             if (!this.currentInput) {
@@ -209,8 +283,10 @@ class TerminalAnimation {
     }
 
     scrollToBottom() {
-        this.savedScrollTop = this.terminalContent.scrollHeight - this.terminalContent.clientHeight;
-        this.terminalContent.scrollTop = this.savedScrollTop;
+        if (this.isInitializing || this.isAnimating) {
+            this.savedScrollTop = this.terminalContent.scrollHeight - this.terminalContent.clientHeight;
+            this.terminalContent.scrollTop = this.savedScrollTop;
+        }
     }
 
     async showWelcomeMessage() {
@@ -222,11 +298,34 @@ class TerminalAnimation {
     }
 
     setupEventListeners() {
-        document.addEventListener('keydown', (e) => {
-            if (!this.terminalContent.contains(document.activeElement)) {
-                this.handleKeyPress(e);
+        this.terminalContent.addEventListener('click', () => {
+            this.terminalContent.focus();
+        });
+
+        this.terminalContent.setAttribute('tabindex', '0');
+
+        this.terminalContent.addEventListener('keydown', (e) => {
+            if (e.code === 'Space') {
+                e.preventDefault();
+            }
+            this.handleKeyPress(e);
+        });
+
+        this.terminalContent.addEventListener('focus', () => {
+            if (this.isShowingHint) {
+                this.isShowingHint = false;
+                clearTimeout(this.hintTimeout);
+                this.handlePrompt({ command: '', showCursor: true, action: 'update' });
             }
         });
+
+        this.terminalContent.addEventListener('blur', () => {
+            if (!this.currentInput && !this.isAnimating) {
+                this.startHintCycle();
+            }
+        });
+
+        document.removeEventListener('keydown', this.handleKeyPress);
     }
 
     handleKeyPress(e) {
@@ -274,38 +373,35 @@ class TerminalAnimation {
     }
 
     startHintCycle() {
-        if (!this.currentInput && !this.isAnimating) {
+        if (!this.currentInput && !this.isAnimating && document.activeElement !== this.terminalContent) {
             this.hintTimeout = setTimeout(() => this.showNextHint(), this.hintDelay);
         }
     }
 
     async showNextHint() {
-        if (this.currentInput || this.isAnimating) return;
+        if (this.currentInput || this.isAnimating || document.activeElement === this.terminalContent) return;
 
         this.isShowingHint = true;
         const hint = this.hints[this.hintIndex];
         
-        // Печатаем подсказку
         let currentText = '';
         for (const char of hint) {
-            if (this.currentInput || !this.isShowingHint) break;
+            if (this.currentInput || !this.isShowingHint || document.activeElement === this.terminalContent) break;
             currentText += char;
             this.handlePrompt({ 
                 command: currentText, 
                 showCursor: true, 
                 action: 'update',
-                isHint: true // Добавили флаг для подсказок
+                isHint: true
             });
             await this.sleep(this.typeDelay);
         }
 
-        // Ждем перед стиранием
-        if (!this.currentInput && this.isShowingHint) {
+        if (!this.currentInput && this.isShowingHint && document.activeElement !== this.terminalContent) {
             await this.sleep(this.pauseDelay);
         }
 
-        // Стираем подсказку
-        while (currentText.length > 0 && this.isShowingHint && !this.currentInput) {
+        while (currentText.length > 0 && this.isShowingHint && !this.currentInput && document.activeElement !== this.terminalContent) {
             currentText = currentText.slice(0, -1);
             this.handlePrompt({ 
                 command: currentText, 
@@ -315,12 +411,67 @@ class TerminalAnimation {
             await this.sleep(this.eraseDelay);
         }
 
-        if (!this.currentInput) {
+        if (!this.currentInput && document.activeElement !== this.terminalContent) {
             this.hintIndex = (this.hintIndex + 1) % this.hints.length;
-            await this.sleep(this.betweenHintsDelay); // Добавили паузу между подсказками
+            await this.sleep(this.betweenHintsDelay);
             this.startHintCycle();
         }
         this.isShowingHint = false;
+    }
+}
+
+// Улучшенный локальный fallback с использованием NLP.js
+class LocalAI {
+    constructor() {
+        this.keywords = {
+            'опыт|работа|карьера': [
+                'Более 10 лет опыта в разработке. Сейчас работаю CTO в Ultimate Education.',
+                'Руковожу IT-стратегией образовательного холдинга из 7 компаний.',
+                'Специализируюсь на масштабировании образовательных проектов.'
+            ],
+            'проект|достижени': [
+                'Разработал LMS систему для 100k+ пользователей.',
+                'Создал комплексную аналитическую платформу для образовательного холдинга.',
+                'Оптимизировал производительность DevOps-системы в 10 раз.'
+            ],
+            'технолог|стек|язык': [
+                'Основной стек: React, TypeScript, Python, Kubernetes.',
+                'Опыт работы с Java, Kotlin, Node.js.',
+                'Активно использую современные облачные технологии.'
+            ],
+            'образовани|обучени': [
+                'Постоянно развиваюсь в сфере технологий.',
+                'Особый интерес к AI и масштабированию систем.',
+                'Делюсь опытом через менторство и технические статьи.'
+            ],
+            'контакт|связ|найти': [
+                'Email: dragorww@gmail.com',
+                'Telegram: @dragorww',
+                'GitHub: github.com/dragorww'
+            ]
+        };
+
+        this.defaultResponses = [
+            'Извините, не совсем понял вопрос. Попробуйте спросить о моем опыте работы, проектах или технологиях.',
+            'Может быть, вас интересует мой опыт работы в образовательных проектах?',
+            'Я могу рассказать о технологиях, которые использую, или о своих проектах.'
+        ];
+    }
+
+    generateResponse(input) {
+        const normalizedInput = input.toLowerCase();
+        
+        // Ищем совпадения по ключевым словам
+        for (const [keywordPattern, responses] of Object.entries(this.keywords)) {
+            const regex = new RegExp(keywordPattern, 'i');
+            if (regex.test(normalizedInput)) {
+                // Выбираем случайный ответ из подходящей категории
+                return responses[Math.floor(Math.random() * responses.length)];
+            }
+        }
+
+        // Если не нашли совпадений, возвращаем случайный дефолтный ответ
+        return this.defaultResponses[Math.floor(Math.random() * this.defaultResponses.length)];
     }
 }
 

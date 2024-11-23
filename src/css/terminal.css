@@ -4,13 +4,68 @@
     backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
     border-radius: 8px;
-    overflow: hidden;
+    overflow: visible;
     width: 100%;
     max-width: 600px;
     height: 400px;
     display: flex;
     flex-direction: column;
     box-shadow: 0 8px 32px rgba(var(--bg-color-rgb), 0.1);
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+/* Добавляем псевдоэлементы для волн */
+.terminal::before,
+.terminal::after {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border-radius: 10px;
+    border: 1px solid transparent;
+    transition: all 0.3s ease;
+    pointer-events: none;
+    opacity: 0;
+}
+
+/* Стили фокуса для всего терминала */
+.terminal:focus-within {
+    border-color: rgba(var(--accent-color-rgb), 0.2);
+    box-shadow: 
+        0 8px 32px rgba(var(--bg-color-rgb), 0.1),
+        0 0 0 1px rgba(var(--accent-color-rgb), 0.1);
+}
+
+.terminal:focus-within::before {
+    border-color: rgba(var(--accent-color-rgb), 0.08);
+    animation: rippleWave1 3s ease-out infinite;
+}
+
+.terminal:focus-within::after {
+    border-color: rgba(var(--accent-color-rgb), 0.05);
+    animation: rippleWave2 3s ease-out infinite 0.75s;
+}
+
+@keyframes rippleWave1 {
+    0% {
+        transform: scale(1);
+        opacity: 0.5;
+    }
+    100% {
+        transform: scale(1.05);
+        opacity: 0;
+    }
+}
+
+@keyframes rippleWave2 {
+    0% {
+        transform: scale(1);
+        opacity: 0.3;
+    }
+    100% {
+        transform: scale(1.08);
+        opacity: 0;
+    }
 }
 
 .terminal__header {
@@ -31,6 +86,7 @@
     margin-right: auto;
 }
 
+/* Убираем старые стили фокуса с content */
 .terminal__content {
     background: rgba(var(--card-bg-rgb), 0.5);
     flex: 1;
@@ -40,6 +96,7 @@
     line-height: 1.5;
     overflow-y: auto;
     height: 300px;
+    outline: none;
 }
 
 .terminal__dots {
@@ -141,6 +198,15 @@
     }
 }
 
+@keyframes pulseBorder {
+    0%, 100% {
+        border-color: rgba(var(--accent-color-rgb), 0.1);
+    }
+    50% {
+        border-color: rgba(var(--accent-color-rgb), 0.3);
+    }
+}
+
 /* Адаптивность */
 @media (max-width: 768px) {
     .terminal {
@@ -156,36 +222,57 @@
 /* Стили для промпта */
 .terminal__prompt {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     gap: 4px;
     margin-bottom: 8px;
-    white-space: nowrap;
+    min-height: 24px;
+    width: 100%;
 }
 
 .terminal__prompt-path {
     color: var(--accent-color);
     opacity: 0.8;
+    font-weight: 500;
+    flex-shrink: 0;
 }
 
 .terminal__prompt-branch {
     color: var(--secondary-color);
+    opacity: 0.9;
+    font-size: 0.9em;
+    flex-shrink: 0;
 }
 
 .terminal__prompt-symbol {
     color: var(--accent-color);
     margin: 0 4px;
+    font-weight: bold;
+    flex-shrink: 0;
 }
 
 .terminal__prompt-input {
     color: var(--text-primary);
     display: inline-flex;
     align-items: center;
+    flex: 1 1 auto;
+    min-width: 50px;
+    word-break: break-word;
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
+    max-width: calc(100% - 20px);
 }
 
 .terminal__prompt-cursor {
     color: var(--accent-color);
     animation: blink 1s step-end infinite;
     font-weight: bold;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.terminal:focus-within .terminal__prompt-cursor {
+    opacity: 1;
 }
 
 @keyframes blink {
@@ -231,5 +318,27 @@
 .terminal__prompt-input.hint {
     color: var(--text-tertiary);
     opacity: 0.7;
+    font-style: italic;
+}
+
+/* Стили для AI ответов */
+.terminal__output--ai {
+    border-left: 2px solid var(--secondary-color);
+    padding-left: 12px;
+    margin: 8px 0;
+}
+
+.terminal__output-header {
+    color: var(--secondary-color);
+    font-size: 0.875rem;
+    margin-bottom: 4px;
+}
+
+.terminal__output-content {
+    color: var(--text-secondary);
+}
+
+.terminal__output--loading {
+    color: var(--text-tertiary);
     font-style: italic;
 }
