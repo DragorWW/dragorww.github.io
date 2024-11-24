@@ -1,3 +1,55 @@
+class TerminalScrollManager {
+    constructor(terminalContent) {
+        this.terminal = terminalContent;
+        this.autoScrollEnabled = true;
+        this.savedScrollTop = 0;
+
+        // Создаем ResizeObserver для отслеживания изменений высоты промпта
+        this.resizeObserver = new ResizeObserver(() => {
+            this.scrollToBottom();
+        });
+
+        // Начинаем наблюдать за последним промптом
+        this.observeLastPrompt();
+    }
+
+    observeLastPrompt() {
+        const lastPrompt = this.terminal.querySelector('.terminal__prompt:last-child');
+        if (lastPrompt) {
+            this.resizeObserver.disconnect(); // Отключаем наблюдение за предыдущим промптом
+            this.resizeObserver.observe(lastPrompt);
+        }
+    }
+
+    disableAutoScroll() {
+        this.autoScrollEnabled = false;
+        this.savedScrollTop = this.terminal.scrollTop;
+    }
+
+    enableAutoScroll() {
+        this.autoScrollEnabled = true;
+    }
+
+    scrollToBottom() {
+        if (this.autoScrollEnabled) {
+            this.terminal.scrollTop = this.terminal.scrollHeight;
+        }
+    }
+
+    smoothScrollToBottom() {
+        if (this.autoScrollEnabled) {
+            this.terminal.scrollTo({
+                top: this.terminal.scrollHeight,
+                behavior: 'smooth',
+            });
+        }
+    }
+
+    restoreScroll() {
+        this.terminal.scrollTop = this.savedScrollTop;
+    }
+}
+
 class TerminalAnimation {
     // settings
     commandDelay = 50;
@@ -33,12 +85,13 @@ class TerminalAnimation {
     constructor() {
         this.container = document.querySelector('.terminal__history');
         this.terminalContent = document.querySelector('.terminal__content');
+        this.scrollManager = new TerminalScrollManager(this.terminalContent);
+
         this.loadCommands();
         this.initialize();
         this.startHintCycle();
-        this.hasAISupport = 'userAgentData' in navigator && 'speechRecognition' in window;
 
-        // Токен можно получить бесплатно на huggingface.co
+        this.hasAISupport = 'userAgentData' in navigator && 'speechRecognition' in window;
         this.HF_API_TOKEN = 'hf_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx';
         this.MODEL_URL =
             'https://api-inference.huggingface.co/models/facebook/blenderbot-400M-distill';
@@ -65,7 +118,6 @@ class TerminalAnimation {
     }
 
     handlePrompt({ command = '', showCursor = false, action = 'create', isHint = false } = {}) {
-        // Показываем курсор только если терминал в фокусе или это инициализация
         const shouldShowCursor =
             showCursor && (document.activeElement === this.terminalContent || this.isInitializing);
 
@@ -86,13 +138,19 @@ class TerminalAnimation {
             case 'update':
                 const lastPrompt = this.container.lastElementChild;
                 lastPrompt.innerHTML = promptHTML;
+
+                this.container.appendChild(lastPrompt);
+                this.scrollManager.observeLastPrompt();
+                this.scrollManager.scrollToBottom();
+
                 return lastPrompt;
 
             case 'append':
                 const newPrompt = document.createElement('p');
                 newPrompt.innerHTML = promptHTML;
                 this.container.appendChild(newPrompt);
-                this.terminalContent.scrollTop = this.terminalContent.scrollHeight;
+                this.scrollManager.observeLastPrompt();
+                this.scrollManager.scrollToBottom();
                 return newPrompt;
         }
     }
