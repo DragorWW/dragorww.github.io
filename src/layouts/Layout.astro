@@ -1,56 +1,75 @@
 ---
 interface Props {
-	title: string;
-	description?: string;
+  title: string;
+  description?: string;
 }
 
-const { title, description = "CTO, IT-архитектор и амбассадор продуктовой разработки" } = Astro.props;
+const {
+  title,
+  description = "CTO, IT-архитектор и амбассадор продуктовой разработки",
+} = Astro.props;
 ---
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ru">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="robots" content="index, follow" />
-		<meta name="author" content="Сергей Андреев" />
-		<meta name="keywords" content="CTO, Head of Engineering, IT Architecture, Team Management" />
-		<meta name="viewport" content="width=device-width" />
-		
-		<!-- <meta property="og:title" content="<%= title %>" />
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="robots" content="index, follow" />
+    <meta name="author" content="Сергей Андреев" />
+    <meta
+      name="keywords"
+      content="CTO, Head of Engineering, IT Architecture, Team Management"
+    />
+    <meta name="viewport" content="width=device-width" />
+
+    <!-- <meta property="og:title" content="<%= title %>" />
     <meta property="og:description" content="<%= description %>" />
     <meta property="og:image" content="assets/og-image.jpg" /> -->
-		
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" type="image/svg+xml" data-theme="light" href="/assets/favicon-light.svg" />
-		<link rel="icon" type="image/svg+xml" data-theme="dark" href="/assets/favicon-dark.svg" />
 
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      data-theme="light"
+      href="/assets/favicon-light.svg"
+    />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      data-theme="dark"
+      href="/assets/favicon-dark.svg"
+    />
 
-		<meta name="generator" content={Astro.generator} />
-		<title>{title}</title>
-		<meta name="description" content={description} />
-		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/firacode@6.2.0/distr/fira_code.css" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/firacode@6.2.0/distr/fira_code.css"
+    />
 
-		<!-- Google tag (gtag.js) -->
-		<script async src="https://www.googletagmanager.com/gtag/js?id=G-1GRTBYX6K9"></script>
-		<script>
-			window.dataLayer = window.dataLayer || [];
-			function gtag() {
-				dataLayer.push(arguments);
-			}
-			gtag('js', new Date());
-	
-			gtag('config', 'G-1GRTBYX6K9');
-		</script>
-	</head>
-	<body>
-		<main>
-			<slot />
-		</main>
-	</body>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-1GRTBYX6K9"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-1GRTBYX6K9");
+    </script>
+  </head>
+  <body>
+    <main>
+      <slot />
+    </main>
+  </body>
 </html>
 
 <script>
-(() => {
+  (() => {
     const style = `
         color: #E2C08D;
         font-family: monospace;
@@ -82,14 +101,13 @@ const { title, description = "CTO, IT-архитектор и амбассадо
     🔍 P.S. Попробуй поискать другие пасхалки на сайте!
     `;
 
-    console.log('%c' + logo, style);
-    console.log('%c' + message, style);
-})(); 
+    console.log("%c" + logo, style);
+    console.log("%c" + message, style);
+  })();
 </script>
 
 <style is:global>
-
-:root {
+  :root {
     /* Light theme (default) */
     --bg-color-light: #e8e4d9;
     --text-color-light: #2b2926;
@@ -149,10 +167,10 @@ const { title, description = "CTO, IT-архитектор и амбассадо
     /* Container widths */
     --container-padding: 1rem;
     --container-max-width: 1200px;
-}
+  }
 
-/* Default theme (light) */
-:root {
+  /* Default theme (light) */
+  :root {
     --bg-color: var(--bg-color-light);
     --text-color: var(--text-color-light);
     --primary-color: var(--primary-color-light);
@@ -175,10 +193,10 @@ const { title, description = "CTO, IT-архитектор и амбассадо
     --text-secondary-rgb: var(--text-secondary-rgb-light);
     --text-tertiary-rgb: var(--text-tertiary-rgb-light);
     --accent-color-rgb: var(--accent-color-rgb-light);
-}
+  }
 
-/* Dark theme */
-:root[data-theme='dark'] {
+  /* Dark theme */
+  :root[data-theme="dark"] {
     --bg-color: var(--bg-color-dark);
     --text-color: var(--text-color-dark);
     --primary-color: var(--primary-color-dark);
@@ -203,24 +221,24 @@ const { title, description = "CTO, IT-архитектор и амбассадо
     --accent-color-rgb: var(--accent-color-rgb-dark);
 
     --section-title-color: rgba(var(--accent-color-rgb), 0.9);
-}
+  }
 
-
-* {
+  * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-}
+  }
 
-body {
-    font-family: 'Fira Code', Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  body {
+    font-family: "Fira Code", Consolas, Monaco, "Andale Mono", "Ubuntu Mono",
+      monospace;
     background-color: var(--bg-color);
     color: var(--text-primary);
     line-height: 1.5;
     position: relative;
-}
+  }
 
-html {
+  html {
     scroll-behavior: smooth;
-	}
+  }
 </style>
