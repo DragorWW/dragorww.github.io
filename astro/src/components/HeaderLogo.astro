@@ -1,3 +1,37 @@
+<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- Фоновая форма для эффекта свечения -->
+    <path class="glow-bg"
+          d="M16 8h14a10 10 0 0 1 10 10v12a10 10 0 0 1-10 10H16V8z" 
+          stroke="var(--primary-color)"
+          stroke-width="0.5"
+          stroke-opacity="0.3"
+          fill="none"/>
+    
+    <!-- Основа - большая буква D -->
+    <path d="M16 8h14a10 10 0 0 1 10 10v12a10 10 0 0 1-10 10H16V8z" 
+          stroke="currentColor" 
+          fill="none" 
+          stroke-width="2.5"/>
+    
+    <!-- Левая грань -->
+    <path d="M16 8v32" 
+          stroke="var(--secondary-color)" 
+          stroke-width="5"
+          stroke-linecap="round"/>
+    
+    <!-- Диагональная линия -->
+    <path class="diagonal-line"
+          d="M24 16L32 32" 
+          stroke="var(--primary-color)" 
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-dasharray="3 6"/>
+    
+    <!-- Узлы -->
+    <circle class="knowledge-node start" cx="24" cy="16" r="2.5" fill="var(--primary-color)"/>
+    <circle class="knowledge-node end" cx="32" cy="32" r="2.5" fill="var(--primary-color)"/>
+</svg> 
+<style>
 .logo {
     display: flex;
     align-items: end;
@@ -128,3 +162,5 @@
     text-shadow: 0 0 8px rgba(var(--primary-color-rgb), 0.3);
     letter-spacing: 0.03em;
 }
+
+</style>

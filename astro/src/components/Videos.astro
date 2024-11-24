@@ -1,5 +1,9 @@
+---
+import SectionTitle from './SectionTitle.astro';
+---
+
 <section class="videos">
-    <h2 class="section-title"><span>Интервью и выступления</span></h2>
+    <SectionTitle title="Интервью и выступления" />
     <div class="videos__container">
         <div class="videos__card">
             <a
@@ -82,3 +86,113 @@
         </div>
     </div>
 </section>
+
+<style>
+.videos {
+    padding: 2rem 0;
+}
+
+.videos__container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+}
+
+.videos__card {
+    cursor: pointer;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.videos__card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(var(--bg-color-rgb), 0.2);
+}
+
+.videos__link {
+    text-decoration: none;
+    color: inherit;
+}
+
+.videos__thumbnail-wrapper {
+    position: relative;
+    aspect-ratio: 16/9;
+    overflow: hidden;
+    background: rgba(var(--bg-color-rgb), 0.5);
+}
+
+.videos__thumbnail {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+
+.videos__card:hover .videos__thumbnail {
+    transform: scale(1.03);
+}
+
+.videos__duration {
+    position: absolute;
+    bottom: 0.75rem;
+    right: 0.75rem;
+    background: rgba(0, 0, 0, 0.85);
+    color: #fff;
+    padding: 0.35rem 0.75rem;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-family: 'Fira Code', monospace;
+    backdrop-filter: blur(4px);
+}
+
+.videos__info {
+    padding: 2rem 0 0;
+}
+
+.videos__title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.75rem;
+    margin-top: 0.75rem;
+    line-height: 1.4;
+    transition: color 0.2s;
+}
+
+.videos__card:hover .videos__title {
+    color: var(--accent-color);
+}
+
+.videos__description {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    opacity: 0.85;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+@media (max-width: 1024px) {
+    .videos__container {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .videos__info {
+        padding: 1.5rem 0 0;
+    }
+
+    .videos__title {
+        font-size: 1rem;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+    .videos__container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+</style>

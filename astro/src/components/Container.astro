@@ -1,4 +1,8 @@
-.container {
+<main class="container">
+	<slot />
+</main>
+<style>
+    .container {
     max-width: var(--container-max-width);
     margin: 0 auto;
     padding: 0 var(--container-padding);
@@ -22,3 +26,5 @@
         max-width: 540px;
     }
 }
+
+</style>

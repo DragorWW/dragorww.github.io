@@ -1,3 +1,156 @@
+<div class="terminal">
+    <div class="terminal__header">
+        <div class="terminal__dots">
+            <span class="terminal__dots-item terminal__dots-item--red"></span>
+            <span class="terminal__dots-item terminal__dots-item--yellow"></span>
+            <span class="terminal__dots-item terminal__dots-item--green"></span>
+        </div>
+        <div class="terminal__title">dragorww.me — -zsh</div>
+    </div>
+    <div class="terminal__content">
+        <div class="terminal__history">
+            <section id="home" class="terminal-section">
+                <article
+                    class="terminal__command"
+                    data-command="welcome"
+                    data-directory="~/digital-garden"
+                    data-branch="main"
+                >
+                    <template>
+                        <div class="terminal__output">
+                            <div class="terminal__welcome">
+                                Добро пожаловать в мой цифровой сад! 🌱
+                                <br /><br />
+                                Здесь растут идеи, проекты и знания...
+                                <br />
+                                Исследуйте с помощью <span class="terminal__cmd-hint">help</span>
+                            </div>
+                        </div>
+                    </template>
+                </article>
+
+                <article class="terminal__command" data-command="help">
+                    <template>
+                        <div class="terminal__output">
+                            Доступные команды:
+                            <br />
+                            help - Показать это сообщение<br />
+                            about - Обо мне<br />
+                            skills - Мои навыки<br />
+                            contact - Контактная информация<br />
+                            projects - Список проектов<br />
+                            clear - Очистить терминал
+                        </div>
+                    </template>
+                </article>
+
+                <article class="terminal__command" data-command="about">
+                    <template>
+                        <div class="terminal__output">
+                            <dl class="terminal__info">
+                                <dt class="terminal__info-term">Name:</dt>
+                                <dd class="terminal__info-desc">Сергей Андреев</dd>
+                                <dt class="terminal__info-term">Role:</dt>
+                                <dd class="terminal__info-desc">Head of Engineering</dd>
+                                <dt class="terminal__info-term">Status:</dt>
+                                <dd class="terminal__info-desc">Developing awesome things...</dd>
+                            </dl>
+                        </div>
+                    </template>
+                </article>
+
+                <article class="terminal__command" data-command="skills">
+                    <template>
+                        <div class="terminal__output">
+                            <ul class="skill-tags">
+                                <li class="skill-tag">
+                                    React.js <span class="skill-tag__version">v18</span>
+                                </li>
+                                <li class="skill-tag">
+                                    Node.js <span class="skill-tag__version">v18</span>
+                                </li>
+                                <li class="skill-tag">
+                                    TypeScript <span class="skill-tag__version">v5</span>
+                                </li>
+                                <li class="skill-tag">
+                                    Python <span class="skill-tag__version">v3.11</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </template>
+                </article>
+
+                <article class="terminal__command" data-command="contact">
+                    <template>
+                        <div class="terminal__output">
+                            <dl class="terminal__info">
+                                <dt class="terminal__info-term">Email:</dt>
+                                <dd class="terminal__info-desc">dragorww@gmail.com</dd>
+                                <dt class="terminal__info-term">Telegram:</dt>
+                                <dd class="terminal__info-desc">@dragorww</dd>
+                                <dt class="terminal__info-term">GitHub:</dt>
+                                <dd class="terminal__info-desc">github.com/dragorww</dd>
+                            </dl>
+                        </div>
+                    </template>
+                </article>
+
+                <article class="terminal__command" data-command="projects">
+                    <template>
+                        <div class="terminal__project">
+                            <time class="terminal__project-date">[2024]</time>
+                            <h3 class="terminal__project-title">
+                                → Develop Business Analytics Platform
+                            </h3>
+                            <!-- <ul class="terminal__project-details">
+                                        <li>• 7 companies integration</li>
+                                        <li>• 100k+ users</li>
+                                        <li>• 99.9% uptime</li>
+                                </ul> -->
+                        </div>
+                        <div class="terminal__project">
+                            <time class="terminal__project-date">[2023]</time>
+                            <h3 class="terminal__project-title">→ Develop Educational Platform</h3>
+                            <!-- <ul class="terminal__project-details">
+                                        <li>• 7 companies integration</li>
+                                        <li>• 100k+ users</li>
+                                        <li>• 99.9% uptime</li>
+                                    </ul> -->
+                        </div>
+                        <div class="terminal__project">
+                            <time class="terminal__project-date">[2019]</time>
+                            <h3 class="terminal__project-title">
+                                → Develop DevOps CD/CD Tools (clone Jenkins)
+                            </h3>
+                            <!-- <ul class="terminal__project-details">
+                                        <li>• 7 companies integration</li>
+                                        <li>• 100k+ users</li>
+                                        <li>• 99.9% uptime</li>
+                                    </ul> -->
+                        </div>
+                        <div class="terminal__project">
+                            <time class="terminal__project-date">[2016]</time>
+                            <h3 class="terminal__project-title">→ Develop Cargo Marketplace</h3>
+                            <!-- <ul class="terminal__project-details">
+                                        <li>• 7 companies integration</li>
+                                        <li>• 100k+ users</li>
+                                        <li>• 99.9% uptime</li>
+                                    </ul> -->
+                        </div>
+                    </template>
+                </article>
+
+                <!-- Добавляем шаблон для статуса загрузки -->
+                <template id="loading-template">
+                    <div class="terminal__output terminal__output--loading">Думаю</div>
+                </template>
+            </section>
+        </div>
+    </div>
+</div>
+
+
+<script>
 class TerminalScrollManager {
     constructor(terminalContent) {
         this.terminal = terminalContent;
@@ -580,6 +733,422 @@ const truncateText = (text, maxLength = 500) => {
     return text.length > maxLength ? text.substring(0, maxLength) + '...' : text;
 };
 
-window.initTerminalAnimation = () => {
-    new TerminalAnimation();
-};
+new TerminalAnimation();
+
+</script>
+
+<style>
+    /* Terminal Component Styles */
+.terminal {
+    display: none;
+}
+
+@media screen and (min-width: 1024px) {
+    .terminal {
+        display: flex;
+        border: 1px solid var(--border-color);
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
+        border-radius: 8px;
+        overflow: visible;
+        width: 100%;
+        max-width: 600px;
+        height: 400px;
+        flex-direction: column;
+        box-shadow: 0 8px 32px rgba(var(--bg-color-rgb), 0.1);
+        transition: all 0.3s ease;
+        position: relative;
+    }
+}
+
+/* Добавляем псевдоэлементы для волн */
+.terminal::before,
+.terminal::after {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border-radius: 10px;
+    border: 1px solid transparent;
+    transition: all 0.3s ease;
+    pointer-events: none;
+    opacity: 0;
+}
+
+/* Стили фокуса для всего терминала */
+.terminal:focus-within {
+    border-color: rgba(var(--accent-color-rgb), 0.2);
+    box-shadow:
+        0 8px 32px rgba(var(--bg-color-rgb), 0.1),
+        0 0 0 1px rgba(var(--accent-color-rgb), 0.1);
+}
+
+.terminal:focus-within::before {
+    border-color: rgba(var(--accent-color-rgb), 0.08);
+    animation: rippleWave1 3s ease-out infinite;
+}
+
+.terminal:focus-within::after {
+    border-color: rgba(var(--accent-color-rgb), 0.05);
+    animation: rippleWave2 3s ease-out infinite 0.75s;
+}
+
+@keyframes rippleWave1 {
+    0% {
+        transform: scale(1);
+        opacity: 0.5;
+    }
+    100% {
+        transform: scale(1.05);
+        opacity: 0;
+    }
+}
+
+@keyframes rippleWave2 {
+    0% {
+        transform: scale(1);
+        opacity: 0.3;
+    }
+    100% {
+        transform: scale(1.08);
+        opacity: 0;
+    }
+}
+
+.terminal__header {
+    padding: 8px 16px;
+    background: rgba(var(--bg-color-rgb), 0.5);
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+.terminal__title {
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Убираем старые стили фокуса с content */
+.terminal__content {
+    background: rgba(var(--card-bg-rgb), 0.5);
+    flex: 1;
+    padding: 16px;
+    font-family: 'Fira Code', monospace;
+    font-size: 14px;
+    line-height: 1.5;
+    overflow-y: auto;
+    height: auto;
+    min-height: 300px;
+    max-height: 400px;
+    outline: none;
+}
+
+.terminal__dots {
+    display: flex;
+    gap: 6px;
+}
+
+.terminal__dots-item {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+
+.terminal__dots-item--red {
+    background: #ff5f56;
+}
+.terminal__dots-item--yellow {
+    background: #ffbd2e;
+}
+.terminal__dots-item--green {
+    background: #27c93f;
+}
+
+/* Команды и вывод */
+.terminal__output {
+    opacity: 0;
+    transform: translateY(-10px);
+    animation: slideIn 0.3s ease forwards;
+    margin-bottom: 1rem;
+}
+
+.terminal__welcome {
+    color: var(--text-secondary);
+    margin-bottom: 16px;
+}
+
+.terminal__cmd-hint {
+    color: var(--accent-color);
+    background: rgba(var(--bg-color-rgb), 0.1);
+    border: 1px solid var(--border-color);
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
+/* Информационные блоки */
+.terminal__info {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 8px 16px;
+    align-items: baseline;
+}
+
+.terminal__info-term {
+    color: var(--accent-color);
+    font-weight: 500;
+}
+
+.terminal__info-desc {
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+/* Проекты */
+.terminal__projects {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.terminal__project {
+    border-left: 2px solid var(--accent-color);
+    padding-left: 12px;
+}
+
+.terminal__project-date {
+    color: var(--accent-color);
+    font-size: 0.875rem;
+    display: inline-block;
+    margin-right: 8px;
+}
+
+.terminal__project-title {
+    color: var(--text-primary);
+    font-size: 1rem;
+    margin: 0;
+    display: inline-block;
+    font-weight: normal;
+}
+
+.terminal__project-details {
+    list-style: none;
+    padding-left: 16px;
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    margin-top: 4px;
+}
+
+/* Анимации */
+@keyframes slideIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulseBorder {
+    0%,
+    100% {
+        border-color: rgba(var(--accent-color-rgb), 0.1);
+    }
+    50% {
+        border-color: rgba(var(--accent-color-rgb), 0.3);
+    }
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .terminal {
+        max-width: 100%;
+        margin: 0 auto;
+        height: 350px;
+    }
+
+    .terminal__content {
+        font-size: 0.75rem;
+    }
+}
+
+/* Стили для промпта */
+.terminal__prompt {
+    display: inline-block;
+    margin-bottom: 8px;
+    min-height: 24px;
+    width: 100%;
+}
+
+.terminal__prompt-path {
+    color: var(--accent-color);
+    opacity: 0.8;
+    font-weight: 500;
+    flex-shrink: 0;
+}
+
+.terminal__prompt-branch {
+    color: var(--secondary-color);
+    opacity: 0.9;
+    font-size: 0.9em;
+    flex-shrink: 0;
+}
+
+.terminal__prompt-symbol {
+    color: var(--accent-color);
+    margin: 0 4px;
+    font-weight: bold;
+    flex-shrink: 0;
+}
+
+.terminal__prompt-input {
+    color: var(--text-primary);
+    display: inline;
+    align-items: center;
+    flex: 1 1 auto;
+    min-width: 50px;
+    word-break: break-word;
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
+    max-width: calc(100% - 20px);
+}
+
+.terminal__prompt-cursor {
+    color: var(--accent-color);
+    animation: blink 1s step-end infinite;
+    font-weight: bold;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.terminal:focus-within .terminal__prompt-cursor {
+    opacity: 1;
+}
+
+@keyframes blink {
+    0%,
+    100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0;
+    }
+}
+
+/* Стили для ошибок */
+.terminal__output--error {
+    color: #ff5f56;
+}
+
+/* Стили для скрытых команд */
+.terminal__command {
+    display: none;
+}
+
+/* Стили для проектов */
+.terminal__project-details li {
+    margin-bottom: 4px;
+    color: var(--text-secondary);
+}
+
+.terminal__project-title {
+    color: var(--accent-color);
+    font-weight: normal;
+}
+
+/* Дополнительные стили для информационных блоков */
+.terminal__info {
+    margin: 8px 0;
+}
+
+.terminal__info-term {
+    font-weight: bold;
+}
+
+/* Стили для подсказок */
+.terminal__prompt-input.hint {
+    color: var(--text-tertiary);
+    opacity: 0.7;
+    font-style: italic;
+}
+
+/* Стили для AI ответов */
+.terminal__output--ai {
+    border-left: 2px solid var(--secondary-color);
+    padding-left: 12px;
+    margin: 8px 0;
+}
+
+.terminal__output-header {
+    color: var(--secondary-color);
+    font-size: 0.875rem;
+    margin-bottom: 4px;
+}
+
+.terminal__output-content {
+    color: var(--text-secondary);
+}
+
+.terminal__output--loading {
+    color: var(--accent-color);
+    font-style: normal;
+    font-size: 0.875rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 8px 0;
+    padding: 4px 0;
+    border-left: 2px solid var(--accent-color);
+    padding-left: 12px;
+}
+
+.terminal__output--loading::before {
+    content: '⠋';
+    animation: loadingSpinner 0.8s steps(10, end) infinite;
+    font-size: 1.2em;
+    order: -1;
+    color: var(--accent-color);
+    opacity: 0.8;
+}
+
+@keyframes loadingSpinner {
+    0% {
+        content: '⠋';
+    }
+    10% {
+        content: '⠙';
+    }
+    20% {
+        content: '⠹';
+    }
+    30% {
+        content: '⠸';
+    }
+    40% {
+        content: '⠼';
+    }
+    50% {
+        content: '⠴';
+    }
+    60% {
+        content: '⠦';
+    }
+    70% {
+        content: '⠧';
+    }
+    80% {
+        content: '⠇';
+    }
+    90% {
+        content: '⠏';
+    }
+}
+
+.terminal__output--loading::after {
+    content: none;
+}
+
+</style>
