@@ -181,18 +181,22 @@ class TerminalAnimation {
                 const lastPrompt = this.container.lastElementChild;
                 lastPrompt.innerHTML = promptHTML;
 
-                this.container.appendChild(lastPrompt);
-                this.scrollManager.observeLastPrompt();
-                this.scrollManager.scrollToBottom();
+                if (!isHint) {
+                    this.container.appendChild(lastPrompt);
+                    this.scrollManager.observeLastPrompt();
+                    this.scrollManager.scrollToBottom();
+                }
 
                 return lastPrompt;
 
             case 'append':
                 const newPrompt = document.createElement('p');
                 newPrompt.innerHTML = promptHTML;
-                this.container.appendChild(newPrompt);
-                this.scrollManager.observeLastPrompt();
-                this.scrollManager.scrollToBottom();
+                if (!isHint) {
+                    this.container.appendChild(newPrompt);
+                    this.scrollManager.observeLastPrompt();
+                    this.scrollManager.scrollToBottom();
+                }
                 return newPrompt;
         }
     }
@@ -504,6 +508,7 @@ class TerminalAnimation {
                 command: currentText,
                 showCursor: true,
                 action: 'update',
+                isHint: true,
             });
             await this.sleep(this.eraseDelay);
         }
