@@ -4,19 +4,17 @@ class TerminalScrollManager {
         this.autoScrollEnabled = true;
         this.savedScrollTop = 0;
 
-        // Создаем ResizeObserver для отслеживания изменений высоты промпта
         this.resizeObserver = new ResizeObserver(() => {
             this.scrollToBottom();
         });
 
-        // Начинаем наблюдать за последним промптом
         this.observeLastPrompt();
     }
 
     observeLastPrompt() {
         const lastPrompt = this.terminal.querySelector('.terminal__prompt:last-child');
         if (lastPrompt) {
-            this.resizeObserver.disconnect(); // Отключаем наблюдение за предыдущим промптом
+            this.resizeObserver.disconnect();
             this.resizeObserver.observe(lastPrompt);
         }
     }
@@ -51,11 +49,9 @@ class TerminalScrollManager {
 }
 
 class TerminalAnimation {
-    // settings
     commandDelay = 50;
     commandPause = 1000;
 
-    // state
     currentDirectory = '';
     currentBranch = '';
     currentInput = '';
@@ -73,29 +69,58 @@ class TerminalAnimation {
         'help - список всех команд',
     ];
 
-    hintDelay = 1500; // Уменьшили с 3000 до 1500 мс - первая подсказка появится быстрее
-    typeDelay = 60; // Немного ускорили печать
-    eraseDelay = 30; // Немного ускорили стирание
-    pauseDelay = 1000; // Уменьшили паузу с 1500 до 1000 мс
-    betweenHintsDelay = 300; // Уменьшили паузу между подсказками с 500 до 300 мс
+    hintDelay = 1500;
+    typeDelay = 60;
+    eraseDelay = 30;
+    pauseDelay = 1000;
+    betweenHintsDelay = 300;
     hintIndex = 0;
     hintTimeout = null;
     isShowingHint = false;
+    isInitializing = true;
+    isAnimating = true;
+
+    hasAISupport = 'userAgentData' in navigator && 'speechRecognition' in window;
+    HF_API_TOKEN = 'hf_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx';
+    MODEL_URL = 'https://api-inference.huggingface.co/models/facebook/blenderbot-400M-distill';
 
     constructor() {
         this.container = document.querySelector('.terminal__history');
         this.terminalContent = document.querySelector('.terminal__content');
         this.scrollManager = new TerminalScrollManager(this.terminalContent);
 
-        this.loadCommands();
         this.initialize();
         this.startHintCycle();
+    }
 
-        this.hasAISupport = 'userAgentData' in navigator && 'speechRecognition' in window;
-        this.HF_API_TOKEN = 'hf_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx';
-        this.MODEL_URL =
-            'https://api-inference.huggingface.co/models/facebook/blenderbot-400M-distill';
-        this.isInitializing = true;
+    async initialize() {
+        this.loadCommands();
+        this.disableScroll();
+        this.showWelcomeMessage();
+
+        const initialCommands = ['about', 'skills', 'projects'];
+        for (const cmd of initialCommands) {
+            await this.sleep(this.commandPause);
+            await this.simulateCommand(cmd);
+        }
+
+        await this.sleep(this.commandPause);
+        this.isAnimating = false;
+        this.isInitializing = false;
+        this.enableScroll();
+        this.setupEventListeners();
+
+        // Не показываем курсор при инициализации, если терминал не в фокусе
+        this.handlePrompt({
+            showCursor: document.activeElement === this.terminalContent,
+            action: 'append',
+        });
+
+        setTimeout(() => {
+            if (!this.currentInput) {
+                this.startHintCycle();
+            }
+        }, 1000);
     }
 
     loadCommands() {
@@ -155,9 +180,7 @@ class TerminalAnimation {
         }
     }
 
-    // Утилитарная функция для работы с Google Analytics
     sendAnalytics(eventName, params) {
-        // Проверяем доступность gtag
         if (typeof gtag === 'function') {
             gtag('event', eventName, {
                 event_category: 'Terminal',
@@ -358,38 +381,6 @@ class TerminalAnimation {
         }
     }
 
-    async initialize() {
-        this.disableScroll();
-        this.isAnimating = true;
-        this.isInitializing = true;
-
-        await this.showWelcomeMessage();
-
-        const initialCommands = ['about', 'skills', 'projects'];
-        for (const cmd of initialCommands) {
-            await this.sleep(this.commandPause);
-            await this.simulateCommand(cmd);
-        }
-
-        await this.sleep(this.commandPause);
-        this.isAnimating = false;
-        this.isInitializing = false;
-        this.enableScroll();
-        this.setupEventListeners();
-
-        // Не показываем курсор при инициализации, если терминал не в фокусе
-        this.handlePrompt({
-            showCursor: document.activeElement === this.terminalContent,
-            action: 'append',
-        });
-
-        setTimeout(() => {
-            if (!this.currentInput) {
-                this.startHintCycle();
-            }
-        }, 1000);
-    }
-
     disableScroll() {
         this.terminalContent.style.overflowY = 'hidden';
         this.savedScrollTop = this.terminalContent.scrollTop;
@@ -568,7 +559,6 @@ class TerminalAnimation {
     }
 }
 
-// Улучшенный локальный fallback с ипользованием NLP.js
 class LocalAI {
     constructor() {
         this.keywords = {
@@ -623,12 +613,10 @@ class LocalAI {
     }
 }
 
-// Вспомогательная функция для обрезки длинного текста
 const truncateText = (text, maxLength = 500) => {
     return text.length > maxLength ? text.substring(0, maxLength) + '...' : text;
 };
 
-// Инициализация
 window.initTerminalAnimation = () => {
     new TerminalAnimation();
 };
