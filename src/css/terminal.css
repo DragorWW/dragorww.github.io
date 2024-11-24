@@ -179,11 +179,6 @@
 .terminal__project {
     border-left: 2px solid var(--accent-color);
     padding-left: 12px;
-    transition:
-        opacity 0.3s ease,
-        transform 0.3s ease;
-    opacity: 0;
-    transform: translateY(-10px);
 }
 
 .terminal__project-date {
@@ -242,10 +237,7 @@
 
 /* Стили для промпта */
 .terminal__prompt {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 4px;
+    display: inline-block;
     margin-bottom: 8px;
     min-height: 24px;
     width: 100%;
@@ -274,7 +266,7 @@
 
 .terminal__prompt-input {
     color: var(--text-primary);
-    display: inline-flex;
+    display: inline;
     align-items: center;
     flex: 1 1 auto;
     min-width: 50px;

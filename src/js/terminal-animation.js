@@ -1,9 +1,75 @@
+class TerminalScrollManager {
+    constructor(terminalContent) {
+        this.terminal = terminalContent;
+        this.autoScrollEnabled = true;
+        this.savedScrollTop = 0;
+
+        this.resizeObserver = new ResizeObserver(() => {
+            this.scrollToBottom();
+        });
+
+        this.observeLastPrompt();
+    }
+
+    observeLastPrompt() {
+        const lastPrompt = this.terminal.querySelector('.terminal__prompt:last-child');
+        if (lastPrompt) {
+            this.resizeObserver.disconnect();
+            this.resizeObserver.observe(lastPrompt);
+        }
+    }
+
+    disableScroll() {
+        this.terminal.style.overflowY = 'hidden';
+        this.savedScrollTop = this.terminal.scrollTop;
+        this.terminal.addEventListener('scroll', this.preventScroll);
+    }
+
+    enableScroll() {
+        this.terminal.style.overflowY = 'auto';
+        this.terminal.removeEventListener('scroll', this.preventScroll);
+    }
+
+    preventScroll = () => {
+        if (this.autoScrollEnabled) {
+            this.terminal.scrollTop = this.savedScrollTop;
+        }
+    };
+
+    disableAutoScroll() {
+        this.autoScrollEnabled = false;
+        this.savedScrollTop = this.terminal.scrollTop;
+    }
+
+    enableAutoScroll() {
+        this.autoScrollEnabled = true;
+    }
+
+    scrollToBottom() {
+        if (this.autoScrollEnabled) {
+            this.savedScrollTop = this.terminal.scrollHeight - this.terminal.clientHeight;
+            this.terminal.scrollTop = this.savedScrollTop;
+        }
+    }
+
+    smoothScrollToBottom() {
+        if (this.autoScrollEnabled) {
+            this.terminal.scrollTo({
+                top: this.terminal.scrollHeight,
+                behavior: 'smooth',
+            });
+        }
+    }
+
+    restoreScroll() {
+        this.terminal.scrollTop = this.savedScrollTop;
+    }
+}
+
 class TerminalAnimation {
-    // settings
     commandDelay = 50;
     commandPause = 1000;
 
-    // state
     currentDirectory = '';
     currentBranch = '';
     currentInput = '';
@@ -21,28 +87,57 @@ class TerminalAnimation {
         'help - список всех команд',
     ];
 
-    hintDelay = 1500; // Уменьшили с 3000 до 1500 мс - первая подсказка появится быстрее
-    typeDelay = 60; // Немного ускорили печать
-    eraseDelay = 30; // Немного ускорили стирание
-    pauseDelay = 1000; // Уменьшили паузу с 1500 до 1000 мс
-    betweenHintsDelay = 300; // Уменьшили паузу между подсказками с 500 до 300 мс
+    hintDelay = 1500;
+    typeDelay = 60;
+    eraseDelay = 30;
+    pauseDelay = 1000;
+    betweenHintsDelay = 300;
     hintIndex = 0;
     hintTimeout = null;
     isShowingHint = false;
+    isInitializing = true;
+    isAnimating = true;
+
+    hasAISupport = 'userAgentData' in navigator && 'speechRecognition' in window;
+    HF_API_TOKEN = 'hf_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx';
+    MODEL_URL = 'https://api-inference.huggingface.co/models/facebook/blenderbot-400M-distill';
 
     constructor() {
         this.container = document.querySelector('.terminal__history');
         this.terminalContent = document.querySelector('.terminal__content');
-        this.loadCommands();
+        this.scrollManager = new TerminalScrollManager(this.terminalContent);
+
         this.initialize();
         this.startHintCycle();
-        this.hasAISupport = 'userAgentData' in navigator && 'speechRecognition' in window;
+    }
 
-        // Токен можно получить бесплатно на huggingface.co
-        this.HF_API_TOKEN = 'hf_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx';
-        this.MODEL_URL =
-            'https://api-inference.huggingface.co/models/facebook/blenderbot-400M-distill';
-        this.isInitializing = true;
+    async initialize() {
+        this.loadCommands();
+        this.scrollManager.disableScroll();
+        await this.simulateCommand('welcome');
+
+        const initialCommands = ['about', 'skills', 'projects'];
+        for (const cmd of initialCommands) {
+            await this.sleep(this.commandPause);
+            await this.simulateCommand(cmd);
+        }
+
+        await this.sleep(this.commandPause);
+        this.isAnimating = false;
+        this.isInitializing = false;
+        this.scrollManager.enableScroll();
+        this.setupEventListeners();
+
+        this.handlePrompt({
+            showCursor: document.activeElement === this.terminalContent,
+            action: 'append',
+        });
+
+        setTimeout(() => {
+            if (!this.currentInput) {
+                this.startHintCycle();
+            }
+        }, 1000);
     }
 
     loadCommands() {
@@ -65,7 +160,6 @@ class TerminalAnimation {
     }
 
     handlePrompt({ command = '', showCursor = false, action = 'create', isHint = false } = {}) {
-        // Показываем курсор только если терминал в фокусе или это инициализация
         const shouldShowCursor =
             showCursor && (document.activeElement === this.terminalContent || this.isInitializing);
 
@@ -86,20 +180,24 @@ class TerminalAnimation {
             case 'update':
                 const lastPrompt = this.container.lastElementChild;
                 lastPrompt.innerHTML = promptHTML;
+
+                this.container.appendChild(lastPrompt);
+                this.scrollManager.observeLastPrompt();
+                this.scrollManager.scrollToBottom();
+
                 return lastPrompt;
 
             case 'append':
                 const newPrompt = document.createElement('p');
                 newPrompt.innerHTML = promptHTML;
                 this.container.appendChild(newPrompt);
-                this.terminalContent.scrollTop = this.terminalContent.scrollHeight;
+                this.scrollManager.observeLastPrompt();
+                this.scrollManager.scrollToBottom();
                 return newPrompt;
         }
     }
 
-    // Утилитарная функция для работы с Google Analytics
     sendAnalytics(eventName, params) {
-        // Проверяем доступность gtag
         if (typeof gtag === 'function') {
             gtag('event', eventName, {
                 event_category: 'Terminal',
@@ -110,11 +208,65 @@ class TerminalAnimation {
         }
     }
 
+    async runCommand(command) {
+        if (command.command === 'clear') {
+            this.container.innerHTML = '';
+            return;
+        }
+
+        const output = command.execute();
+        const tempContainer = document.createElement('div');
+        tempContainer.innerHTML = output;
+
+        const outputs = Array.from(tempContainer.children);
+
+        for (let i = 0; i < outputs.length; i++) {
+            const outputContent = outputs[i];
+            const outputElement = document.createElement('div');
+            outputElement.classList.add('terminal__output');
+            outputElement.appendChild(outputContent);
+            this.container.appendChild(outputElement);
+            this.scrollManager.scrollToBottom();
+
+            if (i < outputs.length - 1) {
+                await this.sleep(500);
+            }
+        }
+
+        if (command.directory) {
+            this.currentDirectory = command.directory;
+        }
+
+        if (command.branch) {
+            this.currentBranch = command.branch;
+        }
+    }
+
+    async simulateCommand(commandName) {
+        const command = this.commands[commandName];
+        const text = command.command || commandName;
+
+        let promptElement = this.handlePrompt({ action: 'append' });
+
+        let currentText = '';
+        for (const char of text) {
+            await this.sleep(this.commandDelay);
+            currentText += char;
+            promptElement.innerHTML = this.handlePrompt({
+                command: currentText,
+                action: 'create',
+            }).innerHTML;
+            this.scrollManager.scrollToBottom();
+        }
+
+        await this.sleep(500);
+        await this.runCommand(command);
+    }
+
     async executeCommand() {
         const command = this.currentInput.trim().toLowerCase();
 
         if (command) {
-            // Используем новую функцию для отправки события
             this.sendAnalytics('terminal_command', {
                 event_label: command,
                 value: 1,
@@ -130,23 +282,15 @@ class TerminalAnimation {
                 action: 'update',
             }).innerHTML;
 
-            if (command === 'clear') {
-                this.container.innerHTML = '';
+            if (this.commands[command]) {
+                await this.runCommand(this.commands[command]);
             } else {
-                let output;
-
-                if (this.commands[command]) {
-                    output = this.commands[command].execute();
-                } else {
-                    output = await this.tryAIResponse(command);
-                }
-
+                const output = await this.tryAIResponse(command);
                 if (output) {
-                    const outputElement = document.createElement('div');
-                    outputElement.classList.add('terminal__output');
-                    outputElement.innerHTML = output;
-                    this.container.appendChild(outputElement);
-                    await this.sleep(10);
+                    const tempContainer = document.createElement('div');
+                    tempContainer.innerHTML = output;
+                    this.container.appendChild(tempContainer.firstElementChild);
+                    this.scrollManager.scrollToBottom();
                 }
             }
 
@@ -155,8 +299,6 @@ class TerminalAnimation {
 
         this.currentInput = '';
         this.handlePrompt({ showCursor: true, action: 'append' });
-        await this.sleep(10);
-        this.terminalContent.scrollTop = this.terminalContent.scrollHeight;
         this.startHintCycle();
     }
 
@@ -166,7 +308,7 @@ class TerminalAnimation {
             const loadingTemplate = document.getElementById('loading-template');
             const loadingElement = loadingTemplate.content.cloneNode(true).firstElementChild;
             this.container.appendChild(loadingElement);
-            this.scrollToBottom();
+            this.scrollManager.scrollToBottom();
 
             await this.sleep(2000);
 
@@ -226,141 +368,6 @@ class TerminalAnimation {
                 <div class="terminal__output-content">${fallbackResponse}</div>
             </div>`;
         }
-    }
-
-    async simulateCommand(commandName) {
-        let promptElement = this.handlePrompt({ action: 'append' });
-        const command = this.commands[commandName.split(' ')[0]];
-        const text = command?.command || commandName;
-
-        let currentText = '';
-        for (const char of text) {
-            await this.sleep(this.commandDelay);
-            currentText += char;
-            promptElement.innerHTML = this.handlePrompt({
-                command: currentText,
-                action: 'create',
-            }).innerHTML;
-            this.scrollToBottom();
-        }
-
-        await this.sleep(500);
-
-        if (command) {
-            const output = command.execute();
-            const outputElement = document.createElement('div');
-            outputElement.classList.add('terminal__output');
-
-            // Если это команда projects, подготавливаем контейнер
-            if (commandName === 'projects') {
-                outputElement.innerHTML = '<ul class="terminal__projects"></ul>';
-                this.container.appendChild(outputElement);
-
-                const projectsContainer = outputElement.querySelector('.terminal__projects');
-                const projectsHTML = output.match(/<li class="terminal__project">[\s\S]*?<\/li>/g);
-
-                // Добавляем проекты по одному
-                for (const projectHTML of projectsHTML) {
-                    const projectElement = document.createElement('div');
-                    projectElement.innerHTML = projectHTML;
-                    const project = projectElement.firstChild;
-
-                    project.style.opacity = '0';
-                    project.style.transform = 'translateY(-10px)';
-                    project.style.maxHeight = '0';
-                    project.style.overflow = 'hidden';
-                    project.style.transition = 'all 0.3s ease';
-
-                    projectsContainer.appendChild(project);
-
-                    await this.sleep(100); // Небольшая пауза перед анимацией
-
-                    const fullHeight = project.scrollHeight;
-                    project.style.maxHeight = fullHeight + 'px';
-                    project.style.opacity = '1';
-                    project.style.transform = 'translateY(0)';
-
-                    await this.sleep(300);
-                    this.scrollToBottom();
-                }
-            } else {
-                outputElement.innerHTML = output;
-                this.container.appendChild(outputElement);
-            }
-
-            this.scrollToBottom();
-        }
-
-        if (command?.directory) {
-            this.currentDirectory = command.directory;
-        }
-
-        if (command?.branch) {
-            this.currentBranch = command.branch;
-        }
-    }
-
-    async initialize() {
-        this.disableScroll();
-        this.isAnimating = true;
-        this.isInitializing = true;
-
-        await this.showWelcomeMessage();
-
-        const initialCommands = ['about', 'skills', 'projects'];
-        for (const cmd of initialCommands) {
-            await this.sleep(this.commandPause);
-            await this.simulateCommand(cmd);
-        }
-
-        await this.sleep(this.commandPause);
-        this.isAnimating = false;
-        this.isInitializing = false;
-        this.enableScroll();
-        this.setupEventListeners();
-
-        // Не показываем курсор при инициализации, если терминал не в фокусе
-        this.handlePrompt({
-            showCursor: document.activeElement === this.terminalContent,
-            action: 'append',
-        });
-
-        setTimeout(() => {
-            if (!this.currentInput) {
-                this.startHintCycle();
-            }
-        }, 1000);
-    }
-
-    disableScroll() {
-        this.terminalContent.style.overflowY = 'hidden';
-        this.savedScrollTop = this.terminalContent.scrollTop;
-
-        // Сохраняем позицию скролла и запрещаем прокрутку
-        this.terminalContent.addEventListener('scroll', this.preventScroll);
-    }
-
-    enableScroll() {
-        this.terminalContent.style.overflowY = 'auto';
-        this.terminalContent.removeEventListener('scroll', this.preventScroll);
-    }
-
-    preventScroll = () => {
-        if (this.isAnimating) {
-            this.terminalContent.scrollTop = this.savedScrollTop;
-        }
-    };
-
-    scrollToBottom() {
-        if (this.isInitializing || this.isAnimating) {
-            this.savedScrollTop =
-                this.terminalContent.scrollHeight - this.terminalContent.clientHeight;
-            this.terminalContent.scrollTop = this.savedScrollTop;
-        }
-    }
-
-    async showWelcomeMessage() {
-        await this.simulateCommand('welcome');
     }
 
     sleep(ms) {
@@ -510,7 +517,6 @@ class TerminalAnimation {
     }
 }
 
-// Улучшенный локальный fallback с ипользованием NLP.js
 class LocalAI {
     constructor() {
         this.keywords = {
@@ -565,12 +571,10 @@ class LocalAI {
     }
 }
 
-// Вспомогательная функция для обрезки длинного текста
 const truncateText = (text, maxLength = 500) => {
     return text.length > maxLength ? text.substring(0, maxLength) + '...' : text;
 };
 
-// Инициализация
 window.initTerminalAnimation = () => {
     new TerminalAnimation();
 };
