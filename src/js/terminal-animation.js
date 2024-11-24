@@ -208,6 +208,61 @@ class TerminalAnimation {
         }
     }
 
+    async runCommand(command) {
+        if (command.command === 'clear') {
+            this.container.innerHTML = '';
+            return;
+        }
+
+        const output = command.execute();
+        const tempContainer = document.createElement('div');
+        tempContainer.innerHTML = output;
+
+        const outputs = Array.from(tempContainer.children);
+
+        for (let i = 0; i < outputs.length; i++) {
+            const outputContent = outputs[i];
+            const outputElement = document.createElement('div');
+            outputElement.classList.add('terminal__output');
+            outputElement.appendChild(outputContent);
+            this.container.appendChild(outputElement);
+            this.scrollManager.scrollToBottom();
+
+            if (i < outputs.length - 1) {
+                await this.sleep(500);
+            }
+        }
+
+        if (command.directory) {
+            this.currentDirectory = command.directory;
+        }
+
+        if (command.branch) {
+            this.currentBranch = command.branch;
+        }
+    }
+
+    async simulateCommand(commandName) {
+        const command = this.commands[commandName];
+        const text = command.command || commandName;
+
+        let promptElement = this.handlePrompt({ action: 'append' });
+
+        let currentText = '';
+        for (const char of text) {
+            await this.sleep(this.commandDelay);
+            currentText += char;
+            promptElement.innerHTML = this.handlePrompt({
+                command: currentText,
+                action: 'create',
+            }).innerHTML;
+            this.scrollManager.scrollToBottom();
+        }
+
+        await this.sleep(500);
+        await this.runCommand(command);
+    }
+
     async executeCommand() {
         const command = this.currentInput.trim().toLowerCase();
 
@@ -227,35 +282,15 @@ class TerminalAnimation {
                 action: 'update',
             }).innerHTML;
 
-            if (command === 'clear') {
-                this.container.innerHTML = '';
+            if (this.commands[command]) {
+                await this.runCommand(this.commands[command]);
             } else {
-                let output;
-
-                if (this.commands[command]) {
-                    output = this.commands[command].execute();
-                } else {
-                    output = await this.tryAIResponse(command);
-                }
-
+                const output = await this.tryAIResponse(command);
                 if (output) {
                     const tempContainer = document.createElement('div');
                     tempContainer.innerHTML = output;
-
-                    const outputs = Array.from(tempContainer.children);
-
-                    for (let i = 0; i < outputs.length; i++) {
-                        const outputContent = outputs[i];
-                        const outputElement = document.createElement('div');
-                        outputElement.classList.add('terminal__output');
-                        outputElement.appendChild(outputContent);
-                        this.container.appendChild(outputElement);
-                        this.scrollManager.scrollToBottom();
-
-                        if (i < outputs.length - 1) {
-                            await this.sleep(500);
-                        }
-                    }
+                    this.container.appendChild(tempContainer.firstElementChild);
+                    this.scrollManager.scrollToBottom();
                 }
             }
 
@@ -273,7 +308,7 @@ class TerminalAnimation {
             const loadingTemplate = document.getElementById('loading-template');
             const loadingElement = loadingTemplate.content.cloneNode(true).firstElementChild;
             this.container.appendChild(loadingElement);
-            this.scrollToBottom();
+            this.scrollManager.scrollToBottom();
 
             await this.sleep(2000);
 
@@ -332,54 +367,6 @@ class TerminalAnimation {
                 <div class="terminal__output-header">🤖 Local AI:</div>
                 <div class="terminal__output-content">${fallbackResponse}</div>
             </div>`;
-        }
-    }
-
-    async simulateCommand(commandName) {
-        let promptElement = this.handlePrompt({ action: 'append' });
-        const command = this.commands[commandName.split(' ')[0]];
-        const text = command?.command || commandName;
-
-        let currentText = '';
-        for (const char of text) {
-            await this.sleep(this.commandDelay);
-            currentText += char;
-            promptElement.innerHTML = this.handlePrompt({
-                command: currentText,
-                action: 'create',
-            }).innerHTML;
-            this.scrollManager.scrollToBottom();
-        }
-
-        await this.sleep(500);
-
-        if (command) {
-            const output = command.execute();
-            const tempContainer = document.createElement('div');
-            tempContainer.innerHTML = output;
-
-            const outputs = Array.from(tempContainer.children);
-
-            for (let i = 0; i < outputs.length; i++) {
-                const outputContent = outputs[i];
-                const outputElement = document.createElement('div');
-                outputElement.classList.add('terminal__output');
-                outputElement.appendChild(outputContent);
-                this.container.appendChild(outputElement);
-                this.scrollManager.scrollToBottom();
-
-                if (i != outputs.length - 1) {
-                    await this.sleep(500);
-                }
-            }
-        }
-
-        if (command?.directory) {
-            this.currentDirectory = command.directory;
-        }
-
-        if (command?.branch) {
-            this.currentBranch = command.branch;
         }
     }
 
