@@ -487,18 +487,23 @@ const { t } = useTranslations(Astro);
 
     async tryAIResponse(command) {
       try {
-        // Используем шаблон для создания элемента загрузки
+        // Создаем и добавляем элемент загрузки
         const loadingTemplate = document.getElementById(
           "loading-template",
         ) as HTMLTemplateElement;
-        const loadingElement = loadingTemplate.content.cloneNode(
-          true,
-        ) as HTMLElement;
-        const firstChild = loadingElement.firstElementChild as HTMLElement;
-        this.container.appendChild(firstChild);
+        const loadingElement = document.createElement("div");
+        loadingElement.innerHTML = loadingTemplate.innerHTML;
+        const loadingNode = this.container.appendChild(
+          loadingElement.firstElementChild,
+        );
         this.scrollManager.scrollToBottom();
 
         await this.sleep(2000);
+
+        // Удаляем элемент загрузки
+        if (loadingNode && loadingNode.parentNode) {
+          loadingNode.parentNode.removeChild(loadingNode);
+        }
 
         const response = await fetch(this.MODEL_URL, {
           method: "POST",
@@ -509,14 +514,12 @@ const { t } = useTranslations(Astro);
           body: JSON.stringify({
             inputs: {
               text: `Context: You are a helpful assistant for Sergey Andreev's personal website. 
-                               He is a CTO with experience in educational projects.
-                               Current question: ${command}`,
+                     He is a CTO with experience in educational projects.
+                     Current question: ${command}`,
               max_length: 100,
             },
           }),
         });
-
-        loadingElement.remove();
 
         if (!response.ok) {
           throw new Error("API Error");
@@ -525,7 +528,6 @@ const { t } = useTranslations(Astro);
         const data = await response.json();
         const aiResponse = data.generated_text || data[0].generated_text;
 
-        // Используем новую функцию для отправки события
         this.sendAnalytics("ai_response", {
           event_label: command,
           value: 1,
@@ -534,16 +536,15 @@ const { t } = useTranslations(Astro);
         });
 
         return `<div class="terminal__output terminal__output--ai">
-                <div class="terminal__output-header">🤖 AI Response:</div>
-                <div class="terminal__output-content">${aiResponse}</div>
-            </div>`;
+                  <div class="terminal__output-header">🤖 AI Response:</div>
+                  <div class="terminal__output-content">${aiResponse}</div>
+              </div>`;
       } catch (error) {
-        console.error("AI Error:", error);
+        console.warn("AI Error:", error);
 
         const localAI = new LocalAI();
         const fallbackResponse = localAI.generateResponse(command);
 
-        // Используем новую функцию для отправки события
         this.sendAnalytics("ai_response", {
           event_label: command,
           value: 1,
@@ -552,9 +553,9 @@ const { t } = useTranslations(Astro);
         });
 
         return `<div class="terminal__output terminal__output--ai">
-                <div class="terminal__output-header">🤖 Local AI:</div>
-                <div class="terminal__output-content">${fallbackResponse}</div>
-            </div>`;
+                  <div class="terminal__output-header">🤖 Local AI:</div>
+                  <div class="terminal__output-content">${fallbackResponse}</div>
+              </div>`;
       }
     }
 
@@ -788,7 +789,7 @@ const { t } = useTranslations(Astro);
 
       this.defaultResponses = [
         lang === "ru"
-          ? "Извините, не совсем понял вопрос. Попробуйте спросить о моем опыте работы, проектах или технологиях."
+          ? "Извините, не совсем понял вопр��с. Попробуйте спросить о моем опыте работы, проектах или технологиях."
           : "Sorry, I didn't quite understand the question. Try asking about my work experience, projects, or technologies.",
         lang === "ru"
           ? "Может быть, вас интересует мой опыт работы в образовательных проектах?"
@@ -1128,7 +1129,7 @@ const { t } = useTranslations(Astro);
     }
   }
 
-  /* Стили для ошибок */
+  /* Стили д��я ошибок */
   .terminal__output--error {
     color: #ff5f56;
   }
