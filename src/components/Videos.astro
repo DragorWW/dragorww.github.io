@@ -1,91 +1,71 @@
 ---
 import SectionTitle from "./SectionTitle.astro";
+
+interface Video {
+  url: string;
+  thumbnail: string;
+  duration: string;
+  title: string;
+  description: string;
+}
+
+const videos: Video[] = [
+  {
+    url: "https://www.youtube.com/watch?v=beUOsQL3OiI",
+    thumbnail: "https://img.youtube.com/vi/beUOsQL3OiI/maxresdefault.jpg",
+    duration: "1:46:58",
+    title:
+      "О жизни иммигранта в Алматы и грамотном подходе к бизнесу, работе и жизни",
+    description:
+      "В этом подкасте поговорил с Сергеем, который в 2022 году переехал вместе с беременной женой в Алматы. В подкасте Сергей поделился своим опытом эмиграции и жизни в Казахстане. Также обсудили с ним важный вопрос: как живется женам айтишников в эмиграции? И, конечно же, затронули темы бизнеса, IT и работы продуктовой команды.",
+  },
+  {
+    url: "https://www.youtube.com/watch?v=Bxa3UeVWvYw",
+    thumbnail: "https://img.youtube.com/vi/Bxa3UeVWvYw/hqdefault.jpg",
+    duration: "1:33:32",
+    title:
+      "CTO о бизнес-процессах и развитии компании: личный опыт и лучшие практики!",
+    description:
+      "HROM подкаст с Сергеем Андреевым - СТО, поговорили про вектор развития компании, удаленную работу, образование и самообразование в ИТ, проблемы найма и как СТО подходит к выбору кандидатов себе в команду",
+  },
+  {
+    url: "https://www.youtube.com/watch?v=isRSeMKzCaA",
+    thumbnail: "https://img.youtube.com/vi/isRSeMKzCaA/maxresdefault.jpg",
+    duration: "1:06:21",
+    title:
+      "Эмиграция, родительство, IT / Фил Ранжин, Сергей Андреев / Peredelanoconf podcast",
+    description:
+      "Обсуждаем, как жить в чужой стране, если ты отец, сравниваем Таиланд и Казахстан, разбираемся, как жить и развиваться в этом сложном мире",
+  },
+];
 ---
 
 <section class="videos">
   <SectionTitle title="Интервью и выступления" />
   <div class="videos__container">
-    <div class="videos__card">
-      <a
-        href="https://www.youtube.com/watch?v=beUOsQL3OiI"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="videos__link"
-      >
-        <div class="videos__thumbnail-wrapper">
-          <img
-            src="https://img.youtube.com/vi/beUOsQL3OiI/maxresdefault.jpg"
-            alt="Первое видео"
-            class="videos__thumbnail"
-          />
-          <span class="videos__duration">1:46:58</span>
+    {
+      videos.map((video) => (
+        <div class="videos__card">
+          <a
+            href={video.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="videos__link"
+          >
+            <div class="videos__thumbnail-wrapper">
+              <img
+                src={video.thumbnail}
+                alt={video.title}
+                class="videos__thumbnail"
+              />
+              <span class="videos__duration">{video.duration}</span>
+            </div>
+            <h3 class="videos__title">{video.title}</h3>
+            <p class="videos__description">{video.description}</p>
+          </a>
         </div>
-        <h3 class="videos__title">
-          О жизни иммигранта в Алматы и грамотном подходе к бизнесу, работе и
-          жизни
-        </h3>
-        <p class="videos__description">
-          В этом подкасте поговорил с Сергеем, который в 2022 году переехал
-          вместе с беременной женой в Алматы. В подкасте Сергей поделился своим
-          опытом эмиграции и жизни в Казахстане. Также обсудили с ним важный
-          вопрос: как живется женам айтишников в эмиграции? И, конечно же,
-          затронули темы бизнеса, IT и работы продуктовой команды.
-        </p>
-      </a>
-    </div>
-
-    <div class="videos__card">
-      <a
-        href="https://www.youtube.com/watch?v=Bxa3UeVWvYw"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="videos__link"
-      >
-        <div class="videos__thumbnail-wrapper">
-          <img
-            src="https://img.youtube.com/vi/Bxa3UeVWvYw/hqdefault.jpg"
-            alt="Второе видео"
-            class="videos__thumbnail"
-          />
-          <span class="videos__duration">1:33:32</span>
-        </div>
-        <h3 class="videos__title">
-          CTO о бизнес-процессах и развитии компании: личный опыт и лучшие
-          практики!
-        </h3>
-        <p class="videos__description">
-          HROM подкаст с Сергеем Андреевым - СТО, поговорили про вектор развития
-          компании, удаленную работу, образование и самообразование в ИТ,
-          проблемы найма и как СТО подходит к выбору кандидатов себе в команду
-        </p>
-      </a>
-    </div>
-
-    <div class="videos__card">
-      <a
-        href="https://www.youtube.com/watch?v=isRSeMKzCaA"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="videos__link"
-      >
-        <div class="videos__thumbnail-wrapper">
-          <img
-            src="https://img.youtube.com/vi/isRSeMKzCaA/maxresdefault.jpg"
-            alt="Третье видео"
-            class="videos__thumbnail"
-          />
-          <span class="videos__duration">1:06:21</span>
-        </div>
-        <h3 class="videos__title">
-          Эмиграция, родительство, IT / Фил Ранжин, Сергей Андреев /
-          Peredelanoconf podcast
-        </h3>
-        <p class="videos__description">
-          Обсуждаем, как жить в чужой стране, если ты отец, сравниваем Таиланд и
-          Казахстан, разбираемся, как жить и развиваться в этом сложном мире
-        </p>
-      </a>
-    </div>
+      ))
+    }
   </div>
 </section>
 
