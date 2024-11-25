@@ -10,6 +10,7 @@ import MatrixBackground from "../../components/MatrixBackground.astro";
 import { useTranslations } from "../../utils/i18n";
 import { LANGUAGES } from "../../constants/languages";
 import { PROFILE_DATA } from "../../constants/profile";
+import ConsoleMessage from "../../components/ConsoleMessage.astro";
 
 export function getStaticPaths() {
   return [
@@ -36,3 +37,4 @@ const pageData = PROFILE_DATA[lang];
   </Container>
   <Footer />
 </Layout>
+<ConsoleMessage />
