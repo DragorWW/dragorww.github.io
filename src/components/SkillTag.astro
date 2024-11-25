@@ -1,3 +1,16 @@
+---
+interface Props {
+  name: string;
+  version: string;
+}
+
+const { name, version } = Astro.props;
+---
+
+<li class="skill-tag">
+  {name} <span class="skill-tag__version">v{version}</span>
+</li>
+
 <style>
   .skill-tag {
     background: rgba(var(--bg-color-rgb), 0.1);

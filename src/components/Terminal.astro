@@ -1,3 +1,7 @@
+---
+import SkillTag from "./SkillTag.astro";
+---
+
 <div class="terminal">
   <div class="terminal__header">
     <div class="terminal__dots">
@@ -66,18 +70,10 @@
           <template>
             <div class="terminal__output">
               <ul class="skill-tags">
-                <li class="skill-tag">
-                  React.js <span class="skill-tag__version">v18</span>
-                </li>
-                <li class="skill-tag">
-                  Node.js <span class="skill-tag__version">v18</span>
-                </li>
-                <li class="skill-tag">
-                  TypeScript <span class="skill-tag__version">v5</span>
-                </li>
-                <li class="skill-tag">
-                  Python <span class="skill-tag__version">v3.11</span>
-                </li>
+                <SkillTag name="React.js" version="18" />
+                <SkillTag name="Node.js" version="18" />
+                <SkillTag name="TypeScript" version="5" />
+                <SkillTag name="Python" version="3.11" />
               </ul>
             </div>
           </template>
@@ -781,7 +777,7 @@
   new TerminalAnimation();
 </script>
 
-<style>
+<style is:global>
   /* Terminal Component Styles */
   .terminal {
     display: none;
