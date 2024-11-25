@@ -132,8 +132,28 @@
     };
 
     class MatrixAnimation {
+      canvas: HTMLCanvasElement;
+      ctx: any;
+      startDelay: number;
+      mousePosition: { x: number; y: number };
+      currentTheme: string;
+      isInitialized: boolean;
+      pixels: any[];
+      themeObserver: MutationObserver;
+      lastTime: number;
+      measureCanvas: HTMLCanvasElement;
+      measureCtx: any;
+      maxCharWidth: number;
+      columnWidth: any;
+      columns: number;
+      drops: any[];
+      activeColumns: Set<number>;
+      opacities: any[];
+      speeds: any[];
+      currentSymbols: Map<any, any>;
+      symbolUpdateCounters: Map<any, any>;
       constructor(canvasId, startDelay = 1000) {
-        this.canvas = document.getElementById(canvasId);
+        this.canvas = document.getElementById(canvasId) as HTMLCanvasElement;
         this.ctx = this.canvas.getContext("2d");
         this.startDelay = startDelay;
 
@@ -242,9 +262,8 @@
         const scrolled =
           window.scrollY /
           (document.documentElement.scrollHeight - window.innerHeight);
-        this.canvas.style.opacity = Math.max(
-          ANIMATION_CONFIG.MIN_SCROLL_OPACITY,
-          1 - scrolled,
+        this.canvas.style.opacity = String(
+          Math.max(ANIMATION_CONFIG.MIN_SCROLL_OPACITY, 1 - scrolled),
         );
       }
 
@@ -267,9 +286,8 @@
 
       isColumnAvailable(column) {
         const MIN_DISTANCE = 3;
-
         for (const activeColumn of this.activeColumns) {
-          if (Math.abs(activeColumn - column) < MIN_DISTANCE) {
+          if (Math.abs(Number(activeColumn) - column) < MIN_DISTANCE) {
             return false;
           }
         }
