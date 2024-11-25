@@ -153,7 +153,15 @@ import SkillTag from "./SkillTag.astro";
 </div>
 
 <script>
+  declare global {
+    function gtag(...args: any[]): void;
+  }
+
   class TerminalScrollManager {
+    terminal: any;
+    autoScrollEnabled: boolean;
+    savedScrollTop: number;
+    resizeObserver: ResizeObserver;
     constructor(terminalContent) {
       this.terminal = terminalContent;
       this.autoScrollEnabled = true;
@@ -168,7 +176,7 @@ import SkillTag from "./SkillTag.astro";
 
     observeLastPrompt() {
       const lastPrompt = this.terminal.querySelector(
-        ".terminal__prompt:last-child",
+        ".terminal__prompt:last-child"
       );
       if (lastPrompt) {
         this.resizeObserver.disconnect();
@@ -233,7 +241,6 @@ import SkillTag from "./SkillTag.astro";
     currentInput = "";
     commandHistory = [];
     historyIndex = -1;
-    isAnimating = false;
 
     hints = [
       "где ты работаешь?",
@@ -261,6 +268,10 @@ import SkillTag from "./SkillTag.astro";
     HF_API_TOKEN = "hf_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
     MODEL_URL =
       "https://api-inference.huggingface.co/models/facebook/blenderbot-400M-distill";
+    container: any;
+    terminalContent: any;
+    scrollManager: TerminalScrollManager;
+    commands: {};
 
     constructor() {
       this.container = document.querySelector(".terminal__history");
@@ -302,19 +313,21 @@ import SkillTag from "./SkillTag.astro";
 
     loadCommands() {
       const commands = {};
-      document.querySelectorAll(".terminal__command").forEach((cmd) => {
-        const commandName = cmd.dataset.command;
-        commands[commandName] = {
-          description: cmd.dataset.description || "",
-          directory: cmd.dataset.directory || "",
-          branch: cmd.dataset.branch || "",
-          command: cmd.dataset.command || commandName,
-          execute: () => {
-            const template = cmd.querySelector("template");
-            return template.innerHTML.trim();
-          },
-        };
-      });
+      document
+        .querySelectorAll(".terminal__command")
+        .forEach((cmd: HTMLElement) => {
+          const commandName = cmd.dataset.command;
+          commands[commandName] = {
+            description: cmd.dataset.description || "",
+            directory: cmd.dataset.directory || "",
+            branch: cmd.dataset.branch || "",
+            command: cmd.dataset.command || commandName,
+            execute: () => {
+              const template = cmd.querySelector("template");
+              return template.innerHTML.trim();
+            },
+          };
+        });
 
       this.commands = commands;
     }
@@ -476,10 +489,11 @@ import SkillTag from "./SkillTag.astro";
     async tryAIResponse(command) {
       try {
         // Используем шаблон для создания элемента загрузки
-        const loadingTemplate = document.getElementById("loading-template");
-        const loadingElement =
-          loadingTemplate.content.cloneNode(true).firstElementChild;
-        this.container.appendChild(loadingElement);
+        const loadingTemplate = document.getElementById("loading-template") as HTMLTemplateElement;
+        const loadingElement = 
+          loadingTemplate.content.cloneNode(true) as HTMLElement;
+        const firstChild = loadingElement.firstElementChild as HTMLElement;
+        this.container.appendChild(firstChild);
         this.scrollManager.scrollToBottom();
 
         await this.sleep(2000);
@@ -510,7 +524,7 @@ import SkillTag from "./SkillTag.astro";
         const aiResponse = data.generated_text || data[0].generated_text;
 
         // Используем новую функцию для отправки события
-        sendAnalytics("ai_response", {
+        this.sendAnalytics("ai_response", {
           event_label: command,
           value: 1,
           response_type: "huggingface",
@@ -618,7 +632,7 @@ import SkillTag from "./SkillTag.astro";
 
       this.historyIndex = Math.max(
         -1,
-        Math.min(this.commandHistory.length - 1, this.historyIndex + direction),
+        Math.min(this.commandHistory.length - 1, this.historyIndex + direction)
       );
 
       if (this.historyIndex === -1) {
@@ -642,7 +656,7 @@ import SkillTag from "./SkillTag.astro";
       ) {
         this.hintTimeout = setTimeout(
           () => this.showNextHint(),
-          this.hintDelay,
+          this.hintDelay
         );
       }
     }
@@ -713,6 +727,14 @@ import SkillTag from "./SkillTag.astro";
   }
 
   class LocalAI {
+    keywords: {
+      "опыт|работа|карьера": string[];
+      "проект|достижени": string[];
+      "технолог|стек|язык": string[];
+      "образовани|обучени": string[];
+      "контакт|связ|найти": string[];
+    };
+    defaultResponses: string[];
     constructor() {
       this.keywords = {
         "опыт|работа|карьера": [

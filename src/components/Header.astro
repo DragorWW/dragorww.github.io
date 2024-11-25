@@ -15,11 +15,9 @@ const { youtubeUrl, twitterUrl, telegramChannelUrl } = Astro.props as Props;
       <HeaderLogo />
       <div class="header__right">
         <nav class="header__nav">
-          <a href="#home" class="header__nav-link header__nav-link--active"
-            >
+          <a href="#home" class="header__nav-link header__nav-link--active">
             Главная
-            </a
-          >
+          </a>
           <a href="#experience" class="header__nav-link">Мой опыт</a>
           <a href="#contacts" class="header__nav-link">Контакты</a>
         </nav>
@@ -109,6 +107,12 @@ const { youtubeUrl, twitterUrl, telegramChannelUrl } = Astro.props as Props;
 </header>
 
 <script>
+  declare global {
+    interface Window {
+      toggleTheme: () => void;
+    }
+  }
+
   (() => {
     function updateFavicon(theme) {
       // Находим все иконки
@@ -122,7 +126,7 @@ const { youtubeUrl, twitterUrl, telegramChannelUrl } = Astro.props as Props;
 
       // Показываем нужную иконку
       const activeIcon = document.querySelector(
-        `link[rel="icon"][data-theme="${theme}"]`,
+        `link[rel="icon"][data-theme="${theme}"]`
       );
       if (activeIcon) {
         activeIcon.removeAttribute("media");
