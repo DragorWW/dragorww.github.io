@@ -71,6 +71,15 @@ const { youtubeUrl, twitterUrl, telegramChannelUrl } = Astro.props as Props;
             </svg>
           </a>
         </div>
+        <div class="header__lang-switcher">
+          <button
+            class="header__lang-btn"
+            onclick="toggleLanguage()"
+            aria-label="Переключить язык"
+          >
+            <span class="header__current-lang">RU</span>
+          </button>
+        </div>
         <button
           class="header__theme-toggle"
           onclick="toggleTheme()"
@@ -110,6 +119,7 @@ const { youtubeUrl, twitterUrl, telegramChannelUrl } = Astro.props as Props;
   declare global {
     interface Window {
       toggleTheme: () => void;
+      toggleLanguage: () => void;
     }
   }
 
@@ -152,8 +162,48 @@ const { youtubeUrl, twitterUrl, telegramChannelUrl } = Astro.props as Props;
       updateFavicon(savedTheme);
     }
 
-    document.addEventListener("DOMContentLoaded", initTheme);
+    function toggleLanguage() {
+      const currentLang = localStorage.getItem("lang") || "ru";
+      const newLang = currentLang === "ru" ? "en" : "ru";
+
+      localStorage.setItem("lang", newLang);
+      document.documentElement.setAttribute("lang", newLang);
+
+      // Обновляем текст кнопки
+      const langBtn = document.querySelector(".header__current-lang");
+      if (langBtn) {
+        langBtn.textContent = newLang.toUpperCase();
+      }
+
+      // Перезагружаем страницу для применения нового языка
+      window.location.reload();
+    }
+
+    function initLanguage() {
+      // Определяем язык браузера
+      const browserLang = navigator.language.toLowerCase().split("-")[0];
+      const savedLang = localStorage.getItem("lang");
+
+      // Используем сохраненный язык или определяем по браузеру
+      const currentLang = savedLang || (browserLang === "ru" ? "ru" : "en");
+
+      localStorage.setItem("lang", currentLang);
+      document.documentElement.setAttribute("lang", currentLang);
+
+      // Устанавливаем текст кнопки
+      const langBtn = document.querySelector(".header__current-lang");
+      if (langBtn) {
+        langBtn.textContent = currentLang.toUpperCase();
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      initTheme();
+      initLanguage();
+    });
+
     window.toggleTheme = toggleTheme;
+    window.toggleLanguage = toggleLanguage;
   })();
 </script>
 
@@ -344,5 +394,40 @@ const { youtubeUrl, twitterUrl, telegramChannelUrl } = Astro.props as Props;
     .header__social {
       display: flex;
     }
+  }
+
+  /* Добавляем стили для переключателя языков */
+  .header__lang-switcher {
+    margin-left: 1rem;
+  }
+
+  .header__lang-btn {
+    background: none;
+    border: none;
+    padding: 4px 8px;
+    cursor: pointer;
+    color: var(--text-color);
+    opacity: 0.7;
+    border-radius: 4px;
+    font-size: 0.875rem;
+    transition: all 0.2s ease;
+  }
+
+  .header__lang-btn:hover {
+    opacity: 1;
+    background: rgba(226, 192, 141, 0.1);
+  }
+
+  .header__current-lang {
+    font-weight: 500;
+  }
+
+  .header__lang-btn:active {
+    transform: scale(0.95);
+  }
+
+  .header__lang-btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(226, 192, 141, 0.2);
   }
 </style>
