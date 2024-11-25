@@ -8,6 +8,10 @@ type Translations = {
 };
 
 export const translations: Translations = {
+  "me.name": {
+    ru: "Сергей Андреев",
+    en: "Sergey Andreev",
+  },
   "nav.home": {
     ru: "Главная",
     en: "Home",
@@ -56,6 +60,30 @@ export const translations: Translations = {
     ru: "Telegram канал",
     en: "Telegram Channel",
   },
+  "hero.sharing.twitter": {
+    ru: "Twitter",
+    en: "Twitter",
+  },
+  "hero.sharing.blog": {
+    ru: "веду блог",
+    en: "lead a blog",
+  },
+  "hero.sharing.in": {
+    ru: "в",
+    en: "in",
+  },
+  "hero.sharing.and": {
+    ru: "и",
+    en: "and",
+  },
+  "hero.sharing.youtube": {
+    ru: "YouTube",
+    en: "YouTube",
+  },
+  "hero.sharing.telegram": {
+    ru: "Telegram",
+    en: "Telegram",
+  },
   "experience.title": {
     ru: "Опыт работы",
     en: "Work Experience",
@@ -101,12 +129,56 @@ export const translations: Translations = {
     en: "All rights reserved",
   },
   "footer.privacy": {
-    ru: "Политика конфиденциальности",
+    ru: "Политика конфиден��иальности",
     en: "Privacy Policy",
   },
   "footer.terms": {
     ru: "Условия использования",
     en: "Terms of Use",
+  },
+  "hero.greeting": {
+    ru: "Привет, я",
+    en: "Hi, I'm",
+  },
+  "hero.role": {
+    ru: "CTO, IT-архитектор и амбассадор продуктовой разработки.",
+    en: "CTO, IT Architect and Product Development Ambassador.",
+  },
+  "hero.stats.experience": {
+    ru: "Создаю успешные команды и продукты 10+ лет",
+    en: "Building successful teams and products for 10+ years",
+  },
+  "hero.stats.delivery": {
+    ru: "Внедряю процессы непрерывной поставки",
+    en: "Implementing continuous delivery processes",
+  },
+  "hero.stats.solutions": {
+    ru: "Проектирую масштабируемые решения для бизнеса",
+    en: "Designing scalable business solutions",
+  },
+  "hero.sharing": {
+    ru: "Активно делюсь опытом в",
+    en: "Actively sharing experience on",
+  },
+  "hero.blog": {
+    ru: "Системная интроспекция",
+    en: "System Introspection",
+  },
+  "hero.sharing.and": {
+    ru: "и",
+    en: "and",
+  },
+  "hero.sharing.about": {
+    ru: "про продуктовую разработку и",
+    en: "about product development and",
+  },
+  "hero.cv": {
+    ru: "CV на HH.ru",
+    en: "CV on HH.ru",
+  },
+  "hero.contact": {
+    ru: "Написать мне",
+    en: "Contact me",
   },
 } as const;
 
