@@ -1,125 +1,189 @@
 ---
 import SectionTitle from "./SectionTitle.astro";
 import SkillTag from "./SkillTag.astro";
+
+interface Skill {
+  name: string;
+  version?: string;
+}
+
+interface ExperienceItem {
+  year: number;
+  isCurrent?: boolean;
+  role: string;
+  company: string;
+  location: string;
+  description: string;
+  achievements: string[];
+  skills?: Skill[];
+}
+
+interface Education {
+  year: number;
+  degree: string;
+  institution: string;
+  location: string;
+  description: string;
+}
+
+const experience: ExperienceItem[] = [
+  {
+    year: 2024,
+    isCurrent: true,
+    role: "CTO",
+    company: "Ultimate Education",
+    location: "Москва",
+    description: "Руководство IT-стратегией холдинга из 7 компаний:",
+    achievements: [
+      "Масштабирование IT-решений для холдинга из 7 компаний",
+      "Разработка и внедрение единой IT-стратегии",
+      "Оптимизация бюджета и ресурсов через централизацию систем",
+      "Создание комплексной аналитической платформы",
+    ],
+    skills: [
+      { name: "Kubernetes" },
+      { name: "React" },
+      { name: "TypeScript" },
+      { name: "Python" },
+      { name: "Django" },
+    ],
+  },
+  {
+    year: 2020,
+    role: "CTO",
+    company: "XYZ School",
+    location: "Москва",
+    description: "Ключевые достижения за 3 года 10 месяцев:",
+    achievements: [
+      "Разработка и внедрение LMS системы",
+      "Внедрение продуктовой аналитики на базе Metabase",
+      "Автоматизация бизнес-процессов и интеграция систем",
+    ],
+    skills: [
+      { name: "Kubernetes" },
+      { name: "Terraform" },
+      { name: "React" },
+      { name: "TypeScript" },
+      { name: "CSS Modules" },
+      { name: "GraphQL" },
+      { name: "REST" },
+      { name: "Python" },
+      { name: "Django" },
+    ],
+  },
+  {
+    year: 2019,
+    role: "Principal Developer",
+    company: "SberTech",
+    location: "Санкт-Петербург",
+    description: "Разработка внутреннего DevOps продукта:",
+    achievements: [
+      "Оптимизация производительности (10x улучшение)",
+      "Проектирование архитектуры React-приложений",
+    ],
+    skills: [
+      { name: "React" },
+      { name: "TypeScript" },
+      { name: "Java" },
+      { name: "Kotlin" },
+    ],
+  },
+  {
+    year: 2016,
+    role: "Principal Developer",
+    company: "MagDevelopment",
+    location: "Томск",
+    description: "Развитие cargomart.ru в течение 3 лет:",
+    achievements: [
+      "Разработка архитектуры React-приложения",
+      "Внедрение CI/CD и автоматизация процессов",
+      "Стандартизация API и тестирования",
+    ],
+    skills: [
+      { name: "React" },
+      { name: "JavaScript" },
+      { name: "Jenkins" },
+      { name: "Jest" },
+    ],
+  },
+  {
+    year: 2013,
+    role: "Head of Frontend",
+    company: "UserStory",
+    location: "Томск",
+    description: "Руководство отделом фронтенд-разработки более 3 лет:",
+    achievements: [
+      "Участие в разработке более 30 проектов",
+      "Проектирование фронтенд архитектуры для 7 проектов",
+      "Развитие от middle developer до руководителя отдела",
+    ],
+    skills: [
+      { name: "JavaScript" },
+      { name: "React" },
+      { name: "Redux" },
+      { name: "Webpack" },
+    ],
+  },
+];
+
+const education: Education[] = [
+  {
+    year: 2014,
+    degree: "Закончил Факультет психологии",
+    institution: "Национальный исследовательский Томский государственный университет",
+    location: "Томск",
+    description: "Факультет психологии, Связи с общественностью",
+  },
+];
 ---
 
 <section id="experience" class="experience">
   <SectionTitle title="Мой опыт" />
   <div class="timeline">
-    <div class="timeline-item current">
-      <div class="year">
-        2024
-        <span class="current-job">настоящее время</span>
-      </div>
-      <div class="content">
-        <h3>CTO</h3>
-        <div class="company">Ultimate Education, Москва</div>
-        <p>Руководство IT-стратегией холдинга из 7 компаний:</p>
-        <ul>
-          <li>Масштабирование IT-решений для холдинга из 7 компаний</li>
-          <li>Разработка и внедрение единой IT-стратегии</li>
-          <li>Оптимизация бюджета и ресурсов через централизацию систем</li>
-          <li>Создание комплексной аналитической платформы</li>
-        </ul>
-        <div class="skill-tags">
-          <SkillTag name="Kubernetes" />
-          <SkillTag name="React" />
-          <SkillTag name="TypeScript" />
-          <SkillTag name="Python" />
-          <SkillTag name="Django" />
+    {
+      experience.map((item) => (
+        <div class:list={["timeline-item", { current: item.isCurrent }]}>
+          <div class="year">
+            {item.year}
+            {item.isCurrent && <span class="current-job">настоящее время</span>}
+          </div>
+          <div class="content">
+            <h3>{item.role}</h3>
+            <div class="company">
+              {item.company}, {item.location}
+            </div>
+            <p>{item.description}</p>
+            <ul>
+              {item.achievements.map((achievement) => (
+                <li>{achievement}</li>
+              ))}
+            </ul>
+            {item.skills && (
+              <div class="skill-tags">
+                {item.skills.map((skill) => (
+                  <SkillTag name={skill.name} version={skill.version} />
+                ))}
+              </div>
+            )}
+          </div>
         </div>
-      </div>
-    </div>
+      ))
+    }
 
-    <div class="timeline-item">
-      <div class="year">2020</div>
-      <div class="content">
-        <h3>CTO</h3>
-        <div class="company">XYZ School, Москва</div>
-        <p>Ключевые достижения за 3 года 10 месяцев:</p>
-        <ul>
-          <li>Разработка и внедрение LMS системы</li>
-          <li>Внедрение продуктовой аналитики на базе Metabase</li>
-          <li>Автоматизация бизнес-процессов и интеграция систем</li>
-        </ul>
-        <div class="skill-tags">
-          <SkillTag name="Kubernetes" />
-          <SkillTag name="Terraform" />
-          <SkillTag name="React" />
-          <SkillTag name="TypeScript" />
-          <SkillTag name="CSS Modules" />
-          <SkillTag name="GraphQL" />
-          <SkillTag name="REST" />
-          <SkillTag name="Python" />
-          <SkillTag name="Django" />
+    {
+      education.map((item) => (
+        <div class="timeline-item education">
+          <div class="year">{item.year}</div>
+          <div class="content">
+            <h3>{item.degree}</h3>
+            <div class="company">
+              {item.institution}, {item.location}
+            </div>
+            <p>{item.description}</p>
+          </div>
         </div>
-      </div>
-    </div>
-
-    <div class="timeline-item">
-      <div class="year">2019</div>
-      <div class="content">
-        <h3>Principal Developer</h3>
-        <div class="company">SberTech, Санкт-Петербург</div>
-        <p>Разработка внутреннего DevOps продукта:</p>
-        <ul>
-          <li>Оптимизация производительности (10x улучшение)</li>
-          <li>Проектирование архитектуры React-приложений</li>
-        </ul>
-        <div class="skill-tags">
-          <SkillTag name="React" />
-          <SkillTag name="TypeScript" />
-          <SkillTag name="Java" />
-          <SkillTag name="Kotlin" />
-        </div>
-      </div>
-    </div>
-
-    <div class="timeline-item">
-      <div class="year">2016</div>
-      <div class="content">
-        <h3>Principal Developer</h3>
-        <div class="company">MagDevelopment, Томск</div>
-        <p>Развитие cargomart.ru в течение 3 лет:</p>
-        <ul>
-          <li>Разработка архитектуры React-приложения</li>
-          <li>Внедрение CI/CD и автоматизация процессов</li>
-          <li>Стандартизация API и тестирования</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="timeline-item">
-      <div class="year">2013</div>
-      <div class="content">
-        <h3>Head of Frontend</h3>
-        <div class="company">UserStory, Томск</div>
-        <p>Руководство отделом фронтенд-разработки более 3 лет:</p>
-        <ul>
-          <li>Участие в разработке более 30 проектов</li>
-          <li>Проектирование фронтенд архитектуры для 7 проектов</li>
-          <li>Развитие от middle developer до руководителя отдела</li>
-        </ul>
-        <div class="skill-tags">
-          <SkillTag name="JavaScript" />
-          <SkillTag name="React" />
-          <SkillTag name="Redux" />
-          <SkillTag name="Webpack" />
-        </div>
-      </div>
-    </div>
-
-    <div class="timeline-item education">
-      <div class="year">2014</div>
-      <div class="content">
-        <h3>Закончил Факультет психологии</h3>
-        <div class="company">
-          Национальный исследовательский Томский государственный университет,
-          Томск
-        </div>
-        <p>Факультет психологии, Связи с общественностью</p>
-      </div>
-    </div>
+      ))
+    }
   </div>
 </section>
 
