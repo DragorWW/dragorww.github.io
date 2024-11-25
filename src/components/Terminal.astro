@@ -729,13 +729,7 @@ const { t } = useTranslations(Astro);
   }
 
   class LocalAI {
-    keywords: {
-      "опыт|работа|карьера": string[];
-      "проект|достижени": string[];
-      "технолог|стек|язык": string[];
-      "образовани|обучени": string[];
-      "контакт|связ|найти": string[];
-    };
+    keywords: Record<string, string[]>;
     defaultResponses: string[];
     constructor() {
       const lang = document.documentElement.lang;

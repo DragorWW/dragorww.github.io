@@ -164,10 +164,6 @@ export const translations: Translations = {
     ru: "Системная интроспекция",
     en: "System Introspection",
   },
-  "hero.sharing.and": {
-    ru: "и",
-    en: "and",
-  },
   "hero.sharing.about": {
     ru: "про продуктовую разработку и",
     en: "about product development and",
