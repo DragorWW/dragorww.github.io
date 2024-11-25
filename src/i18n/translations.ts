@@ -269,11 +269,11 @@ export const translations: Translations = {
     en: "Development and implementation of LMS system",
   },
   "experience.xyz.achievement2": {
-    ru: "Внедре��ие продуктовой аналитики на базе Metabase",
+    ru: "Внедреие продуктовой аналитики на базе Metabase",
     en: "Implementation of product analytics based on Metabase",
   },
   "experience.xyz.achievement3": {
-    ru: "Автоматизация бизнес-проце��сов и интеграция систем",
+    ru: "Автоматизация бизнес-процессов и интеграция систем",
     en: "Business process automation and systems integration",
   },
   "experience.sber.description": {
@@ -323,6 +323,34 @@ export const translations: Translations = {
   "timeline.present": {
     ru: "настоящее время",
     en: "present",
+  },
+  "videos.section.title": {
+    ru: "Интервью и выступления",
+    en: "Interviews and Talks",
+  },
+  "videos.1.title": {
+    ru: "О жизни иммигранта в Алматы и грамотном подходе к бизнесу, работе и жизни",
+    en: "On immigrant life in Almaty and a smart approach to business, work and life",
+  },
+  "videos.1.description": {
+    ru: "В этом подкасте поговорил с Сергеем, который в 2022 году переехал вместе с беременной женой в Алматы. В подкасте Сергей поделился своим опытом эмиграции и жизни в Казахстане. Также обсудили с ним важный вопрос: как живется женам айтишников в эмиграции? И, конечно же, затронули темы бизнеса, IT и работы продуктовой команды.",
+    en: "In this podcast, I talked with Sergey, who moved to Almaty with his pregnant wife in 2022. Sergey shared his experience of emigration and life in Kazakhstan. We also discussed an important question: how do IT specialists' wives live in emigration? And, of course, we touched upon topics of business, IT and product team work.",
+  },
+  "videos.2.title": {
+    ru: "CTO о бизнес-процессах и развитии компании: личный опыт и лучшие практики!",
+    en: "CTO on business processes and company development: personal experience and best practices!",
+  },
+  "videos.2.description": {
+    ru: "HROM подкаст с Сергеем Андреевым - СТО, поговорили про вектор развития компании, удаленную работу, образование и самообразование в ИТ, проблемы найма и как СТО подходит к выбору кандидатов себе в команду",
+    en: "HROM podcast with Sergey Andreev - CTO, discussed company development vector, remote work, education and self-education in IT, hiring challenges and how CTO approaches candidate selection for the team",
+  },
+  "videos.3.title": {
+    ru: "Эмиграция, родительство, IT / Фил Ранжин, Сергей Андреев / Peredelanoconf podcast",
+    en: "Emigration, parenthood, IT / Phil Ranzhin, Sergey Andreev / Peredelanoconf podcast",
+  },
+  "videos.3.description": {
+    ru: "Обсуждаем, как жить в чужой стране, если ты отец, сравниваем Таиланд и Казахстан, разбираемся, как жить и развиваться в этом сложном мире",
+    en: "Discussing how to live in a foreign country as a father, comparing Thailand and Kazakhstan, figuring out how to live and develop in this complex world",
   },
 } as const;
 

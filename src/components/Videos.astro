@@ -1,125 +1,177 @@
 ---
-import { useTranslations } from "../utils/i18n";
 import SectionTitle from "./SectionTitle.astro";
-import { LANGUAGES } from "../constants/languages";
-import { VIDEOS } from "../constants/content";
+import { useTranslations } from "../utils/i18n";
 
-const { t, lang } = useTranslations(Astro);
+const { t } = useTranslations(Astro);
+
+interface Video {
+  url: string;
+  thumbnail: string;
+  duration: string;
+  title: string;
+  description: string;
+}
+
+const videos: Video[] = [
+  {
+    url: "https://www.youtube.com/watch?v=beUOsQL3OiI",
+    thumbnail: "https://img.youtube.com/vi/beUOsQL3OiI/maxresdefault.jpg",
+    duration: "1:46:58",
+    title: t("videos.1.title"),
+    description: t("videos.1.description"),
+  },
+  {
+    url: "https://www.youtube.com/watch?v=Bxa3UeVWvYw",
+    thumbnail: "https://img.youtube.com/vi/Bxa3UeVWvYw/hqdefault.jpg",
+    duration: "1:33:32",
+    title: t("videos.2.title"),
+    description: t("videos.2.description"),
+  },
+  {
+    url: "https://www.youtube.com/watch?v=isRSeMKzCaA",
+    thumbnail: "https://img.youtube.com/vi/isRSeMKzCaA/maxresdefault.jpg",
+    duration: "1:06:21",
+    title: t("videos.3.title"),
+    description: t("videos.3.description"),
+  },
+];
 ---
 
-<section id="videos" class="videos">
-  <SectionTitle>{t("videos.title")}</SectionTitle>
-  <div class="videos__grid">
+<section class="videos">
+  <SectionTitle title={t("videos.section.title")} />
+  <div class="videos__container">
     {
-      VIDEOS[lang].map((video) => (
-        <a href={video.url} class="video-card" target="_blank">
-          <div class="video-card__content">
-            <h3 class="video-card__title">{video.title}</h3>
-            <p class="video-card__description">{video.description}</p>
-            <div class="video-card__meta">
-              <span class="video-card__date">
-                {new Date(video.date).toLocaleDateString(
-                  lang === LANGUAGES.RU ? "ru-RU" : "en-US",
-                  { year: "numeric", month: "short", day: "numeric" },
-                )}
-              </span>
-              <span class="video-card__views">
-                {video.views} {t("videos.views")}
-              </span>
+      videos.map((video) => (
+        <div class="videos__card">
+          <a
+            href={video.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="videos__link"
+          >
+            <div class="videos__thumbnail-wrapper">
+              <img
+                src={video.thumbnail}
+                alt={video.title}
+                class="videos__thumbnail"
+              />
+              <span class="videos__duration">{video.duration}</span>
             </div>
-          </div>
-        </a>
+            <h3 class="videos__title">{video.title}</h3>
+            <p class="videos__description">{video.description}</p>
+          </a>
+        </div>
       ))
     }
-  </div>
-  <div class="videos__more">
-    <a href="#" class="videos__more-link">
-      {t("videos.viewMore")}
-      <span class="videos__more-icon">→</span>
-    </a>
   </div>
 </section>
 
 <style>
   .videos {
-    padding: 4rem 0;
+    padding: 2rem 0;
   }
 
-  .videos__grid {
+  .videos__container {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-template-columns: repeat(3, 1fr);
     gap: 2rem;
-    margin-top: 2rem;
   }
 
-  .video-card {
-    text-decoration: none;
-    color: inherit;
-    border-radius: 8px;
+  .videos__card {
+    cursor: pointer;
+    border-radius: 12px;
     overflow: hidden;
     transition: all 0.3s ease;
-    background: var(--card-bg);
   }
 
-  .video-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  .videos__card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(var(--bg-color-rgb), 0.2);
   }
 
-  .video-card__content {
-    padding: 1.5rem;
-  }
-
-  .video-card__title {
-    font-size: 1.25rem;
-    margin: 0 0 0.5rem;
-    color: var(--text-primary);
-  }
-
-  .video-card__description {
-    color: var(--text-secondary);
-    margin-bottom: 1rem;
-    line-height: 1.6;
-    font-size: 0.875rem;
-  }
-
-  .video-card__meta {
-    display: flex;
-    justify-content: space-between;
-    color: var(--text-secondary);
-    font-size: 0.75rem;
-  }
-
-  .videos__more {
-    text-align: center;
-    margin-top: 3rem;
-  }
-
-  .videos__more-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    color: var(--accent-color);
+  .videos__link {
     text-decoration: none;
+    color: inherit;
+  }
+
+  .videos__thumbnail-wrapper {
+    position: relative;
+    aspect-ratio: 16/9;
+    overflow: hidden;
+    background: rgba(var(--bg-color-rgb), 0.5);
+  }
+
+  .videos__thumbnail {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+  }
+
+  .videos__card:hover .videos__thumbnail {
+    transform: scale(1.03);
+  }
+
+  .videos__duration {
+    position: absolute;
+    bottom: 0.75rem;
+    right: 0.75rem;
+    background: rgba(0, 0, 0, 0.85);
+    color: #fff;
+    padding: 0.35rem 0.75rem;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-family: "Fira Code", monospace;
+    backdrop-filter: blur(4px);
+  }
+
+  .videos__info {
+    padding: 2rem 0 0;
+  }
+
+  .videos__title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.75rem;
+    margin-top: 0.75rem;
+    line-height: 1.4;
+    transition: color 0.2s;
+  }
+
+  .videos__card:hover .videos__title {
+    color: var(--accent-color);
+  }
+
+  .videos__description {
     font-size: 0.875rem;
-    transition: all 0.2s;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    opacity: 0.85;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
 
-  .videos__more-link:hover {
-    opacity: 0.8;
-  }
-
-  .videos__more-icon {
-    transition: transform 0.2s;
-  }
-
-  .videos__more-link:hover .videos__more-icon {
-    transform: translateX(4px);
-  }
-
-  @media (max-width: 768px) {
-    .videos__grid {
+  @media (max-width: 1024px) {
+    .videos__container {
       grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    .videos__info {
+      padding: 1.5rem 0 0;
+    }
+
+    .videos__title {
+      font-size: 1rem;
+    }
+  }
+
+  @media (min-width: 768px) and (max-width: 1024px) {
+    .videos__container {
+      grid-template-columns: repeat(2, 1fr);
     }
   }
 </style>
