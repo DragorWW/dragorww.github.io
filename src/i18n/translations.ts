@@ -269,7 +269,7 @@ export const translations: Translations = {
     en: "Development and implementation of LMS system",
   },
   "experience.xyz.achievement2": {
-    ru: "Внедре��е продуктовой аналитики на базе Metabase",
+    ru: "Внедрее продуктовой аналитики на базе Metabase",
     en: "Implementation of product analytics based on Metabase",
   },
   "experience.xyz.achievement3": {
@@ -375,6 +375,82 @@ export const translations: Translations = {
   "footer.source": {
     ru: "исходный код",
     en: "source code",
+  },
+  "terminal.welcome": {
+    ru: "Добро пожаловать в мой цифровой сад! 🌱",
+    en: "Welcome to my digital garden! 🌱",
+  },
+  "terminal.description": {
+    ru: "Здесь растут идеи, проекты и знания...",
+    en: "Here grow ideas, projects and knowledge...",
+  },
+  "terminal.explore": {
+    ru: "Исследуйте с помощью",
+    en: "Explore using",
+  },
+  "terminal.help.title": {
+    ru: "Доступные команды:",
+    en: "Available commands:",
+  },
+  "terminal.help.help": {
+    ru: "Показать это сообщение",
+    en: "Show this message",
+  },
+  "terminal.help.about": {
+    ru: "Обо мне",
+    en: "About me",
+  },
+  "terminal.help.skills": {
+    ru: "Мои навыки",
+    en: "My skills",
+  },
+  "terminal.help.contact": {
+    ru: "Контактная информация",
+    en: "Contact information",
+  },
+  "terminal.help.projects": {
+    ru: "Список проектов",
+    en: "List of projects",
+  },
+  "terminal.help.clear": {
+    ru: "Очистить терминал",
+    en: "Clear terminal",
+  },
+  "terminal.about.name": {
+    ru: "Имя",
+    en: "Name",
+  },
+  "terminal.about.role": {
+    ru: "Должность",
+    en: "Role",
+  },
+  "terminal.about.status": {
+    ru: "Статус",
+    en: "Status",
+  },
+  "terminal.about.status.value": {
+    ru: "Разрабатываю крутые штуки...",
+    en: "Developing awesome things...",
+  },
+  "terminal.thinking": {
+    ru: "Думаю",
+    en: "Thinking",
+  },
+  "terminal.projects.analytics": {
+    ru: "Разработка платформы бизнес-аналитики",
+    en: "Develop Business Analytics Platform",
+  },
+  "terminal.projects.education": {
+    ru: "Разработка образовательной платформы",
+    en: "Develop Educational Platform",
+  },
+  "terminal.projects.devops": {
+    ru: "Разработка DevOps CD/CD инструментов (клон Jenkins)",
+    en: "Develop DevOps CD/CD Tools (clone Jenkins)",
+  },
+  "terminal.projects.cargo": {
+    ru: "Разработка грузовой площадки",
+    en: "Develop Cargo Marketplace",
   },
 } as const;
 
