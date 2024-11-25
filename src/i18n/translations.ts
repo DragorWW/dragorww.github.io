@@ -269,7 +269,7 @@ export const translations: Translations = {
     en: "Development and implementation of LMS system",
   },
   "experience.xyz.achievement2": {
-    ru: "Внедреие продуктовой аналитики на базе Metabase",
+    ru: "Внедре��е продуктовой аналитики на базе Metabase",
     en: "Implementation of product analytics based on Metabase",
   },
   "experience.xyz.achievement3": {
@@ -351,6 +351,30 @@ export const translations: Translations = {
   "videos.3.description": {
     ru: "Обсуждаем, как жить в чужой стране, если ты отец, сравниваем Таиланд и Казахстан, разбираемся, как жить и развиваться в этом сложном мире",
     en: "Discussing how to live in a foreign country as a father, comparing Thailand and Kazakhstan, figuring out how to live and develop in this complex world",
+  },
+  "footer.section.title": {
+    ru: "Меня можно найти здесь",
+    en: "Find me here",
+  },
+  "footer.aria.github": {
+    ru: "Профиль GitHub",
+    en: "GitHub Profile",
+  },
+  "footer.aria.linkedin": {
+    ru: "Профиль LinkedIn",
+    en: "LinkedIn Profile",
+  },
+  "footer.aria.telegram": {
+    ru: "Профиль Telegram",
+    en: "Telegram Profile",
+  },
+  "footer.aria.youtube": {
+    ru: "YouTube канал",
+    en: "YouTube Channel",
+  },
+  "footer.source": {
+    ru: "исходный код",
+    en: "source code",
   },
 } as const;
 
