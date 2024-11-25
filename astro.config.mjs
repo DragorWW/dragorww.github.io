@@ -19,6 +19,10 @@ export default defineConfig({
     host: "0.0.0.0",
     port: 5555,
   },
+  i18n: {
+    defaultLocale: DEFAULT_LANGUAGE,
+    locales: [LANGUAGES.RU, LANGUAGES.EN],
+  },
   integrations: [
     sitemap({
       changefreq: "weekly",

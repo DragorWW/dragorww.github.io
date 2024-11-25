@@ -448,6 +448,148 @@ export const translations: Translations = {
     ru: "Разработка грузовой площадки",
     en: "Develop Cargo Marketplace",
   },
+  "terminal.command.not_found": {
+    ru: "Команда не найдена. Введите 'help' для списка команд.",
+    en: "Command not found. Type 'help' for available commands.",
+  },
+  "terminal.command.error": {
+    ru: "Произошла ошибка при выполнении команды",
+    en: "An error occurred while executing the command",
+  },
+  "terminal.command.success": {
+    ru: "Команда успешно выполнена",
+    en: "Command executed successfully",
+  },
+  "terminal.commands.help": {
+    ru: "помощь",
+    en: "help",
+  },
+  "terminal.commands.clear": {
+    ru: "очистить",
+    en: "clear",
+  },
+  "terminal.commands.about": {
+    ru: "обо_мне",
+    en: "about",
+  },
+  "terminal.commands.projects": {
+    ru: "проекты",
+    en: "projects",
+  },
+  "terminal.commands.skills": {
+    ru: "навыки",
+    en: "skills",
+  },
+  "terminal.commands.contact": {
+    ru: "контакты",
+    en: "contact",
+  },
+  "terminal.commands.experience": {
+    ru: "опыт",
+    en: "experience",
+  },
+  "terminal.help.description.help": {
+    ru: "Показать список доступных команд",
+    en: "Show list of available commands",
+  },
+  "terminal.help.description.clear": {
+    ru: "Очистить терминал",
+    en: "Clear terminal screen",
+  },
+  "terminal.help.description.about": {
+    ru: "Показать информацию обо мне",
+    en: "Show information about me",
+  },
+  "terminal.help.description.projects": {
+    ru: "Показать список проектов",
+    en: "Show list of projects",
+  },
+  "terminal.help.description.skills": {
+    ru: "Показать список навыков",
+    en: "Show list of skills",
+  },
+  "terminal.help.description.contact": {
+    ru: "Показать контактную информацию",
+    en: "Show contact information",
+  },
+  "terminal.help.description.experience": {
+    ru: "Показать опыт работы",
+    en: "Show work experience",
+  },
+  "terminal.response.about": {
+    ru: `Привет! Я Сергей Андреев, CTO и IT-архитектор.
+    • 10+ лет опыта в разработке
+    • Специализация: масштабируемые образовательные проекты
+    • Текущая позиция: CTO в Ultimate Education
+    
+    Подробнее: используйте команды 'experience' или 'skills'`,
+    en: `Hi! I'm Sergey Andreev, CTO and IT architect.
+    • 10+ years of development experience
+    • Specialization: scalable educational projects
+    • Current position: CTO at Ultimate Education
+    
+    More info: use 'experience' or 'skills' commands`,
+  },
+  "terminal.response.contact": {
+    ru: `📫 Контактная информация:
+    • Telegram: @dragorww
+    • Email: dragorww@gmail.com
+    • LinkedIn: /in/dragorww
+    • GitHub: @dragorww`,
+    en: `📫 Contact information:
+    • Telegram: @dragorww
+    • Email: dragorww@gmail.com
+    • LinkedIn: /in/dragorww
+    • GitHub: @dragorww`,
+  },
+  "terminal.system.loading": {
+    ru: "Загрузка...",
+    en: "Loading...",
+  },
+  "terminal.system.ready": {
+    ru: "Система готова к работе",
+    en: "System ready",
+  },
+  "terminal.system.error": {
+    ru: "Произошла ошибка системы",
+    en: "System error occurred",
+  },
+  "terminal.system.welcome": {
+    ru: `Добро пожаловать в интерактивный терминал!
+    Введите 'help' для списка команд.
+    
+    Версия: 1.0.0
+    `,
+    en: `Welcome to interactive terminal!
+    Type 'help' for available commands.
+    
+    Version: 1.0.0
+    `,
+  },
+  "terminal.hint.type_help": {
+    ru: "Подсказка: введите 'help' для списка команд",
+    en: "Hint: type 'help' for available commands",
+  },
+  "terminal.hint.command_history": {
+    ru: "Используйте ↑↓ для навигации по истории команд",
+    en: "Use ↑↓ to navigate command history",
+  },
+  "terminal.hint.tab_completion": {
+    ru: "Используйте Tab для автодополнения команд",
+    en: "Use Tab for command completion",
+  },
+  "terminal.status.processing": {
+    ru: "Обработка...",
+    en: "Processing...",
+  },
+  "terminal.status.completed": {
+    ru: "Завершено",
+    en: "Completed",
+  },
+  "terminal.status.failed": {
+    ru: "Не удалось выполнить",
+    en: "Failed to execute",
+  },
 } as const;
 
 export function t(key: string, lang: string): string {
