@@ -5,7 +5,8 @@ import type { AstroGlobal } from "astro";
 export function useTranslations(Astro: AstroGlobal) {
   const lang = Astro.locals.lang as Language;
   return {
-    t: (key: keyof typeof translations) => translations[key]?.[lang] || key,
+    t: <T = keyof typeof translations>(key: T): string =>
+      translations[key]?.[lang] || key,
     lang,
   };
 }

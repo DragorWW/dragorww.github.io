@@ -129,7 +129,7 @@ export const translations: Translations = {
     en: "All rights reserved",
   },
   "footer.privacy": {
-    ru: "Политика конфиден��иальности",
+    ru: "Политика конфиденциальности",
     en: "Privacy Policy",
   },
   "footer.terms": {
@@ -179,6 +179,150 @@ export const translations: Translations = {
   "hero.contact": {
     ru: "Написать мне",
     en: "Contact me",
+  },
+  "education.degree": {
+    ru: "Закончил Факультет психологии",
+    en: "Faculty of Psychology Graduate",
+  },
+  "education.institution": {
+    ru: "Национальный исследовательский Томский государственный университет",
+    en: "National Research Tomsk State University",
+  },
+  "education.location": {
+    ru: "Томск",
+    en: "Tomsk",
+  },
+  "education.description": {
+    ru: "Факультет психологии, Связи с общественностью",
+    en: "Faculty of Psychology, Public Relations",
+  },
+  "experience.role.cto": {
+    ru: "CTO",
+    en: "CTO",
+  },
+  "experience.role.principal": {
+    ru: "Principal Developer",
+    en: "Principal Developer",
+  },
+  "experience.role.head": {
+    ru: "Head of Frontend",
+    en: "Head of Frontend",
+  },
+  "experience.company.ultimate": {
+    ru: "Ultimate Education",
+    en: "Ultimate Education",
+  },
+  "experience.company.xyz": {
+    ru: "XYZ School",
+    en: "XYZ School",
+  },
+  "experience.company.sber": {
+    ru: "SberTech",
+    en: "SberTech",
+  },
+  "experience.company.mag": {
+    ru: "MagDevelopment",
+    en: "MagDevelopment",
+  },
+  "experience.company.user": {
+    ru: "UserStory",
+    en: "UserStory",
+  },
+  "experience.location.moscow": {
+    ru: "Москва",
+    en: "Moscow",
+  },
+  "experience.location.spb": {
+    ru: "Санкт-Петербург",
+    en: "Saint Petersburg",
+  },
+  "experience.location.tomsk": {
+    ru: "Томск",
+    en: "Tomsk",
+  },
+  "experience.ultimate.description": {
+    ru: "Руководство IT-стратегией холдинга из 7 компаний:",
+    en: "Leading IT strategy for a holding of 7 companies:",
+  },
+  "experience.ultimate.achievement1": {
+    ru: "Масштабирование IT-решений для холдинга из 7 компаний",
+    en: "Scaling IT solutions for a holding of 7 companies",
+  },
+  "experience.ultimate.achievement2": {
+    ru: "Разработка и внедрение единой IT-стратегии",
+    en: "Development and implementation of unified IT strategy",
+  },
+  "experience.ultimate.achievement3": {
+    ru: "Оптимизация бюджета и ресурсов через централизацию систем",
+    en: "Budget and resource optimization through systems centralization",
+  },
+  "experience.ultimate.achievement4": {
+    ru: "Создание комплексной аналитической платформы",
+    en: "Creation of comprehensive analytics platform",
+  },
+  "experience.xyz.description": {
+    ru: "Ключевые достижения за 3 года 10 месяцев:",
+    en: "Key achievements over 3 years and 10 months:",
+  },
+  "experience.xyz.achievement1": {
+    ru: "Разработка и внедрение LMS системы",
+    en: "Development and implementation of LMS system",
+  },
+  "experience.xyz.achievement2": {
+    ru: "Внедре��ие продуктовой аналитики на базе Metabase",
+    en: "Implementation of product analytics based on Metabase",
+  },
+  "experience.xyz.achievement3": {
+    ru: "Автоматизация бизнес-проце��сов и интеграция систем",
+    en: "Business process automation and systems integration",
+  },
+  "experience.sber.description": {
+    ru: "Разработка внутреннего DevOps продукта:",
+    en: "Development of internal DevOps product:",
+  },
+  "experience.sber.achievement1": {
+    ru: "Оптимизация производительности (10x улучшение)",
+    en: "Performance optimization (10x improvement)",
+  },
+  "experience.sber.achievement2": {
+    ru: "Проектирование архитектуры React-приложений",
+    en: "Designing architecture for React applications",
+  },
+  "experience.mag.description": {
+    ru: "Развитие cargomart.ru в течение 3 лет:",
+    en: "Development of cargomart.ru for 3 years:",
+  },
+  "experience.mag.achievement1": {
+    ru: "Разработка архитектуры React-приложения",
+    en: "Development of React application architecture",
+  },
+  "experience.mag.achievement2": {
+    ru: "Внедрение CI/CD и автоматизация процессов",
+    en: "Implementation of CI/CD and process automation",
+  },
+  "experience.mag.achievement3": {
+    ru: "Стандартизация API и тестирования",
+    en: "Standardization of API and testing",
+  },
+  "experience.user.description": {
+    ru: "Руководство отделом фронтенд-разработки более 3 лет:",
+    en: "Leading frontend development department for over 3 years:",
+  },
+  "experience.user.achievement1": {
+    ru: "Участие в разработке более 30 проектов",
+    en: "Participation in development of over 30 projects",
+  },
+  "experience.user.achievement2": {
+    ru: "Проектирование фронтенд архитектуры для 7 проектов",
+    en: "Designing frontend architecture for 7 projects",
+  },
+  "experience.user.achievement3": {
+    ru: "Развитие от middle developer до руководителя отдела",
+    en: "Growth from middle developer to department head",
+  },
+  "timeline.present": {
+    ru: "настоящее время",
+    en: "present",
   },
 } as const;
 
