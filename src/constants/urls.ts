@@ -4,6 +4,7 @@ export const URLS = {
   telegramChannelUrl: "https://t.me/AndreevSergey_IT",
   youtubeUrl: "https://www.youtube.com/@DragorWW",
   twitterUrl: "https://twitter.com/DragorWW",
+  linkedInUrl: "https://www.linkedin.com/in/DragorWW",
 } as const;
 
 export type URLs = typeof URLS;

@@ -2,8 +2,9 @@
 import Terminal from "./Terminal.astro";
 import { useTranslations } from "../utils/i18n";
 import { URLS } from "../constants/urls";
+import { LANGUAGES } from "../constants/languages";
 
-const { t } = useTranslations(Astro);
+const { t, lang } = useTranslations(Astro);
 ---
 
 <section class="hero">
@@ -86,7 +87,7 @@ const { t } = useTranslations(Astro);
 
     <div class="hero__buttons">
       <a
-        href={URLS.hhUrl}
+        href={lang === LANGUAGES.RU ? URLS.hhUrl : URLS.linkedInUrl}
         target="_blank"
         rel="noopener noreferrer"
         class="hero__button hero__button--primary"
@@ -444,7 +445,7 @@ const { t } = useTranslations(Astro);
     color: var(--text-primary);
   }
 
-  /* Добавляем стили для операторов */
+  /* Добавляем стили для операт��ров */
   .hero__formula-operator {
     color: var(--accent-color);
     margin: 0 0.25rem;

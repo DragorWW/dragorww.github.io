@@ -170,7 +170,7 @@ export const translations: Translations = {
   },
   "hero.cv": {
     ru: "CV на HH.ru",
-    en: "CV on HH.ru",
+    en: "LinkedIn",
   },
   "hero.contact": {
     ru: "Написать мне",
