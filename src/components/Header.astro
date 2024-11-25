@@ -126,7 +126,7 @@ const { youtubeUrl, twitterUrl, telegramChannelUrl } = Astro.props as Props;
 
       // Показываем нужную иконку
       const activeIcon = document.querySelector(
-        `link[rel="icon"][data-theme="${theme}"]`
+        `link[rel="icon"][data-theme="${theme}"]`,
       );
       if (activeIcon) {
         activeIcon.removeAttribute("media");

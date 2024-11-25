@@ -9,7 +9,8 @@ interface Props {
   telegramUrl: string;
 }
 
-const { twitterUrl, telegramChannelUrl, youtubeUrl, hhUrl, telegramUrl } = Astro.props;
+const { twitterUrl, telegramChannelUrl, youtubeUrl, hhUrl, telegramUrl } =
+  Astro.props;
 ---
 
 <section class="hero">
@@ -96,10 +97,7 @@ const { twitterUrl, telegramChannelUrl, youtubeUrl, hhUrl, telegramUrl } = Astro
       >
         CV на HH.ru
       </a>
-      <a
-        href={telegramUrl}
-        class="hero__button hero__button--secondary"
-      >
+      <a href={telegramUrl} class="hero__button hero__button--secondary">
         Написать мне
       </a>
     </div>

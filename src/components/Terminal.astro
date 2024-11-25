@@ -176,7 +176,7 @@ import SkillTag from "./SkillTag.astro";
 
     observeLastPrompt() {
       const lastPrompt = this.terminal.querySelector(
-        ".terminal__prompt:last-child"
+        ".terminal__prompt:last-child",
       );
       if (lastPrompt) {
         this.resizeObserver.disconnect();
@@ -489,9 +489,12 @@ import SkillTag from "./SkillTag.astro";
     async tryAIResponse(command) {
       try {
         // Используем шаблон для создания элемента загрузки
-        const loadingTemplate = document.getElementById("loading-template") as HTMLTemplateElement;
-        const loadingElement = 
-          loadingTemplate.content.cloneNode(true) as HTMLElement;
+        const loadingTemplate = document.getElementById(
+          "loading-template",
+        ) as HTMLTemplateElement;
+        const loadingElement = loadingTemplate.content.cloneNode(
+          true,
+        ) as HTMLElement;
         const firstChild = loadingElement.firstElementChild as HTMLElement;
         this.container.appendChild(firstChild);
         this.scrollManager.scrollToBottom();
@@ -632,7 +635,7 @@ import SkillTag from "./SkillTag.astro";
 
       this.historyIndex = Math.max(
         -1,
-        Math.min(this.commandHistory.length - 1, this.historyIndex + direction)
+        Math.min(this.commandHistory.length - 1, this.historyIndex + direction),
       );
 
       if (this.historyIndex === -1) {
@@ -656,7 +659,7 @@ import SkillTag from "./SkillTag.astro";
       ) {
         this.hintTimeout = setTimeout(
           () => this.showNextHint(),
-          this.hintDelay
+          this.hintDelay,
         );
       }
     }

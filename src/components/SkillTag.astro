@@ -8,7 +8,8 @@ const { name, version } = Astro.props;
 ---
 
 <li class="skill-tag">
-  {name} {!!version && <span class="skill-tag__version">v{version}</span>}
+  {name}
+  {!!version && <span class="skill-tag__version">v{version}</span>}
 </li>
 
 <style>
