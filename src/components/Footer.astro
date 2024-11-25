@@ -1,17 +1,20 @@
 ---
 import SectionTitle from "./SectionTitle.astro";
 import Container from "./Container.astro";
+import { useTranslations } from "../utils/i18n";
+
+const { t } = useTranslations(Astro);
 ---
 
 <footer id="contacts" class="footer">
   <Container>
-    <SectionTitle title="Меня можно найти здесь" />
+    <SectionTitle title={t("footer.section.title")} />
     <section class="contact">
       <div class="social-links">
         <a
           href="https://github.com/dragorww"
           class="social-link"
-          aria-label="GitHub Profile"
+          aria-label={t("footer.aria.github")}
         >
           <svg
             viewBox="0 0 24 24"
@@ -29,7 +32,7 @@ import Container from "./Container.astro";
         <a
           href="https://linkedin.com/in/dragorww"
           class="social-link"
-          aria-label="LinkedIn Profile"
+          aria-label={t("footer.aria.linkedin")}
         >
           <svg
             viewBox="0 0 24 24"
@@ -50,7 +53,7 @@ import Container from "./Container.astro";
         <a
           href="https://t.me/dragorww"
           class="social-link"
-          aria-label="Telegram Profile"
+          aria-label={t("footer.aria.telegram")}
         >
           <svg
             viewBox="0 0 24 24"
@@ -67,7 +70,7 @@ import Container from "./Container.astro";
         <a
           href="https://youtube.com/@dragorww"
           class="social-link"
-          aria-label="YouTube Channel"
+          aria-label={t("footer.aria.youtube")}
         >
           <svg
             viewBox="0 0 24 24"
@@ -91,7 +94,7 @@ import Container from "./Container.astro";
         href="https://github.com/DragorWW/dragorww.github.io"
         class="source-link"
       >
-        исходный код
+        {t("footer.source")}
       </a>
     </div>
   </Container>

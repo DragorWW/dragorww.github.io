@@ -1,5 +1,6 @@
 import { defineConfig } from "astro/config";
 import sitemap from "@astrojs/sitemap";
+import { LANGUAGES, DEFAULT_LANGUAGE } from "./src/constants/languages";
 
 // https://astro.build/config
 export default defineConfig({
@@ -18,15 +19,20 @@ export default defineConfig({
     host: "0.0.0.0",
     port: 5555,
   },
+  i18n: {
+    defaultLocale: DEFAULT_LANGUAGE,
+    locales: [LANGUAGES.RU, LANGUAGES.EN],
+  },
   integrations: [
     sitemap({
       changefreq: "weekly",
       priority: 0.7,
       lastmod: new Date(),
       i18n: {
-        defaultLocale: "ru",
+        defaultLocale: DEFAULT_LANGUAGE,
         locales: {
-          ru: "ru-RU",
+          [LANGUAGES.RU]: "ru-RU",
+          [LANGUAGES.EN]: "en-US",
         },
       },
     }),

@@ -1,0 +1,76 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  date: string;
+  url: string;
+  views: number;
+  locale: string;
+  viewsLabel: string;
+}
+
+const { title, description, date, url, views, locale, viewsLabel } =
+  Astro.props;
+---
+
+<a href={url} class="video-card" target="_blank">
+  <div class="video-card__content">
+    <h3 class="video-card__title">{title}</h3>
+    <p class="video-card__description">{description}</p>
+    <div class="video-card__meta">
+      <span class="video-card__date">
+        {
+          new Date(date).toLocaleDateString(locale, {
+            year: "numeric",
+            month: "short",
+            day: "numeric",
+          })
+        }
+      </span>
+      <span class="video-card__views">
+        {views}
+        {viewsLabel}
+      </span>
+    </div>
+  </div>
+</a>
+
+<style>
+  .video-card {
+    text-decoration: none;
+    color: inherit;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    background: var(--card-bg);
+  }
+
+  .video-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  .video-card__content {
+    padding: 1.5rem;
+  }
+
+  .video-card__title {
+    font-size: 1.25rem;
+    margin: 0 0 0.5rem;
+    color: var(--text-primary);
+  }
+
+  .video-card__description {
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+    line-height: 1.6;
+    font-size: 0.875rem;
+  }
+
+  .video-card__meta {
+    display: flex;
+    justify-content: space-between;
+    color: var(--text-secondary);
+    font-size: 0.75rem;
+  }
+</style>

@@ -1,6 +1,9 @@
 ---
 import SectionTitle from "./SectionTitle.astro";
 import SkillTag from "./SkillTag.astro";
+import { useTranslations } from "../utils/i18n";
+
+const { t } = useTranslations(Astro);
 
 interface Skill {
   name: string;
@@ -30,15 +33,15 @@ const experience: ExperienceItem[] = [
   {
     year: 2024,
     isCurrent: true,
-    role: "CTO",
-    company: "Ultimate Education",
-    location: "Москва",
-    description: "Руководство IT-стратегией холдинга из 7 компаний:",
+    role: t("experience.role.cto"),
+    company: t("experience.company.ultimate"),
+    location: t("experience.location.moscow"),
+    description: t("experience.ultimate.description"),
     achievements: [
-      "Масштабирование IT-решений для холдинга из 7 компаний",
-      "Разработка и внедрение единой IT-стратегии",
-      "Оптимизация бюджета и ресурсов через централизацию систем",
-      "Создание комплексной аналитической платформы",
+      t("experience.ultimate.achievement1"),
+      t("experience.ultimate.achievement2"),
+      t("experience.ultimate.achievement3"),
+      t("experience.ultimate.achievement4"),
     ],
     skills: [
       { name: "Kubernetes" },
@@ -50,14 +53,14 @@ const experience: ExperienceItem[] = [
   },
   {
     year: 2020,
-    role: "CTO",
-    company: "XYZ School",
-    location: "Москва",
-    description: "Ключевые достижения за 3 года 10 месяцев:",
+    role: t("experience.role.cto"),
+    company: t("experience.company.xyz"),
+    location: t("experience.location.moscow"),
+    description: t("experience.xyz.description"),
     achievements: [
-      "Разработка и внедрение LMS системы",
-      "Внедрение продуктовой аналитики на базе Metabase",
-      "Автоматизация бизнес-процессов и интеграция систем",
+      t("experience.xyz.achievement1"),
+      t("experience.xyz.achievement2"),
+      t("experience.xyz.achievement3"),
     ],
     skills: [
       { name: "Kubernetes" },
@@ -73,13 +76,13 @@ const experience: ExperienceItem[] = [
   },
   {
     year: 2019,
-    role: "Principal Developer",
-    company: "SberTech",
-    location: "Санкт-Петербург",
-    description: "Разработка внутреннего DevOps продукта:",
+    role: t("experience.role.principal"),
+    company: t("experience.company.sber"),
+    location: t("experience.location.spb"),
+    description: t("experience.sber.description"),
     achievements: [
-      "Оптимизация производительности (10x улучшение)",
-      "Проектирование архитектуры React-приложений",
+      t("experience.sber.achievement1"),
+      t("experience.sber.achievement2"),
     ],
     skills: [
       { name: "React" },
@@ -90,14 +93,14 @@ const experience: ExperienceItem[] = [
   },
   {
     year: 2016,
-    role: "Principal Developer",
-    company: "MagDevelopment",
-    location: "Томск",
-    description: "Развитие cargomart.ru в течение 3 лет:",
+    role: t("experience.role.principal"),
+    company: t("experience.company.mag"),
+    location: t("experience.location.tomsk"),
+    description: t("experience.mag.description"),
     achievements: [
-      "Разработка архитектуры React-приложения",
-      "Внедрение CI/CD и автоматизация процессов",
-      "Стандартизация API и тестирования",
+      t("experience.mag.achievement1"),
+      t("experience.mag.achievement2"),
+      t("experience.mag.achievement3"),
     ],
     skills: [
       { name: "React" },
@@ -108,14 +111,14 @@ const experience: ExperienceItem[] = [
   },
   {
     year: 2013,
-    role: "Head of Frontend",
-    company: "UserStory",
-    location: "Томск",
-    description: "Руководство отделом фронтенд-разработки более 3 лет:",
+    role: t("experience.role.head"),
+    company: t("experience.company.user"),
+    location: t("experience.location.tomsk"),
+    description: t("experience.user.description"),
     achievements: [
-      "Участие в разработке более 30 проектов",
-      "Проектирование фронтенд архитектуры для 7 проектов",
-      "Развитие от middle developer до руководителя отдела",
+      t("experience.user.achievement1"),
+      t("experience.user.achievement2"),
+      t("experience.user.achievement3"),
     ],
     skills: [
       { name: "JavaScript" },
@@ -129,24 +132,25 @@ const experience: ExperienceItem[] = [
 const education: Education[] = [
   {
     year: 2014,
-    degree: "Закончил Факультет психологии",
-    institution:
-      "Национальный исследовательский Томский государственный университет",
-    location: "Томск",
-    description: "Факультет психологии, Связи с общественностью",
+    degree: t("education.degree"),
+    institution: t("education.institution"),
+    location: t("education.location"),
+    description: t("education.description"),
   },
 ];
 ---
 
 <section id="experience" class="experience">
-  <SectionTitle title="Мой опыт" />
+  <SectionTitle title={t("experience.title")} />
   <div class="timeline">
     {
       experience.map((item) => (
         <div class:list={["timeline-item", { current: item.isCurrent }]}>
           <div class="year">
             {item.year}
-            {item.isCurrent && <span class="current-job">настоящее время</span>}
+            {item.isCurrent && (
+              <span class="current-job">{t("timeline.present")}</span>
+            )}
           </div>
           <div class="content">
             <h3>{item.role}</h3>

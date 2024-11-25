@@ -1,5 +1,8 @@
 ---
 import SkillTag from "./SkillTag.astro";
+import { useTranslations } from "../utils/i18n";
+
+const { t } = useTranslations(Astro);
 ---
 
 <div class="terminal">
@@ -23,12 +26,12 @@ import SkillTag from "./SkillTag.astro";
           <template>
             <div class="terminal__output">
               <div class="terminal__welcome">
-                Добро пожаловать в мой цифровой сад! 🌱
+                {t("terminal.welcome")}
                 <br /><br />
-                Здесь растут идеи, проекты и знания...
+                {t("terminal.description")}
                 <br />
-                Исследуйте с помощью <span class="terminal__cmd-hint">help</span
-                >
+                {t("terminal.explore")}
+                <span class="terminal__cmd-hint">help</span>
               </div>
             </div>
           </template>
@@ -37,14 +40,14 @@ import SkillTag from "./SkillTag.astro";
         <article class="terminal__command" data-command="help">
           <template>
             <div class="terminal__output">
-              Доступные команды:
+              {t("terminal.help.title")}
               <br />
-              help - Показать это сообщение<br />
-              about - Обо мне<br />
-              skills - Мои навыки<br />
-              contact - Контактная информация<br />
-              projects - Список проектов<br />
-              clear - Очистить терминал
+              help - {t("terminal.help.help")}<br />
+              about - {t("terminal.help.about")}<br />
+              skills - {t("terminal.help.skills")}<br />
+              contact - {t("terminal.help.contact")}<br />
+              projects - {t("terminal.help.projects")}<br />
+              clear - {t("terminal.help.clear")}
             </div>
           </template>
         </article>
@@ -53,13 +56,15 @@ import SkillTag from "./SkillTag.astro";
           <template>
             <div class="terminal__output">
               <dl class="terminal__info">
-                <dt class="terminal__info-term">Name:</dt>
-                <dd class="terminal__info-desc">Сергей Андреев</dd>
-                <dt class="terminal__info-term">Role:</dt>
+                <dt class="terminal__info-term">{t("terminal.about.name")}:</dt>
+                <dd class="terminal__info-desc">{t("me.name")}</dd>
+                <dt class="terminal__info-term">{t("terminal.about.role")}:</dt>
                 <dd class="terminal__info-desc">Head of Engineering</dd>
-                <dt class="terminal__info-term">Status:</dt>
+                <dt class="terminal__info-term">
+                  {t("terminal.about.status")}:
+                </dt>
                 <dd class="terminal__info-desc">
-                  Developing awesome things...
+                  {t("terminal.about.status.value")}
                 </dd>
               </dl>
             </div>
@@ -99,53 +104,34 @@ import SkillTag from "./SkillTag.astro";
             <div class="terminal__project">
               <time class="terminal__project-date">[2024]</time>
               <h3 class="terminal__project-title">
-                → Develop Business Analytics Platform
+                → {t("terminal.projects.analytics")}
               </h3>
-              <!-- <ul class="terminal__project-details">
-                                        <li>• 7 companies integration</li>
-                                        <li>• 100k+ users</li>
-                                        <li>• 99.9% uptime</li>
-                                </ul> -->
             </div>
             <div class="terminal__project">
               <time class="terminal__project-date">[2023]</time>
               <h3 class="terminal__project-title">
-                → Develop Educational Platform
+                → {t("terminal.projects.education")}
               </h3>
-              <!-- <ul class="terminal__project-details">
-                                        <li>• 7 companies integration</li>
-                                        <li>• 100k+ users</li>
-                                        <li>• 99.9% uptime</li>
-                                    </ul> -->
             </div>
             <div class="terminal__project">
               <time class="terminal__project-date">[2019]</time>
               <h3 class="terminal__project-title">
-                → Develop DevOps CD/CD Tools (clone Jenkins)
+                → {t("terminal.projects.devops")}
               </h3>
-              <!-- <ul class="terminal__project-details">
-                                        <li>• 7 companies integration</li>
-                                        <li>• 100k+ users</li>
-                                        <li>• 99.9% uptime</li>
-                                    </ul> -->
             </div>
             <div class="terminal__project">
               <time class="terminal__project-date">[2016]</time>
               <h3 class="terminal__project-title">
-                → Develop Cargo Marketplace
+                → {t("terminal.projects.cargo")}
               </h3>
-              <!-- <ul class="terminal__project-details">
-                                        <li>• 7 companies integration</li>
-                                        <li>• 100k+ users</li>
-                                        <li>• 99.9% uptime</li>
-                                    </ul> -->
             </div>
           </template>
         </article>
 
-        <!-- Добавляем шаблон для статуса загрузки -->
         <template id="loading-template">
-          <div class="terminal__output terminal__output--loading">Думаю</div>
+          <div class="terminal__output terminal__output--loading">
+            {t("terminal.thinking")}
+          </div>
         </template>
       </section>
     </div>
@@ -242,15 +228,26 @@ import SkillTag from "./SkillTag.astro";
     commandHistory = [];
     historyIndex = -1;
 
-    hints = [
-      "где ты работаешь?",
-      "какие проекты делал?",
-      "расскажи про опыт работы",
-      "как с тобой связаться?",
-      "какие технологии используешь?",
-      "где тебя найти в соцсетях?",
-      "help - список всех команд",
-    ];
+    hints = {
+      ru: [
+        "где ты работаешь?",
+        "какие проекты делал?",
+        "расскажи про опыт работы",
+        "как с тобой связаться?",
+        "какие технологии используешь?",
+        "где тебя найти в соцсетях?",
+        "help - список всех команд",
+      ],
+      en: [
+        "where do you work?",
+        "what projects have you done?",
+        "tell me about your experience",
+        "how can I contact you?",
+        "what technologies do you use?",
+        "where can I find you on social media?",
+        "help - list of all commands",
+      ],
+    };
 
     hintDelay = 1500;
     typeDelay = 60;
@@ -272,11 +269,13 @@ import SkillTag from "./SkillTag.astro";
     terminalContent: any;
     scrollManager: TerminalScrollManager;
     commands: {};
+    lang: string;
 
     constructor() {
       this.container = document.querySelector(".terminal__history");
       this.terminalContent = document.querySelector(".terminal__content");
       this.scrollManager = new TerminalScrollManager(this.terminalContent);
+      this.lang = document.documentElement.lang;
 
       this.initialize();
       this.startHintCycle();
@@ -488,18 +487,23 @@ import SkillTag from "./SkillTag.astro";
 
     async tryAIResponse(command) {
       try {
-        // Используем шаблон для создания элемента загрузки
+        // Создаем и добавляем элемент загрузки
         const loadingTemplate = document.getElementById(
           "loading-template",
         ) as HTMLTemplateElement;
-        const loadingElement = loadingTemplate.content.cloneNode(
-          true,
-        ) as HTMLElement;
-        const firstChild = loadingElement.firstElementChild as HTMLElement;
-        this.container.appendChild(firstChild);
+        const loadingElement = document.createElement("div");
+        loadingElement.innerHTML = loadingTemplate.innerHTML;
+        const loadingNode = this.container.appendChild(
+          loadingElement.firstElementChild,
+        );
         this.scrollManager.scrollToBottom();
 
         await this.sleep(2000);
+
+        // Удаляем элемент загрузки
+        if (loadingNode && loadingNode.parentNode) {
+          loadingNode.parentNode.removeChild(loadingNode);
+        }
 
         const response = await fetch(this.MODEL_URL, {
           method: "POST",
@@ -510,14 +514,12 @@ import SkillTag from "./SkillTag.astro";
           body: JSON.stringify({
             inputs: {
               text: `Context: You are a helpful assistant for Sergey Andreev's personal website. 
-                               He is a CTO with experience in educational projects.
-                               Current question: ${command}`,
+                     He is a CTO with experience in educational projects.
+                     Current question: ${command}`,
               max_length: 100,
             },
           }),
         });
-
-        loadingElement.remove();
 
         if (!response.ok) {
           throw new Error("API Error");
@@ -526,7 +528,6 @@ import SkillTag from "./SkillTag.astro";
         const data = await response.json();
         const aiResponse = data.generated_text || data[0].generated_text;
 
-        // Используем новую функцию для отправки события
         this.sendAnalytics("ai_response", {
           event_label: command,
           value: 1,
@@ -535,16 +536,15 @@ import SkillTag from "./SkillTag.astro";
         });
 
         return `<div class="terminal__output terminal__output--ai">
-                <div class="terminal__output-header">🤖 AI Response:</div>
-                <div class="terminal__output-content">${aiResponse}</div>
-            </div>`;
+                  <div class="terminal__output-header">🤖 AI Response:</div>
+                  <div class="terminal__output-content">${aiResponse}</div>
+              </div>`;
       } catch (error) {
-        console.error("AI Error:", error);
+        console.warn("AI Error:", error);
 
         const localAI = new LocalAI();
         const fallbackResponse = localAI.generateResponse(command);
 
-        // Используем новую функцию для отправки события
         this.sendAnalytics("ai_response", {
           event_label: command,
           value: 1,
@@ -553,9 +553,9 @@ import SkillTag from "./SkillTag.astro";
         });
 
         return `<div class="terminal__output terminal__output--ai">
-                <div class="terminal__output-header">🤖 Local AI:</div>
-                <div class="terminal__output-content">${fallbackResponse}</div>
-            </div>`;
+                  <div class="terminal__output-header">🤖 Local AI:</div>
+                  <div class="terminal__output-content">${fallbackResponse}</div>
+              </div>`;
       }
     }
 
@@ -673,7 +673,7 @@ import SkillTag from "./SkillTag.astro";
         return;
 
       this.isShowingHint = true;
-      const hint = this.hints[this.hintIndex];
+      const hint = this.hints[this.lang][this.hintIndex];
 
       let currentText = "";
       for (const char of hint) {
@@ -721,7 +721,7 @@ import SkillTag from "./SkillTag.astro";
         !this.currentInput &&
         document.activeElement !== this.terminalContent
       ) {
-        this.hintIndex = (this.hintIndex + 1) % this.hints.length;
+        this.hintIndex = (this.hintIndex + 1) % this.hints[this.lang].length;
         await this.sleep(this.betweenHintsDelay);
         this.startHintCycle();
       }
@@ -730,37 +730,57 @@ import SkillTag from "./SkillTag.astro";
   }
 
   class LocalAI {
-    keywords: {
-      "опыт|работа|карьера": string[];
-      "проект|достижени": string[];
-      "технолог|стек|язык": string[];
-      "образовани|обучени": string[];
-      "контакт|связ|найти": string[];
-    };
+    keywords: Record<string, string[]>;
     defaultResponses: string[];
     constructor() {
+      const lang = document.documentElement.lang;
+
       this.keywords = {
-        "опыт|работа|карьера": [
-          "Более 10 лет опыта в разработке. Сейчас работаю CTO в Ultimate Education.",
-          "Руковожу IT-стратегией образовательного холдинга из 7 компаний.",
-          "Специализируюсь на масштабировании образовательных проектов.",
+        "опыт|работа|карьера|experience|work|career": [
+          lang === "ru"
+            ? "Более 10 лет опыта в разработке. Сейчас работаю CTO в Ultimate Education."
+            : "Over 10 years of development experience. Currently working as CTO at Ultimate Education.",
+          lang === "ru"
+            ? "Руковожу IT-стратегией образовательного холдинга из 7 компаний."
+            : "Leading IT strategy for an educational holding of 7 companies.",
+          lang === "ru"
+            ? "Специализируюсь на масштабировании образовательных проектов."
+            : "Specializing in scaling educational projects.",
         ],
-        "проект|достижени": [
-          "Разработал LMS систму для 100k+ пользователей.",
-          "Создал комплексную аналитическую платформу для образовательного холдинга.",
-          "Оптимизировал производительность DevOps-системы в 10 раз.",
+        "проект|достижени|project|achievement": [
+          lang === "ru"
+            ? "Разработал LMS систему для 100k+ пользователей."
+            : "Developed LMS system for 100k+ users.",
+          lang === "ru"
+            ? "Создал комплексную аналитическую платформу для образовательного холдинга."
+            : "Created comprehensive analytics platform for educational holding.",
+          lang === "ru"
+            ? "Оптимизировал производительность DevOps-системы в 10 раз."
+            : "Optimized DevOps system performance by 10x.",
         ],
-        "технолог|стек|язык": [
-          "Основной стек: React, TypeScript, Python, Kubernetes.",
-          "Опыт работы с Java, Kotlin, Node.js.",
-          "Активно использую современные облачные технологии.",
+        "технолог|стек|язык|tech|stack|language": [
+          lang === "ru"
+            ? "Основной стек: React, TypeScript, Python, Kubernetes."
+            : "Main stack: React, TypeScript, Python, Kubernetes.",
+          lang === "ru"
+            ? "Опыт работы с Java, Kotlin, Node.js."
+            : "Experience with Java, Kotlin, Node.js.",
+          lang === "ru"
+            ? "Активно использую современные облачные технологии."
+            : "Actively using modern cloud technologies.",
         ],
-        "образовани|обучени": [
-          "Постоянно развиваюсь в сфре технологий.",
-          "Особый интерес к AI и масштабированию систем.",
-          "Делюсь опытом через менторство и технические статьи.",
+        "образовани|обучени|education|learning": [
+          lang === "ru"
+            ? "Постоянно развиваюсь в сфере технологий."
+            : "Constantly developing in the technology sphere.",
+          lang === "ru"
+            ? "Особый интерес к AI и масштабированию систем."
+            : "Special interest in AI and system scaling.",
+          lang === "ru"
+            ? "Делюсь опытом через менторство и технические статьи."
+            : "Sharing experience through mentoring and technical articles.",
         ],
-        "контакт|связ|найти": [
+        "контакт|связ|найти|contact|find|reach": [
           "Email: dragorww@gmail.com",
           "Telegram: @dragorww",
           "GitHub: github.com/dragorww",
@@ -768,9 +788,15 @@ import SkillTag from "./SkillTag.astro";
       };
 
       this.defaultResponses = [
-        "Извините, не совсем понял вопрос. Попробуйте спросить о моем опыте работы, проектах или технологиях.",
-        "Может быть, вас интересует мой опыт работы в образовательных проектах?",
-        "Я могу рассказать о технологиях, которые использую, или о своих проектах.",
+        lang === "ru"
+          ? "Извините, не совсем понял вопр��с. Попробуйте спросить о моем опыте работы, проектах или технологиях."
+          : "Sorry, I didn't quite understand the question. Try asking about my work experience, projects, or technologies.",
+        lang === "ru"
+          ? "Может быть, вас интересует мой опыт работы в образовательных проектах?"
+          : "Perhaps you're interested in my experience with educational projects?",
+        lang === "ru"
+          ? "Я могу рассказать о технологиях, которые использую, или о своих проектах."
+          : "I can tell you about the technologies I use or about my projects.",
       ];
     }
 
@@ -1103,7 +1129,7 @@ import SkillTag from "./SkillTag.astro";
     }
   }
 
-  /* Стили для ошибок */
+  /* Стили д��я ошибок */
   .terminal__output--error {
     color: #ff5f56;
   }

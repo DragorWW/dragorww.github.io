@@ -1,43 +1,78 @@
 ---
+import { useTranslations } from "../utils/i18n";
+import { LANGUAGES } from "../constants/languages";
+
 interface Props {
   title: string;
   description: string;
-  image?: string;
   keywords: string;
 }
 
-const {
-  title,
-  description,
-  image = "/assets/og-image.jpg",
-  keywords,
-} = Astro.props;
-const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const { title, description, keywords } = Astro.props;
+const { t, lang } = useTranslations(Astro);
+
+// Получаем текущий URL
+const currentPath = Astro.url.pathname;
+const baseUrl = Astro.site?.toString() || "https://dragorww.github.io";
+
+// Формируем ссылки для разных языков
+const alternateLinks = [
+  {
+    lang: LANGUAGES.RU,
+    href: `/ru${currentPath.replace(/^\/(ru|en)/, "")}`,
+    isDefault: LANGUAGES.RU === lang,
+  },
+  {
+    lang: LANGUAGES.EN,
+    href: `/en${currentPath.replace(/^\/(ru|en)/, "")}`,
+    isDefault: LANGUAGES.EN === lang,
+  },
+];
+
+// Получаем канонический URL для текущей страницы
+const canonicalUrl = new URL(
+  alternateLinks.find((link) => link.isDefault)?.href || currentPath,
+  baseUrl,
+).toString();
 ---
 
+<!-- Базовые мета-теги -->
 <title>{title}</title>
-<link rel="canonical" href={canonicalURL} />
 <meta name="description" content={description} />
-<meta property="og:title" content={title} />
-<meta property="og:description" content={description} />
-<meta property="og:image" content={image} />
-<meta name="robots" content="index, follow" />
-<meta name="author" content={title} />
 <meta name="keywords" content={keywords} />
 
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-1GRTBYX6K9"
-></script>
-<script>
-  declare global {
-    interface Window {
-      dataLayer: any[];
-    }
-  }
-  window.dataLayer = window.dataLayer || [];
-  function gtag(...args: any[]) {
-    window.dataLayer.push(args);
-  }
-  gtag("js", new Date());
+<!-- Канонический URL -->
+<link rel="canonical" href={canonicalUrl} />
 
-  gtag("config", "G-1GRTBYX6K9");
-</script>
+<!-- Языковые мета-теги -->
+<meta property="og:locale" content={`${lang}_${lang.toUpperCase()}`} />
+<meta name="language" content={lang} />
+
+<!-- Open Graph теги -->
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:type" content="website" />
+<meta property="og:url" content={canonicalUrl} />
+
+<!-- Twitter теги -->
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+
+<!-- Альтернативные языковые версии -->
+{
+  alternateLinks.map(({ lang: hrefLang, href }) => (
+    <link
+      rel="alternate"
+      hreflang={hrefLang}
+      href={new URL(href, baseUrl).toString()}
+    />
+  ))
+}
+
+<!-- x-default для поисковых систем -->
+<link
+  rel="alternate"
+  href={new URL("/en", baseUrl).toString()}
+  hreflang="x-default"
+/>

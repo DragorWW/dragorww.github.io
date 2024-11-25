@@ -1,50 +1,12 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import Hero from "../components/Hero.astro";
-import Container from "../components/Container.astro";
-import Header from "../components/Header.astro";
-import Footer from "../components/Footer.astro";
-import Experience from "../components/Experience.astro";
-import Videos from "../components/Videos.astro";
-import MatrixBackground from "../components/MatrixBackground.astro";
+import { LANGUAGES, DEFAULT_LANGUAGE } from "../constants/languages";
 
-const DATA = {
-  name: "Сергей Андреев",
-  description: "CTO и IT-Архитектор с опытом построения масштабируемых решений",
-  title: "CTO и IT-Архитектор с опытом построения масштабируемых решений",
-  keywords: "CTO, Head of Engineering, IT Architecture, Team Management",
-};
+export const prerender = false;
 
-const URLS = {
-  hhUrl: "https://hh.ru/resume/1924a0b3ff0284e9780039ed1f446c58496643",
-  telegramUrl: "https://t.me/DragorWW",
-  telegramChannelUrl: "https://t.me/AndreevSergey_IT",
-  youtubeUrl: "https://www.youtube.com/@DragorWW",
-  twitterUrl: "https://twitter.com/DragorWW",
-};
+const userLang =
+  Astro.request.headers.get("accept-language")?.split(",")[0].split("-")[0] ||
+  DEFAULT_LANGUAGE;
+const lang = userLang === LANGUAGES.RU ? LANGUAGES.RU : LANGUAGES.EN;
+
+return Astro.redirect(`/${lang}`);
 ---
-
-<Layout
-  title={DATA.name}
-  description={DATA.description}
-  keywords={DATA.keywords}
->
-  <MatrixBackground />
-  <Container>
-    <Header
-      youtubeUrl={URLS.youtubeUrl}
-      twitterUrl={URLS.twitterUrl}
-      telegramChannelUrl={URLS.telegramChannelUrl}
-    />
-    <Hero
-      twitterUrl={URLS.twitterUrl}
-      telegramChannelUrl={URLS.telegramChannelUrl}
-      youtubeUrl={URLS.youtubeUrl}
-      hhUrl={URLS.hhUrl}
-      telegramUrl={URLS.telegramUrl}
-    />
-    <Experience />
-    <Videos />
-  </Container>
-  <Footer />
-</Layout>

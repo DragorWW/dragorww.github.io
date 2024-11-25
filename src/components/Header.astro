@@ -1,12 +1,10 @@
 ---
 import HeaderLogo from "./HeaderLogo.astro";
-type Props = {
-  youtubeUrl: string;
-  twitterUrl: string;
-  telegramChannelUrl: string;
-};
+import { useTranslations } from "../utils/i18n";
+import { LANGUAGES } from "../constants/languages";
+import { URLS } from "../constants/urls";
 
-const { youtubeUrl, twitterUrl, telegramChannelUrl } = Astro.props as Props;
+const { t, lang } = useTranslations(Astro);
 ---
 
 <header class="header">
@@ -16,14 +14,18 @@ const { youtubeUrl, twitterUrl, telegramChannelUrl } = Astro.props as Props;
       <div class="header__right">
         <nav class="header__nav">
           <a href="#home" class="header__nav-link header__nav-link--active">
-            Главная
+            {t("nav.home")}
           </a>
-          <a href="#experience" class="header__nav-link">Мой опыт</a>
-          <a href="#contacts" class="header__nav-link">Контакты</a>
+          <a href="#experience" class="header__nav-link">
+            {t("nav.experience")}
+          </a>
+          <a href="#contacts" class="header__nav-link">
+            {t("nav.contacts")}
+          </a>
         </nav>
         <div class="header__social">
           <a
-            href={youtubeUrl}
+            href={URLS.youtubeUrl}
             target="_blank"
             class="header__social-link"
             aria-label="YouTube"
@@ -39,7 +41,7 @@ const { youtubeUrl, twitterUrl, telegramChannelUrl } = Astro.props as Props;
             </svg>
           </a>
           <a
-            href={twitterUrl}
+            href={URLS.twitterUrl}
             target="_blank"
             class="header__social-link"
             aria-label="Twitter"
@@ -55,7 +57,7 @@ const { youtubeUrl, twitterUrl, telegramChannelUrl } = Astro.props as Props;
             </svg>
           </a>
           <a
-            href={telegramChannelUrl}
+            href={URLS.telegramChannelUrl}
             target="_blank"
             class="header__social-link"
             aria-label="Telegram"
@@ -71,10 +73,26 @@ const { youtubeUrl, twitterUrl, telegramChannelUrl } = Astro.props as Props;
             </svg>
           </a>
         </div>
+        <div class="header__lang-switcher">
+          <a
+            href={`/${lang === LANGUAGES.RU ? LANGUAGES.EN : LANGUAGES.RU}`}
+            class="header__lang-btn"
+            aria-label={t("aria.switchLang")}
+          >
+            <span class="header__current-lang">
+              {
+                (lang === LANGUAGES.RU
+                  ? LANGUAGES.EN
+                  : LANGUAGES.RU
+                ).toUpperCase()
+              }
+            </span>
+          </a>
+        </div>
         <button
           class="header__theme-toggle"
           onclick="toggleTheme()"
-          aria-label="Переключить тему"
+          aria-label={t("aria.switchTheme")}
         >
           <svg
             class="header__theme-toggle-icon header__theme-toggle-icon--sun"
@@ -115,16 +133,16 @@ const { youtubeUrl, twitterUrl, telegramChannelUrl } = Astro.props as Props;
 
   (() => {
     function updateFavicon(theme) {
-      // Находим все иконки
+      // Find all icons
       const favicons = document.querySelectorAll('link[rel="icon"]');
 
-      // Скрываем все иконки
+      // Hide all icons
       favicons.forEach((icon) => {
         icon.setAttribute("media", "none");
         icon.setAttribute("rel", "icon");
       });
 
-      // Показываем нужную иконку
+      // Show active icon
       const activeIcon = document.querySelector(
         `link[rel="icon"][data-theme="${theme}"]`,
       );
@@ -152,7 +170,10 @@ const { youtubeUrl, twitterUrl, telegramChannelUrl } = Astro.props as Props;
       updateFavicon(savedTheme);
     }
 
-    document.addEventListener("DOMContentLoaded", initTheme);
+    document.addEventListener("DOMContentLoaded", () => {
+      initTheme();
+    });
+
     window.toggleTheme = toggleTheme;
   })();
 </script>
@@ -344,5 +365,41 @@ const { youtubeUrl, twitterUrl, telegramChannelUrl } = Astro.props as Props;
     .header__social {
       display: flex;
     }
+  }
+
+  /* Добавляем стили для переключателя языков */
+  .header__lang-switcher {
+    margin-left: 1rem;
+  }
+
+  .header__lang-btn {
+    background: none;
+    border: none;
+    padding: 4px 8px;
+    cursor: pointer;
+    color: var(--text-color);
+    opacity: 0.7;
+    border-radius: 4px;
+    font-size: 0.875rem;
+    transition: all 0.2s ease;
+    text-decoration: none;
+  }
+
+  .header__lang-btn:hover {
+    opacity: 1;
+    background: rgba(226, 192, 141, 0.1);
+  }
+
+  .header__current-lang {
+    font-weight: 500;
+  }
+
+  .header__lang-btn:active {
+    transform: scale(0.95);
+  }
+
+  .header__lang-btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(226, 192, 141, 0.2);
   }
 </style>
