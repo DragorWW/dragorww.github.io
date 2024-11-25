@@ -1,14 +1,14 @@
 ---
 interface Props {
   name: string;
-  version: string;
+  version?: string;
 }
 
 const { name, version } = Astro.props;
 ---
 
 <li class="skill-tag">
-  {name} <span class="skill-tag__version">v{version}</span>
+  {name} {!!version && <span class="skill-tag__version">v{version}</span>}
 </li>
 
 <style>

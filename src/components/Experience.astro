@@ -1,5 +1,6 @@
 ---
 import SectionTitle from "./SectionTitle.astro";
+import SkillTag from "./SkillTag.astro";
 ---
 
 <section id="experience" class="experience">
@@ -21,11 +22,11 @@ import SectionTitle from "./SectionTitle.astro";
           <li>Создание комплексной аналитической платформы</li>
         </ul>
         <div class="skill-tags">
-          <span class="skill-tag">Kubernetes</span>
-          <span class="skill-tag">React</span>
-          <span class="skill-tag">TypeScript</span>
-          <span class="skill-tag">Python</span>
-          <span class="skill-tag">Django</span>
+          <SkillTag name="Kubernetes" />
+          <SkillTag name="React" />
+          <SkillTag name="TypeScript" />
+          <SkillTag name="Python" />
+          <SkillTag name="Django" />
         </div>
       </div>
     </div>
@@ -42,15 +43,15 @@ import SectionTitle from "./SectionTitle.astro";
           <li>Автоматизация бизнес-процессов и интеграция систем</li>
         </ul>
         <div class="skill-tags">
-          <span class="skill-tag">Kubernetes</span>
-          <span class="skill-tag">Terraform</span>
-          <span class="skill-tag">React</span>
-          <span class="skill-tag">TypeScript</span>
-          <span class="skill-tag">CSS Modules</span>
-          <span class="skill-tag">GraphQL</span>
-          <span class="skill-tag">REST</span>
-          <span class="skill-tag">Python</span>
-          <span class="skill-tag">Django</span>
+          <SkillTag name="Kubernetes" />
+          <SkillTag name="Terraform" />
+          <SkillTag name="React" />
+          <SkillTag name="TypeScript" />
+          <SkillTag name="CSS Modules" />
+          <SkillTag name="GraphQL" />
+          <SkillTag name="REST" />
+          <SkillTag name="Python" />
+          <SkillTag name="Django" />
         </div>
       </div>
     </div>
@@ -66,10 +67,10 @@ import SectionTitle from "./SectionTitle.astro";
           <li>Проектирование архитектуры React-приложений</li>
         </ul>
         <div class="skill-tags">
-          <span class="skill-tag">React</span>
-          <span class="skill-tag">TypeScript</span>
-          <span class="skill-tag">Java</span>
-          <span class="skill-tag">Kotlin</span>
+          <SkillTag name="React" />
+          <SkillTag name="TypeScript" />
+          <SkillTag name="Java" />
+          <SkillTag name="Kotlin" />
         </div>
       </div>
     </div>
@@ -100,10 +101,10 @@ import SectionTitle from "./SectionTitle.astro";
           <li>Развитие от middle developer до руководителя отдела</li>
         </ul>
         <div class="skill-tags">
-          <span class="skill-tag">JavaScript</span>
-          <span class="skill-tag">React</span>
-          <span class="skill-tag">Redux</span>
-          <span class="skill-tag">Webpack</span>
+          <SkillTag name="JavaScript" />
+          <SkillTag name="React" />
+          <SkillTag name="Redux" />
+          <SkillTag name="Webpack" />
         </div>
       </div>
     </div>
@@ -329,25 +330,6 @@ import SectionTitle from "./SectionTitle.astro";
     margin-top: 1rem;
   }
 
-  .skill-tag {
-    font-size: 0.75rem;
-    color: var(--accent-color);
-    background: rgba(var(--accent-color-rgb), 0.05);
-    padding: 3px 8px;
-    border-radius: 4px;
-    border: 1px solid rgba(var(--accent-color-rgb), 0.1);
-    transition: all 0.2s ease;
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
-  }
-
-  .skill-tag:hover {
-    background: rgba(var(--accent-color-rgb), 0.1);
-    border-color: rgba(var(--accent-color-rgb), 0.2);
-    transform: translateY(-1px);
-  }
-
-  /* Добавляем небольшой отступ после списков, если за ними следуют теги */
   .content ul + .skill-tags {
     margin-top: 1.5rem;
   }
@@ -367,10 +349,6 @@ import SectionTitle from "./SectionTitle.astro";
 
     .skill-tags {
       gap: 6px;
-    }
-
-    .skill-tag {
-      font-size: 0.7rem;
     }
   }
 
