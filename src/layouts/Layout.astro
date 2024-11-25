@@ -1,17 +1,19 @@
 ---
 import SEO from "../components/SEO.astro";
+import { useTranslations } from "../utils/i18n";
 
 interface Props {
   title: string;
-  description?: string;
-  keywords?: string;
+  description: string;
+  keywords: string;
 }
 
 const { title, description, keywords } = Astro.props;
+const { lang } = useTranslations(Astro);
 ---
 
 <!doctype html>
-<html lang="ru">
+<html lang={lang}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />

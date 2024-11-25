@@ -1,0 +1,38 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Hero from "../../components/Hero.astro";
+import Container from "../../components/Container.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import Experience from "../../components/Experience.astro";
+import Videos from "../../components/Videos.astro";
+import MatrixBackground from "../../components/MatrixBackground.astro";
+import { useTranslations } from "../../utils/i18n";
+import { LANGUAGES } from "../../constants/languages";
+import { PROFILE_DATA } from "../../constants/profile";
+
+export function getStaticPaths() {
+  return [
+    { params: { lang: LANGUAGES.RU } },
+    { params: { lang: LANGUAGES.EN } },
+  ];
+}
+
+const { lang } = useTranslations(Astro);
+const pageData = PROFILE_DATA[lang];
+---
+
+<Layout
+  title={pageData.name}
+  description={pageData.description}
+  keywords={pageData.keywords}
+>
+  <MatrixBackground />
+  <Container>
+    <Header />
+    <Hero />
+    <Experience />
+    <Videos />
+  </Container>
+  <Footer />
+</Layout>

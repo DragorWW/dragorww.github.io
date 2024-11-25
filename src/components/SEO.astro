@@ -1,43 +1,39 @@
 ---
+import { useTranslations } from "../utils/i18n";
+import { LANGUAGES } from "../constants/languages";
+
 interface Props {
   title: string;
   description: string;
-  image?: string;
   keywords: string;
 }
 
-const {
-  title,
-  description,
-  image = "/assets/og-image.jpg",
-  keywords,
-} = Astro.props;
-const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const { title, description, keywords } = Astro.props;
+const { t, lang } = useTranslations(Astro);
+
+const alternateLinks = [
+  { lang: LANGUAGES.RU, href: "/ru" },
+  { lang: LANGUAGES.EN, href: "/en" },
+];
 ---
 
 <title>{title}</title>
-<link rel="canonical" href={canonicalURL} />
 <meta name="description" content={description} />
+<meta name="keywords" content={keywords} />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
-<meta property="og:image" content={image} />
-<meta name="robots" content="index, follow" />
-<meta name="author" content={title} />
-<meta name="keywords" content={keywords} />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="language" content={lang} />
 
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-1GRTBYX6K9"
-></script>
-<script>
-  declare global {
-    interface Window {
-      dataLayer: any[];
-    }
-  }
-  window.dataLayer = window.dataLayer || [];
-  function gtag(...args: any[]) {
-    window.dataLayer.push(args);
-  }
-  gtag("js", new Date());
-
-  gtag("config", "G-1GRTBYX6K9");
-</script>
+{
+  alternateLinks.map(({ lang: hrefLang, href }) => (
+    <link
+      rel="alternate"
+      hreflang={hrefLang}
+      href={new URL(href, Astro.site).toString()}
+    />
+  ))
+}
