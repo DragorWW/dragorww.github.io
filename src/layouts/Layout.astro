@@ -1,32 +1,25 @@
 ---
+import SEO from "../components/SEO.astro";
+
 interface Props {
   title: string;
   description?: string;
+  keywords?: string;
 }
 
-const {
-  title,
-  description = "CTO, IT-архитектор и амбассадор продуктовой разработки",
-} = Astro.props;
+const { title, description, keywords } = Astro.props;
 ---
 
 <!doctype html>
 <html lang="ru">
   <head>
     <meta charset="UTF-8" />
-    <meta name="robots" content="index, follow" />
-    <meta name="author" content="Сергей Андреев" />
-    <meta
-      name="keywords"
-      content="CTO, Head of Engineering, IT Architecture, Team Management"
-    />
     <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
 
-    <!-- <meta property="og:title" content="<%= title %>" />
-    <meta property="og:description" content="<%= description %>" />
-    <meta property="og:image" content="assets/og-image.jpg" /> -->
 
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <SEO title={title} description={description} keywords={keywords} />
+
     <link
       rel="icon"
       type="image/svg+xml"
@@ -39,27 +32,12 @@ const {
       data-theme="dark"
       href="/assets/favicon-dark.svg"
     />
-
-    <meta name="generator" content={Astro.generator} />
-    <title>{title}</title>
-    <meta name="description" content={description} />
+  
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/firacode@6.2.0/distr/fira_code.css"
     />
 
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-1GRTBYX6K9"
-    ></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag("js", new Date());
-
-      gtag("config", "G-1GRTBYX6K9");
-    </script>
   </head>
   <body>
     <main>
