@@ -1,5 +1,12 @@
 ---
 import HeaderLogo from "./HeaderLogo.astro";
+type Props = {
+  youtubeUrl: string;
+  twitterUrl: string;
+  telegramChannelUrl: string;
+};
+
+const { youtubeUrl, twitterUrl, telegramChannelUrl } = Astro.props as Props;
 ---
 
 <header class="header">
@@ -9,14 +16,16 @@ import HeaderLogo from "./HeaderLogo.astro";
       <div class="header__right">
         <nav class="header__nav">
           <a href="#home" class="header__nav-link header__nav-link--active"
-            >Главная</a
+            >
+            Главная
+            </a
           >
           <a href="#experience" class="header__nav-link">Мой опыт</a>
           <a href="#contacts" class="header__nav-link">Контакты</a>
         </nav>
         <div class="header__social">
           <a
-            href="<%= youtubeUrl %>"
+            href={youtubeUrl}
             target="_blank"
             class="header__social-link"
             aria-label="YouTube"
@@ -32,7 +41,7 @@ import HeaderLogo from "./HeaderLogo.astro";
             </svg>
           </a>
           <a
-            href="<%= twitterUrl %>"
+            href={twitterUrl}
             target="_blank"
             class="header__social-link"
             aria-label="Twitter"
@@ -48,7 +57,7 @@ import HeaderLogo from "./HeaderLogo.astro";
             </svg>
           </a>
           <a
-            href="<%= telegramChannelUrl %>"
+            href={telegramChannelUrl}
             target="_blank"
             class="header__social-link"
             aria-label="Telegram"
