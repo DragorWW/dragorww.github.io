@@ -152,19 +152,17 @@ const education: Education[] = [
             <div class="company">
               {item.company}, {item.location}
             </div>
+            <ul class="skill-tags">
+              {item.skills?.map((skill) => (
+                <SkillTag {...skill} />
+              ))}
+            </ul>
             <p>{item.description}</p>
             <ul>
               {item.achievements.map((achievement) => (
                 <li>{achievement}</li>
               ))}
             </ul>
-            {item.skills && (
-              <div class="skill-tags">
-                {item.skills.map((skill) => (
-                  <SkillTag name={skill.name} version={skill.version} />
-                ))}
-              </div>
-            )}
           </div>
         </div>
       ))
