@@ -3,6 +3,7 @@ import { defineConfig } from "astro/config";
 // https://astro.build/config
 export default defineConfig({
   site: "https://dragorww.github.io",
+  base: "/",
   compressHTML: true,
   build: {
     assets: "assets",
