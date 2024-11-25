@@ -1,0 +1,29 @@
+<main class="container">
+  <slot />
+</main>
+<style>
+  .container {
+    max-width: var(--container-max-width);
+    margin: 0 auto;
+    padding: 0 var(--container-padding);
+    position: relative;
+  }
+
+  @media (max-width: 1200px) {
+    .container {
+      max-width: 960px;
+    }
+  }
+
+  @media (max-width: 1024px) {
+    .container {
+      max-width: 720px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .container {
+      max-width: 540px;
+    }
+  }
+</style>

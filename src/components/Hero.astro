@@ -1,0 +1,503 @@
+---
+import Terminal from "./Terminal.astro";
+
+interface Props {
+  twitterUrl: string;
+  telegramChannelUrl: string;
+  youtubeUrl: string;
+  hhUrl: string;
+  telegramUrl: string;
+}
+
+const { twitterUrl, telegramChannelUrl, youtubeUrl, hhUrl, telegramUrl } =
+  Astro.props;
+---
+
+<section class="hero">
+  <div class="hero__content">
+    <div class="hero__header">
+      <div class="hero__title-group">
+        <div class="hero__welcome">
+          <span class="hero__welcome-text">Привет, я</span>
+        </div>
+        <div class="hero__intro">
+          <div class="hero__photo">
+            <div class="hero__photo-border"></div>
+            <img
+              class="hero__photo-image"
+              src="/assets/profile.jpg"
+              alt="Сергей Андреев"
+            />
+          </div>
+
+          <h1 class="hero__title">
+            Сергей Андреев
+            <span class="hero__title-accent">Head of Engineering</span>
+          </h1>
+        </div>
+      </div>
+    </div>
+
+    <p class="hero__description">
+      CTO, IT-архитектор и амбассадор продуктовой разработки.
+    </p>
+    <div class="hero__description">
+      <ul class="hero__stats-list">
+        <li class="hero__stats-item">
+          Создаю успешные команды и продукты 10+ лет
+        </li>
+        <li class="hero__stats-item">Внедряю процессы непрерывной поставки</li>
+        <li class="hero__stats-item">
+          Проектирую масштабируемые решения для бизнеса
+        </li>
+      </ul>
+    </div>
+
+    <p class="hero__description hero__description--with-links">
+      Активно делюсь опытом в
+      <a href={twitterUrl} class="hero__link">
+        <svg class="hero__link-icon" viewBox="0 0 24 24" fill="currentColor">
+          <path
+            d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"
+          ></path>
+        </svg>
+        Twitter</a
+      >, веду блог <b class="hero__accent">Системная интроспекция</b> в
+      <a href={telegramChannelUrl} class="hero__link">
+        <svg class="hero__link-icon" viewBox="0 0 24 24" fill="currentColor">
+          <path
+            d="M24 12c0 6.627-5.373 12-12 12S0 18.627 0 12 5.373 0 12 0s12 5.373 12 12zM12.43 8.859c-1.167.485-3.5 1.49-6.998 3.014-.568.226-.866.447-.893.663-.046.366.412.51 1.034.705.085.027.173.054.263.084.613.199 1.437.432 1.865.441.389.008.823-.152 1.302-.48 3.268-2.207 4.955-3.322 5.061-3.346.075-.017.179-.039.249.024.07.062.063.18.056.212-.046.193-1.84 1.862-2.77 2.726-.29.269-.495.46-.537.504-.094.097-.19.19-.282.279-.57.548-.996.96.024 1.632.49.323.882.59 1.273.856.427.291.853.581 1.405.943.14.092.274.187.405.28.497.355.944.673 1.496.623.32-.03.652-.331.82-1.23.397-2.126 1.179-6.73 1.36-8.628a2.111 2.111 0 00-.02-.472.506.506 0 00-.172-.325c-.143-.117-.365-.142-.465-.14-.451.008-1.143.249-4.476 1.635z"
+          ></path>
+        </svg>
+        Telegram
+      </a>
+      и
+      <a href={youtubeUrl} class="hero__link">
+        <svg class="hero__link-icon" viewBox="0 0 24 24" fill="currentColor">
+          <path
+            d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"
+          ></path>
+        </svg>
+        YouTube
+      </a>
+      про продуктовую разработку и
+      <span class="hero__formula">
+        Biz <span class="hero__formula-operator">+</span> Dev
+        <span class="hero__formula-operator">===</span>
+        <span class="hero__formula-heart">❤️</span>
+      </span>
+    </p>
+
+    <div class="hero__buttons">
+      <a
+        href={hhUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="hero__button hero__button--primary"
+      >
+        CV на HH.ru
+      </a>
+      <a href={telegramUrl} class="hero__button hero__button--secondary">
+        Написать мне
+      </a>
+    </div>
+  </div>
+
+  <div class="hero__terminal">
+    <Terminal />
+  </div>
+</section>
+
+<style>
+  /* Hero Section */
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    padding: 4rem 0;
+  }
+
+  .hero__content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .hero__title-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .hero__intro {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .hero__welcome {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--accent-color);
+    font-size: 0.875rem;
+    letter-spacing: 0.1em;
+  }
+
+  .hero__welcome-text {
+    text-transform: uppercase;
+  }
+
+  .hero__title {
+    font-size: 3rem;
+    line-height: 1.2;
+    margin: 0;
+  }
+
+  .hero__title-accent {
+    display: block;
+    color: var(--accent-color);
+  }
+
+  .hero__description {
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+    max-width: 500px;
+    font-size: 1.1rem;
+    line-height: 1.6;
+  }
+
+  .hero__description:last-of-type {
+    margin-bottom: 2rem;
+  }
+
+  .hero__stats {
+    display: inline-block;
+    margin-top: 1rem;
+    color: var(--accent-color);
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+
+  .hero__stats-divider {
+    color: var(--secondary-color);
+    opacity: 0.6;
+  }
+
+  .hero__buttons {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .hero__button {
+    display: inline-block;
+    text-decoration: none;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 0.5rem;
+    font-family: inherit;
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero__button--primary {
+    background-color: var(--accent-color);
+    color: var(--bg-color);
+  }
+
+  .hero__button--secondary {
+    background-color: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+  }
+
+  .hero__photo {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    border-radius: 12px;
+    background: var(--card-bg);
+  }
+
+  .hero__photo-border {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 2px;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      transparent 20%,
+      rgba(226, 192, 141, 1) 40%,
+      rgba(226, 192, 141, 1) 60%,
+      transparent 80%,
+      transparent 100%
+    );
+    background-size: 200% 100%;
+    -webkit-mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    animation: shine 3s linear infinite;
+  }
+
+  .hero__photo-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+  }
+
+  @keyframes shine {
+    to {
+      background-position: -200% 0;
+    }
+  }
+
+  .hero__button::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition:
+      width 0.6s ease,
+      height 0.6s ease;
+  }
+
+  .hero__button:hover::after {
+    width: 300%;
+    height: 300%;
+  }
+
+  .hero__button--primary:hover {
+    opacity: 0.9;
+  }
+
+  .hero__button--secondary:hover {
+    background-color: var(--border-color);
+  }
+
+  /* Media Queries */
+  @media screen and (max-width: 1024px) {
+    .hero {
+      gap: 3rem;
+      padding: 3rem 0;
+    }
+
+    .hero__title {
+      font-size: 2.5rem;
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    .hero {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      padding: 2rem 0;
+    }
+
+    .hero__header {
+      margin-bottom: 1rem;
+    }
+
+    .hero__photo {
+      width: 100px;
+      height: 100px;
+    }
+
+    .hero__title {
+      font-size: 2rem;
+    }
+
+    .hero__description {
+      font-size: 0.95rem;
+      margin-bottom: 0.75rem;
+      line-height: 1.5;
+    }
+
+    .hero__description:last-of-type {
+      margin-bottom: 1.5rem;
+    }
+
+    .hero__stats {
+      font-size: 0.8rem;
+      margin-top: 0.75rem;
+    }
+
+    .hero__buttons {
+      gap: 0.75rem;
+    }
+
+    .hero__button {
+      padding: 0.6rem 1.25rem;
+    }
+  }
+
+  @media screen and (max-width: 480px) {
+    .hero {
+      padding: 1.5rem 0;
+      gap: 1rem;
+    }
+
+    .hero__photo {
+      width: 80px;
+      height: 80px;
+    }
+
+    .hero__title {
+      font-size: 1.75rem;
+    }
+
+    .hero__description {
+      font-size: 0.9rem;
+      margin-bottom: 0.5rem;
+    }
+  }
+
+  .hero__header {
+    display: flex;
+    align-items: flex-start;
+    gap: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .hero__title-group {
+    flex: 1;
+  }
+
+  .hero__photo {
+    width: 120px;
+    height: 120px;
+    /* ... остальные стили для фото ... */
+  }
+
+  @media screen and (max-width: 1023px) {
+    .hero {
+      grid-template-columns: 1fr;
+      text-align: center;
+      gap: 2rem;
+    }
+    .hero__intro {
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .hero__content {
+      order: 1;
+    }
+
+    .hero__description {
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .hero__buttons {
+      justify-content: center;
+    }
+
+    .hero__title-group {
+      align-items: center;
+      text-align: center;
+    }
+  }
+
+  /* Добавляем стили для ссылок в описании */
+  .hero__link {
+    color: var(--accent-color);
+    text-decoration: none;
+    transition: all 0.2s;
+    border-bottom: 1px solid transparent;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    vertical-align: middle;
+    white-space: nowrap;
+  }
+
+  .hero__link:hover {
+    border-bottom-color: var(--accent-color);
+  }
+
+  .hero__link-icon {
+    width: 16px;
+    height: 16px;
+  }
+
+  .hero__accent {
+    color: var(--text-primary);
+  }
+
+  /* Обновляем стили для формулы */
+  .hero__formula {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-family: "Fira Code", monospace;
+    font-size: 0.95em;
+    color: var(--text-primary);
+  }
+
+  /* Добавляем стили для операторов */
+  .hero__formula-operator {
+    color: var(--accent-color);
+    margin: 0 0.25rem;
+    font-weight: 500;
+  }
+
+  .hero__formula-heart {
+    color: #ff6b6b;
+    font-size: 1.1em;
+    display: inline-block;
+    transform: translateY(-1px);
+  }
+
+  .hero__stats-list {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 1rem;
+    /* font-size: 0.8rem; */
+    color: var(--text-secondary);
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .hero__stats-item {
+    position: relative;
+    padding-left: 1.5rem;
+    margin-bottom: 0;
+    line-height: 1.2;
+  }
+
+  .hero__stats-item::before {
+    content: "▹";
+    position: absolute;
+    left: 0;
+    color: var(--accent-color);
+  }
+
+  .hero__stats-item:last-child {
+    margin-bottom: 0;
+  }
+
+  @media screen and (max-width: 768px) {
+    .hero__stats-list {
+      font-size: 0.7rem;
+      text-align: left;
+      margin-left: auto;
+      margin-right: auto;
+      max-width: 400px;
+    }
+  }
+</style>

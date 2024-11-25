@@ -1,21 +1,24 @@
 {
-    "name": "homepage",
-    "version": "1.0.0",
-    "description": "",
-    "main": "index.js",
-    "scripts": {
-        "dev": "vite",
-        "build": "vite build",
-        "preview": "vite preview",
-        "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx,css,scss,html,ejs,json,md,svg}\"",
-        "format:check": "prettier --check \"src/**/*.{js,jsx,ts,tsx,css,scss,html,ejs,json,md,svg}\""
-    },
-    "keywords": [],
-    "author": "",
-    "license": "ISC",
-    "devDependencies": {
-        "prettier": "^3.3.3",
-        "vite": "^5.4.11",
-        "vite-plugin-ejs": "^1.7.0"
-    }
+  "name": "astro",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro check && astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "format": "prettier --write .",
+    "check": "astro check && prettier --check ."
+  },
+  "dependencies": {
+    "@astrojs/check": "^0.9.4",
+    "astro": "^4.16.13",
+    "typescript": "^5.7.2"
+  },
+  "devDependencies": {
+    "@astrojs/sitemap": "^3.2.1",
+    "prettier": "^3.3.3",
+    "prettier-plugin-astro": "^0.14.1"
+  }
 }

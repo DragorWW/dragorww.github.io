@@ -1,0 +1,188 @@
+<div class="logo">
+  <svg
+    width="48"
+    height="48"
+    viewBox="0 0 48 48"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <!-- Фоновая форма для эффекта свечения -->
+    <path
+      class="glow-bg"
+      d="M16 8h14a10 10 0 0 1 10 10v12a10 10 0 0 1-10 10H16V8z"
+      stroke="var(--primary-color)"
+      stroke-width="0.5"
+      stroke-opacity="0.3"
+      fill="none"></path>
+
+    <!-- Основа - большая буква D -->
+    <path
+      d="M16 8h14a10 10 0 0 1 10 10v12a10 10 0 0 1-10 10H16V8z"
+      stroke="currentColor"
+      fill="none"
+      stroke-width="2.5"></path>
+
+    <!-- Левая грань -->
+    <path
+      d="M16 8v32"
+      stroke="var(--secondary-color)"
+      stroke-width="5"
+      stroke-linecap="round"></path>
+
+    <!-- Диагональная линия -->
+    <path
+      class="diagonal-line"
+      d="M24 16L32 32"
+      stroke="var(--primary-color)"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-dasharray="3 6"></path>
+
+    <!-- Узлы -->
+    <circle
+      class="knowledge-node start"
+      cx="24"
+      cy="16"
+      r="2.5"
+      fill="var(--primary-color)"></circle>
+    <circle
+      class="knowledge-node end"
+      cx="32"
+      cy="32"
+      r="2.5"
+      fill="var(--primary-color)"></circle>
+  </svg>
+  <span class="logo-text">ragorWW</span>
+</div>
+<style>
+  .logo {
+    display: flex;
+    align-items: end;
+    position: relative;
+  }
+
+  .logo-text {
+    margin-left: -4px;
+    position: relative;
+    transition: all 0.3s ease;
+    font-size: 1.4em;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    color: var(--primary-color);
+  }
+
+  .logo svg {
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .logo:hover svg {
+    transform: scale(1.03);
+  }
+
+  /* Анимация основного контура */
+  .logo svg path[stroke="currentColor"] {
+    transition:
+      filter 0.3s ease,
+      stroke-width 0.3s ease;
+  }
+
+  .logo:hover svg path[stroke="currentColor"] {
+    filter: drop-shadow(0 0 2px var(--text-primary));
+  }
+
+  /* Анимация диагональной линии */
+  .logo svg .diagonal-line {
+    stroke-dasharray: 3 6;
+    stroke-dashoffset: 0;
+    transition:
+      stroke-width 0.3s ease,
+      filter 0.3s ease;
+    animation: flowLineIdle 8s linear infinite;
+    filter: drop-shadow(0 0 0.5px var(--primary-color));
+  }
+
+  .logo:hover svg .diagonal-line {
+    animation: flowLine 2.5s linear infinite;
+    filter: drop-shadow(0 0 2px var(--primary-color));
+  }
+
+  @keyframes flowLineIdle {
+    from {
+      stroke-dashoffset: 0;
+      filter: drop-shadow(0 0 0.5px var(--primary-color));
+    }
+    to {
+      stroke-dashoffset: 18;
+      filter: drop-shadow(0 0 1px var(--primary-color));
+    }
+  }
+
+  @keyframes flowLine {
+    from {
+      stroke-dashoffset: 0;
+      filter: drop-shadow(0 0 2px var(--primary-color));
+    }
+    to {
+      stroke-dashoffset: 18;
+      filter: drop-shadow(0 0 3px var(--primary-color));
+    }
+  }
+
+  /* Анимация узлов в покое */
+  .logo svg .knowledge-node {
+    transition:
+      transform 0.3s ease,
+      filter 0.3s ease,
+      opacity 0.3s ease;
+    transform-origin: center;
+    transform-box: fill-box;
+    animation: pulseNodeIdle 8s ease-in-out infinite;
+  }
+
+  .logo svg .knowledge-node.end {
+    animation-delay: 4s;
+  }
+
+  .logo:hover svg .knowledge-node.start {
+    animation: pulseNode 3s ease-in-out infinite;
+  }
+
+  .logo:hover svg .knowledge-node.end {
+    animation: pulseNode 3s ease-in-out infinite;
+    animation-delay: 1.5s;
+  }
+
+  @keyframes pulseNodeIdle {
+    0%,
+    100% {
+      transform: scale(0.9);
+      filter: drop-shadow(0 0 1px var(--primary-color));
+      opacity: 0.8;
+    }
+    50% {
+      transform: scale(1.1);
+      filter: drop-shadow(0 0 2px var(--primary-color));
+      opacity: 0.9;
+    }
+  }
+
+  @keyframes pulseNode {
+    0%,
+    100% {
+      transform: scale(0.6);
+      filter: drop-shadow(0 0 1px var(--primary-color));
+      opacity: 0.6;
+    }
+    50% {
+      transform: scale(1.4);
+      filter: drop-shadow(0 0 3px var(--primary-color));
+      opacity: 1;
+    }
+  }
+
+  /* Эффект для текста */
+  .logo:hover .logo-text {
+    text-shadow: 0 0 8px rgba(var(--primary-color-rgb), 0.3);
+    letter-spacing: 0.03em;
+  }
+</style>

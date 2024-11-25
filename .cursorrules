@@ -1,0 +1,114 @@
+# Astro Portfolio Project Structure
+project_root/
+  ├── src/                      # Основной исходный код
+  │   ├── components/           # Переиспользуемые компоненты
+  │   ├── layouts/              # Шаблоны страниц
+  │   ├── pages/               # Маршрутизация и страницы
+  │   └── styles/              # Глобальные стили
+  └── public/                  # Статические файлы
+
+# Технологический стек
+- Framework: Astro v4.16
+- Language: TypeScript
+- Styling: CSS (scoped в компонентах)
+- Deployment: GitHub Pages
+
+# Соглашения по стилям
+- Используем CSS переменные для темизации (--var-name)
+- Стили компонентов пишем в <style> внутри .astro файлов
+- Используем БЭМ-подобную методологию для именования классов
+- Медиа-запросы: mobile-first подход
+- Основные брейкпоинты: 768px, 1024px, 1200px
+
+# Важные файлы
+src/
+  layouts/Layout.astro          # Основной шаблон
+  components/                   # Компоненты
+    ├── Header.astro           # Шапка сайта
+    ├── Hero.astro            # Главный блок
+    ├── Experience.astro      # Опыт работы
+    └── Terminal.astro        # Интерактивный терминал
+
+# Темизация
+Основные переменные:
+- --text-primary
+- --text-secondary
+- --accent-color
+- --bg-primary
+- --card-bg
+
+# Рекомендации по разработке
+1. Компоненты должны быть атомарными и переиспользуемыми
+2. Используйте TypeScript для типизации пропсов
+3. Стили должны быть изолированы в компонентах
+4. Используйте CSS переменные для темизации
+5. Следите за производительностью и оптимизацией изображений
+
+# Git Workflow
+1. Основная ветка: main
+2. Деплой через GitHub Actions
+3. Используйте conventional commits
+
+
+# Roadmap проекта
+- [ ] Добавить загрузку статей из Markdown Obsidian
+- [ ] Генерация резюме из md-файла в PDF
+- [ ] Локализация (RU/EN)
+
+# Игнорируемые директории
+dist/
+node_modules/
+.astro/
+reference/
+build/
+coverage/
+
+# Игнорируемые файлы
+.env
+.env.production
+.DS_Store
+*.log
+.idea/
+.vscode/
+
+
+
+# Структура компонента
+
+# Игнорируем сгенерированные файлы
+dist/
+.astro/
+node_modules/
+
+# Игнорируем конфигурационные файлы
+.env
+.env.production
+.DS_Store
+*.log
+
+# Игнорируем кэш и временные файлы
+.cache/
+.temp/
+*.tmp
+
+# Игнорируем файлы IDE
+.idea/
+.vscode/
+*.sublime-*
+
+# Игнорируем артефакты сборки
+build/
+coverage/
+reference/
+
+# Игнорируем медиафайлы
+*.jpg
+*.png
+*.gif
+*.mp4
+*.webm
+
+# Игнорируем локальные файлы разработки
+local/
+temp/
+drafts/ 
