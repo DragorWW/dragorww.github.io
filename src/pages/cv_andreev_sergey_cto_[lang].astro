@@ -1,0 +1,432 @@
+---
+import { useTranslations } from "../utils/i18n";
+import { LANGUAGES } from "../constants/languages";
+
+export function getStaticPaths() {
+  return [
+    { params: { lang: LANGUAGES.RU } },
+    { params: { lang: LANGUAGES.EN } },
+  ];
+}
+
+const { lang } = Astro.params;
+const t = (key: string) => useTranslations(Astro).t(key, lang || LANGUAGES.EN);
+
+const experience = [
+  {
+    year: 2024,
+    isCurrent: true,
+    role: t("experience.role.cto"),
+    company: t("experience.company.ultimate"),
+    location: t("experience.location.moscow"),
+    description: t("experience.ultimate.description"),
+    achievements: [
+      t("experience.ultimate.achievement1"),
+      t("experience.ultimate.achievement2"),
+      t("experience.ultimate.achievement3"),
+      t("experience.ultimate.achievement4"),
+    ],
+    skills: [
+      { name: "Kubernetes" },
+      { name: "React" },
+      { name: "TypeScript" },
+      { name: "Python" },
+      { name: "Django" },
+    ],
+  },
+  {
+    year: 2020,
+    role: t("experience.role.cto"),
+    company: t("experience.company.xyz"),
+    location: t("experience.location.moscow"),
+    description: t("experience.xyz.description"),
+    achievements: [
+      t("experience.xyz.achievement1"),
+      t("experience.xyz.achievement2"),
+      t("experience.xyz.achievement3"),
+    ],
+    skills: [
+      { name: "Kubernetes" },
+      { name: "Terraform" },
+      { name: "React" },
+      { name: "TypeScript" },
+      { name: "CSS Modules" },
+      { name: "GraphQL" },
+      { name: "REST" },
+      { name: "Python" },
+      { name: "Django" },
+    ],
+  },
+  {
+    year: 2019,
+    role: t("experience.role.principal"),
+    company: t("experience.company.sber"),
+    location: t("experience.location.spb"),
+    description: t("experience.sber.description"),
+    achievements: [
+      t("experience.sber.achievement1"),
+      t("experience.sber.achievement2"),
+    ],
+    skills: [
+      { name: "React" },
+      { name: "TypeScript" },
+      { name: "Java" },
+      { name: "Kotlin" },
+    ],
+  },
+  {
+    year: 2016,
+    role: t("experience.role.principal"),
+    company: t("experience.company.mag"),
+    location: t("experience.location.tomsk"),
+    description: t("experience.mag.description"),
+    achievements: [
+      t("experience.mag.achievement1"),
+      t("experience.mag.achievement2"),
+      t("experience.mag.achievement3"),
+    ],
+    skills: [
+      { name: "React" },
+      { name: "JavaScript" },
+      { name: "Jenkins" },
+      { name: "Jest" },
+    ],
+  },
+  {
+    year: 2013,
+    role: t("experience.role.head"),
+    company: t("experience.company.user"),
+    location: t("experience.location.tomsk"),
+    description: t("experience.user.description"),
+    achievements: [
+      t("experience.user.achievement1"),
+      t("experience.user.achievement2"),
+      t("experience.user.achievement3"),
+    ],
+    skills: [
+      { name: "JavaScript" },
+      { name: "React" },
+      { name: "Redux" },
+      { name: "Webpack" },
+    ],
+  },
+  // ... остальной опыт работы из Experience.astro
+];
+
+const education = [
+  {
+    year: 2014,
+    degree: t("education.degree"),
+    institution: t("education.institution"),
+    location: t("education.location"),
+    description: t("education.description"),
+  },
+];
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>{t("me.name")} - CV</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <main class="cv-container">
+      <header class="cv-header">
+        <div class="cv-header-content">
+          <h1 class="cv-name">{t("me.name")}</h1>
+          <p class="cv-title">Head of Engineering / CTO</p>
+          <div class="cv-contacts">
+            <a href="mailto:dragorww@gmail.com">dragorww@gmail.com</a>
+            <a href="https://t.me/dragorww">telegram: @dragorww</a>
+            <a href="https://github.com/dragorww">github.com/dragorww</a>
+          </div>
+        </div>
+      </header>
+
+      <section class="cv-section">
+        <h2 class="cv-section-title">Profile</h2>
+        <p class="cv-profile">
+          {t("hero.role")}
+        </p>
+        <ul class="cv-highlights">
+          <li>{t("hero.stats.experience")}</li>
+          <li>{t("hero.stats.delivery")}</li>
+          <li>{t("hero.stats.solutions")}</li>
+        </ul>
+      </section>
+
+      <section class="cv-section">
+        <h2 class="cv-section-title">Experience</h2>
+        {
+          experience.map((job) => (
+            <div class="cv-job">
+              <div class="cv-job-header">
+                <div class="cv-job-title">
+                  <h3>{job.role}</h3>
+                  <p class="cv-company">
+                    {job.company}, {job.location}
+                  </p>
+                </div>
+                <div class="cv-job-period">
+                  {job.year}
+                  {job.isCurrent ? ` - ${t("experience.present")}` : ""}
+                </div>
+              </div>
+              <p class="cv-job-description">{job.description}</p>
+              <ul class="cv-achievements">
+                {job.achievements.map((achievement) => (
+                  <li>{achievement}</li>
+                ))}
+              </ul>
+              <div class="cv-skills">
+                {job.skills?.map((skill) => (
+                  <span class="cv-skill-tag">{skill.name}</span>
+                ))}
+              </div>
+            </div>
+          ))
+        }
+      </section>
+
+      <section class="cv-section">
+        <h2 class="cv-section-title">Education</h2>
+        {
+          education.map((edu) => (
+            <div class="cv-education">
+              <div class="cv-education-header">
+                <div class="cv-education-title">
+                  <h3>{edu.degree}</h3>
+                  <p class="cv-institution">
+                    {edu.institution}, {edu.location}
+                  </p>
+                </div>
+                <div class="cv-education-year">{edu.year}</div>
+              </div>
+              <p class="cv-education-description">{edu.description}</p>
+            </div>
+          ))
+        }
+      </section>
+    </main>
+
+    <style>
+      /* Reset */
+      *,
+      *::before,
+      *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      /* Base */
+      :root {
+        --primary-color: #2d2d2d;
+        --secondary-color: #666;
+        --accent-color: #0366d6;
+        --border-color: #ddd;
+        --background-color: #fff;
+      }
+
+      body {
+        font-family: "Fira Code", monospace;
+        line-height: 1.6;
+        color: var(--primary-color);
+        background: var(--background-color);
+        padding: 2rem;
+        max-width: 210mm; /* A4 width */
+        margin: 0 auto;
+      }
+
+      /* Container */
+      .cv-container {
+        background: var(--background-color);
+      }
+
+      /* Header */
+      .cv-header {
+        margin-bottom: 2rem;
+        padding-bottom: 1rem;
+        border-bottom: 2px solid var(--border-color);
+      }
+
+      .cv-name {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+      }
+
+      .cv-title {
+        font-size: 1.25rem;
+        color: var(--accent-color);
+        margin-bottom: 1rem;
+      }
+
+      .cv-contacts {
+        display: flex;
+        gap: 1.5rem;
+        font-size: 0.9rem;
+      }
+
+      .cv-contacts a {
+        color: var(--primary-color);
+        text-decoration: none;
+      }
+
+      /* Sections */
+      .cv-section {
+        margin-bottom: 2rem;
+      }
+
+      .cv-section-title {
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+        color: var(--primary-color);
+      }
+
+      /* Profile */
+      .cv-profile {
+        font-size: 1rem;
+        margin-bottom: 1rem;
+      }
+
+      .cv-highlights {
+        list-style: none;
+        margin-left: 1rem;
+      }
+
+      .cv-highlights li {
+        position: relative;
+        padding-left: 1.5rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .cv-highlights li::before {
+        content: "▹";
+        position: absolute;
+        left: 0;
+        color: var(--accent-color);
+      }
+
+      /* Experience */
+      .cv-job {
+        margin-bottom: 2rem;
+      }
+
+      .cv-job-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 0.5rem;
+      }
+
+      .cv-job-title h3 {
+        font-size: 1.1rem;
+        font-weight: 600;
+      }
+
+      .cv-company {
+        font-size: 0.9rem;
+        color: var(--secondary-color);
+      }
+
+      .cv-job-period {
+        font-size: 0.9rem;
+        color: var(--secondary-color);
+      }
+
+      .cv-job-description {
+        margin-bottom: 0.5rem;
+      }
+
+      .cv-achievements {
+        list-style: none;
+        margin-left: 1rem;
+        margin-bottom: 1rem;
+      }
+
+      .cv-achievements li {
+        position: relative;
+        padding-left: 1.5rem;
+        margin-bottom: 0.5rem;
+        font-size: 0.9rem;
+      }
+
+      .cv-achievements li::before {
+        content: "•";
+        position: absolute;
+        left: 0;
+        color: var(--accent-color);
+      }
+
+      /* Skills */
+      .cv-skills {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+
+      .cv-skill-tag {
+        font-size: 0.8rem;
+        padding: 0.25rem 0.75rem;
+        background: #f6f8fa;
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+      }
+
+      /* Education */
+      .cv-education {
+        margin-bottom: 1.5rem;
+      }
+
+      .cv-education-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 0.5rem;
+      }
+
+      .cv-education-title h3 {
+        font-size: 1.1rem;
+        font-weight: 600;
+      }
+
+      .cv-institution {
+        font-size: 0.9rem;
+        color: var(--secondary-color);
+      }
+
+      .cv-education-year {
+        font-size: 0.9rem;
+        color: var(--secondary-color);
+      }
+
+      /* Print styles */
+      @media print {
+        body {
+          padding: 0;
+          print-color-adjust: exact;
+          -webkit-print-color-adjust: exact;
+        }
+
+        .cv-container {
+          padding: 20mm;
+        }
+
+        @page {
+          margin: 0;
+          size: A4;
+        }
+      }
+    </style>
+  </body>
+</html>

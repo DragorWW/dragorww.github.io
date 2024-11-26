@@ -598,6 +598,10 @@ export const translations: Translations = {
     ru: "Не удалось выполнить",
     en: "Failed to execute",
   },
+  "hero.download_cv": {
+    ru: "Скачать PDF",
+    en: "Download PDF",
+  },
 } as const;
 
 export function t(key: string, lang: string): string {
