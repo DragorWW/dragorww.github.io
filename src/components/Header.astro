@@ -78,6 +78,8 @@ const { t, lang } = useTranslations(Astro);
             href={`/${lang === LANGUAGES.RU ? LANGUAGES.EN : LANGUAGES.RU}`}
             class="header__lang-btn"
             aria-label={t("aria.switchLang")}
+            data-lang={lang === LANGUAGES.RU ? LANGUAGES.EN : LANGUAGES.RU}
+            onclick="localStorage.setItem('lang', this.dataset.lang)"
           >
             <span class="header__current-lang">
               {
