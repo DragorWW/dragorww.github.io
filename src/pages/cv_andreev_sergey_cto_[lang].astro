@@ -110,7 +110,6 @@ const experience = [
       { name: "Webpack" },
     ],
   },
-  // ... остальной опыт работы из Experience.astro
 ];
 
 const education = [
@@ -139,94 +138,225 @@ const education = [
   </head>
   <body>
     <main class="cv-container">
-      <header class="cv-header">
-        <div class="cv-header-content">
-          <h1 class="cv-name">{t("me.name")}</h1>
-          <p class="cv-title">Head of Engineering / CTO</p>
+      <div class="cv-main-content">
+        <header class="cv-header">
+          <div class="cv-header-content">
+            <h1 class="cv-name">{t("me.name")}</h1>
+            <h2 class="cv-role">{t("cv.role.title")}</h2>
+          </div>
+        </header>
+
+        <section class="cv-section cv-profile-section">
+          <h2 class="cv-section-title">{t("cv.sections.profile")}</h2>
+          <p class="cv-profile">
+            {t("cv.profile.intro")}
+          </p>
+          <p class="cv-profile">
+            {t("cv.profile.experience")}
+          </p>
+        </section>
+
+        <section class="cv-section">
+          <h2 class="cv-section-title">{t("cv.sections.experience")}</h2>
+          {
+            experience.map((job) => (
+              <div class="cv-job">
+                <div class="cv-job-header">
+                  <div class="cv-job-title">
+                    <h3>{job.role}</h3>
+                    <p class="cv-company">
+                      {job.company}, {job.location}
+                    </p>
+                  </div>
+                  <div class="cv-job-period">
+                    {job.year}
+                    {job.isCurrent ? ` - ${t("experience.present")}` : ""}
+                  </div>
+                </div>
+                <p class="cv-job-description">{job.description}</p>
+                <div class="cv-skills">
+                  {job.skills?.map((skill) => (
+                    <span class="cv-skill-tag">{skill.name}</span>
+                  ))}
+                </div>
+                <ul class="cv-achievements">
+                  {job.achievements.map((achievement) => (
+                    <li>{achievement}</li>
+                  ))}
+                </ul>
+              </div>
+            ))
+          }
+        </section>
+
+        <section class="cv-section">
+          <h2 class="cv-section-title">{t("cv.sections.education")}</h2>
+          {
+            education.map((edu) => (
+              <div class="cv-education">
+                <div class="cv-education-header">
+                  <div class="cv-education-title">
+                    <h3>{edu.degree}</h3>
+                    <p class="cv-institution">
+                      {edu.institution}, {edu.location}
+                    </p>
+                  </div>
+                  <div class="cv-education-year">{edu.year}</div>
+                </div>
+                <p class="cv-education-description">{edu.description}</p>
+              </div>
+            ))
+          }
+        </section>
+      </div>
+
+      <aside class="cv-sidebar">
+        <div class="cv-sidebar-section">
+          <h3 class="cv-sidebar-title">{t("cv.sections.contacts")}</h3>
           <div class="cv-contacts">
-            <a href="mailto:dragorww@gmail.com">dragorww@gmail.com</a>
-            <a href="https://t.me/dragorww">telegram: @dragorww</a>
-            <a href="https://github.com/dragorww">github.com/dragorww</a>
+            <a href="mailto:dragorww@gmail.com">{t("cv.contacts.email")}</a>
+            <a href="https://t.me/dragorww">{t("cv.contacts.telegram")}</a>
+            <a href="https://dragorww.github.io">{t("cv.contacts.website")}</a>
           </div>
         </div>
-      </header>
 
-      <section class="cv-section">
-        <h2 class="cv-section-title">Profile</h2>
-        <p class="cv-profile">
-          {t("hero.role")}
-        </p>
-        <ul class="cv-highlights">
-          <li>{t("hero.stats.experience")}</li>
-          <li>{t("hero.stats.delivery")}</li>
-          <li>{t("hero.stats.solutions")}</li>
-        </ul>
-      </section>
+        <div class="cv-sidebar-section">
+          <h3 class="cv-sidebar-title">{t("cv.sections.achievements")}</h3>
+          <ul class="cv-highlights">
+            <li>{t("hero.stats.experience")}</li>
+            <li>{t("hero.stats.delivery")}</li>
+            <li>{t("hero.stats.solutions")}</li>
+          </ul>
+        </div>
 
-      <section class="cv-section">
-        <h2 class="cv-section-title">Experience</h2>
-        {
-          experience.map((job) => (
-            <div class="cv-job">
-              <div class="cv-job-header">
-                <div class="cv-job-title">
-                  <h3>{job.role}</h3>
-                  <p class="cv-company">
-                    {job.company}, {job.location}
-                  </p>
-                </div>
-                <div class="cv-job-period">
-                  {job.year}
-                  {job.isCurrent ? ` - ${t("experience.present")}` : ""}
+        <div class="cv-sidebar-section">
+          <h3 class="cv-sidebar-title">{t("cv.sections.key_skills")}</h3>
+          <div class="cv-key-skills">
+            <div class="cv-skill-list">
+              <div class="cv-skill-category">
+                <h4 class="cv-skill-category-title">
+                  {t("cv.skills.management")}
+                </h4>
+                <div class="cv-skill-items">
+                  <div class="cv-skill-item">
+                    <div class="cv-skill-name">
+                      {t("cv.skills.management.strategic_planning")}
+                    </div>
+                    <div class="cv-skill-bar">
+                      <div class="cv-skill-progress" style="width: 95%"></div>
+                    </div>
+                  </div>
+                  <div class="cv-skill-item">
+                    <div class="cv-skill-name">
+                      {t("cv.skills.management.team_management")}
+                    </div>
+                    <div class="cv-skill-bar">
+                      <div class="cv-skill-progress" style="width: 90%"></div>
+                    </div>
+                  </div>
+                  <div class="cv-skill-item">
+                    <div class="cv-skill-name">
+                      {t("cv.skills.management.process_optimization")}
+                    </div>
+                    <div class="cv-skill-bar">
+                      <div class="cv-skill-progress" style="width: 85%"></div>
+                    </div>
+                  </div>
+                  <div class="cv-skill-item">
+                    <div class="cv-skill-name">
+                      {t("cv.skills.management.budgeting")}
+                    </div>
+                    <div class="cv-skill-bar">
+                      <div class="cv-skill-progress" style="width: 80%"></div>
+                    </div>
+                  </div>
                 </div>
               </div>
-              <p class="cv-job-description">{job.description}</p>
-              <ul class="cv-achievements">
-                {job.achievements.map((achievement) => (
-                  <li>{achievement}</li>
-                ))}
-              </ul>
-              <div class="cv-skills">
-                {job.skills?.map((skill) => (
-                  <span class="cv-skill-tag">{skill.name}</span>
-                ))}
+              <div class="cv-skill-category">
+                <h4 class="cv-skill-category-title">
+                  {t("cv.skills.development")}
+                </h4>
+                <div class="cv-skill-items">
+                  <div class="cv-skill-item">
+                    <div class="cv-skill-name">
+                      {t("cv.skills.development.architecture")}
+                    </div>
+                    <div class="cv-skill-bar">
+                      <div class="cv-skill-progress" style="width: 95%"></div>
+                    </div>
+                  </div>
+                  <div class="cv-skill-item">
+                    <div class="cv-skill-name">
+                      {t("cv.skills.development.frontend")}
+                    </div>
+                    <div class="cv-skill-bar">
+                      <div class="cv-skill-progress" style="width: 90%"></div>
+                    </div>
+                  </div>
+                  <div class="cv-skill-item">
+                    <div class="cv-skill-name">
+                      {t("cv.skills.development.devops")}
+                    </div>
+                    <div class="cv-skill-bar">
+                      <div class="cv-skill-progress" style="width: 85%"></div>
+                    </div>
+                  </div>
+                  <div class="cv-skill-item">
+                    <div class="cv-skill-name">
+                      {t("cv.skills.development.integration")}
+                    </div>
+                    <div class="cv-skill-bar">
+                      <div class="cv-skill-progress" style="width: 85%"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="cv-skill-category">
+                <h4 class="cv-skill-category-title">
+                  {t("cv.skills.analytics")}
+                </h4>
+                <div class="cv-skill-items">
+                  <div class="cv-skill-item">
+                    <div class="cv-skill-name">
+                      {t("cv.skills.analytics.product")}
+                    </div>
+                    <div class="cv-skill-bar">
+                      <div class="cv-skill-progress" style="width: 90%"></div>
+                    </div>
+                  </div>
+                  <div class="cv-skill-item">
+                    <div class="cv-skill-name">
+                      {t("cv.skills.analytics.business")}
+                    </div>
+                    <div class="cv-skill-bar">
+                      <div class="cv-skill-progress" style="width: 90%"></div>
+                    </div>
+                  </div>
+                  <div class="cv-skill-item">
+                    <div class="cv-skill-name">
+                      {t("cv.skills.analytics.data_driven")}
+                    </div>
+                    <div class="cv-skill-bar">
+                      <div class="cv-skill-progress" style="width: 85%"></div>
+                    </div>
+                  </div>
+                  <div class="cv-skill-item">
+                    <div class="cv-skill-name">
+                      {t("cv.skills.analytics.metrics")}
+                    </div>
+                    <div class="cv-skill-bar">
+                      <div class="cv-skill-progress" style="width: 85%"></div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
-          ))
-        }
-      </section>
-
-      <section class="cv-section">
-        <h2 class="cv-section-title">Education</h2>
-        {
-          education.map((edu) => (
-            <div class="cv-education">
-              <div class="cv-education-header">
-                <div class="cv-education-title">
-                  <h3>{edu.degree}</h3>
-                  <p class="cv-institution">
-                    {edu.institution}, {edu.location}
-                  </p>
-                </div>
-                <div class="cv-education-year">{edu.year}</div>
-              </div>
-              <p class="cv-education-description">{edu.description}</p>
-            </div>
-          ))
-        }
-      </section>
+          </div>
+        </div>
+      </aside>
     </main>
 
     <style>
-      /* Reset */
-      *,
-      *::before,
-      *::after {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-
       /* Base */
       :root {
         --text-primary: #2d2d2d;
@@ -243,84 +373,79 @@ const education = [
         line-height: 1.6;
         color: var(--text-primary);
         background: var(--card-bg);
-        padding: 2rem;
-        max-width: 210mm; /* A4 width */
+        padding: 0;
         margin: 0 auto;
+        width: 210mm; /* A4 width */
       }
 
       /* Container */
       .cv-container {
+        display: grid;
+        grid-template-columns: 1fr 180px;
+        gap: 2rem;
+        padding: 20mm 15mm;
         background: var(--card-bg);
       }
 
-      /* Header */
-      .cv-header {
-        margin-bottom: 2rem;
-        padding-bottom: 1rem;
-        border-bottom: 1px solid var(--border-color);
-        position: relative;
+      .cv-main-content {
+        border-right: 1px solid var(--border-color);
+        padding-right: 1.5rem;
       }
 
-      .cv-header::after {
-        content: "";
-        position: absolute;
-        bottom: -1px;
-        left: 0;
-        width: 100%;
-        height: 1px;
-        background: linear-gradient(
-          90deg,
-          transparent,
-          var(--accent-color) 20%,
-          var(--accent-color) 80%,
-          transparent
-        );
+      .cv-sidebar {
+        font-size: 0.9rem;
       }
 
-      .cv-name {
-        font-size: 2.5rem;
-        font-weight: 700;
-        margin-bottom: 0.5rem;
-        background: linear-gradient(
-          90deg,
-          var(--text-primary) 0%,
-          var(--accent-color) 100%
-        );
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
+      .cv-sidebar-section {
+        margin-bottom: 1.5rem;
       }
 
-      .cv-title {
-        font-size: 1.25rem;
+      .cv-sidebar-title {
         color: var(--accent-color);
-        margin-bottom: 1rem;
-        font-weight: 500;
+        font-size: 0.9rem;
+        font-weight: 600;
+        margin-bottom: 0.75rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 1px solid var(--border-color);
       }
 
       .cv-contacts {
         display: flex;
-        gap: 1.5rem;
-        font-size: 0.9rem;
+        flex-direction: column;
+        gap: 0.35rem;
       }
 
       .cv-contacts a {
         color: var(--text-secondary);
         text-decoration: none;
-        transition: color 0.2s;
+        font-size: 0.75rem;
       }
 
-      .cv-contacts a:hover {
+      .cv-highlights {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      .cv-highlights li {
+        padding-left: 1rem;
+        position: relative;
+        margin-bottom: 0.35rem;
+        font-size: 0.75rem;
+        color: var(--text-secondary);
+      }
+
+      .cv-highlights li::before {
+        content: "•";
         color: var(--accent-color);
+        position: absolute;
+        left: 0;
       }
 
       /* Sections */
       .cv-section {
         margin-bottom: 2rem;
-        padding: 1rem;
-        border: 1px solid var(--border-color);
-        border-radius: 8px;
-        background: rgba(var(--card-bg-rgb), 0.5);
+        padding: 0.75rem 0;
       }
 
       .cv-section-title {
@@ -348,6 +473,88 @@ const education = [
       .cv-profile {
         font-size: 1rem;
         margin-bottom: 1rem;
+        line-height: 1.6;
+      }
+
+      .cv-key-skills {
+        margin: 2rem 0;
+      }
+
+      .cv-subsection-title {
+        font-size: 1.1rem;
+        color: var(--accent-color);
+        margin-bottom: 1rem;
+        font-weight: 500;
+      }
+
+      .cv-skills-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1.5rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .cv-skill-group {
+        background: rgba(var(--accent-color-rgb), 0.03);
+        padding: 1rem;
+        border-radius: 6px;
+        border: 1px solid var(--border-color);
+      }
+
+      .cv-skill-group-title {
+        font-size: 0.9rem;
+        font-weight: 600;
+        margin-bottom: 0.75rem;
+        color: var(--accent-color);
+      }
+
+      .cv-skill-list {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+      }
+
+      .cv-skill-item {
+        display: flex;
+        flex-direction: column;
+        gap: 0.2rem;
+      }
+
+      .cv-skill-info {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 0.85rem;
+      }
+
+      .cv-skill-name {
+        font-size: 0.75rem;
+        color: var(--text-secondary);
+      }
+
+      .cv-skill-level {
+        color: var(--accent-color);
+        font-weight: 500;
+      }
+
+      .cv-skill-bar {
+        height: 2px;
+        background: var(--border-color);
+        border-radius: 1px;
+        overflow: hidden;
+      }
+
+      .cv-skill-progress {
+        height: 100%;
+        background: var(--accent-color);
+        border-radius: 1px;
+      }
+
+      @media print {
+        .cv-skill-progress {
+          print-color-adjust: exact;
+          -webkit-print-color-adjust: exact;
+        }
       }
 
       .cv-highlights {
@@ -371,15 +578,24 @@ const education = [
       /* Experience */
       .cv-job {
         margin-bottom: 2rem;
-        padding: 1rem;
-        border: 1px solid var(--border-color);
-        border-radius: 6px;
-        transition: all 0.2s;
+        padding: 0.75rem;
+        position: relative;
       }
 
-      .cv-job:hover {
-        border-color: var(--accent-color);
-        box-shadow: 0 2px 8px rgba(var(--accent-color-rgb), 0.1);
+      .cv-job:not(:last-child)::after {
+        content: "";
+        position: absolute;
+        bottom: -1rem;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          var(--border-color) 20%,
+          var(--border-color) 80%,
+          transparent
+        );
       }
 
       .cv-job-header {
@@ -387,31 +603,63 @@ const education = [
         justify-content: space-between;
         align-items: flex-start;
         margin-bottom: 0.5rem;
+        gap: 1rem;
+      }
+
+      .cv-job-title {
+        flex: 1;
       }
 
       .cv-job-title h3 {
         font-size: 1.1rem;
         font-weight: 600;
+        margin: 0 0 0.25rem 0;
       }
 
       .cv-company {
         font-size: 0.9rem;
         color: var(--text-secondary);
+        margin: 0;
       }
 
       .cv-job-period {
         font-size: 0.9rem;
         color: var(--text-secondary);
+        white-space: nowrap;
+        text-align: right;
       }
 
       .cv-job-description {
         margin-bottom: 0.5rem;
+        margin-top: 0.5rem;
+      }
+
+      .cv-skills {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-bottom: 1rem;
+      }
+
+      .cv-skill-tag {
+        font-size: 0.8rem;
+        padding: 0.15rem 0;
+        color: var(--text-secondary);
+        position: relative;
+        margin-right: 1rem;
+      }
+
+      .cv-skill-tag:not(:last-child)::after {
+        content: "•";
+        position: absolute;
+        right: -0.75rem;
+        color: var(--accent-color);
+        font-size: 0.8rem;
       }
 
       .cv-achievements {
         list-style: none;
         margin-left: 1rem;
-        margin-bottom: 1rem;
       }
 
       .cv-achievements li {
@@ -426,29 +674,6 @@ const education = [
         position: absolute;
         left: 0;
         color: var(--accent-color);
-      }
-
-      /* Skills */
-      .cv-skills {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.5rem;
-      }
-
-      .cv-skill-tag {
-        font-size: 0.8rem;
-        padding: 0.25rem 0.75rem;
-        background: rgba(var(--accent-color-rgb), 0.1);
-        border: 1px solid var(--border-color);
-        border-radius: 12px;
-        color: var(--text-secondary);
-        transition: all 0.2s;
-      }
-
-      .cv-skill-tag:hover {
-        background: rgba(var(--accent-color-rgb), 0.2);
-        border-color: var(--accent-color);
-        color: var(--text-primary);
       }
 
       /* Education */
@@ -482,12 +707,17 @@ const education = [
       @media print {
         body {
           padding: 0;
+          background: var(--card-bg);
           print-color-adjust: exact;
           -webkit-print-color-adjust: exact;
         }
 
         .cv-container {
-          padding: 20mm;
+          margin: 0;
+          padding: 20mm 15mm;
+          max-width: none;
+          box-shadow: none;
+          border-radius: 0;
         }
 
         .cv-section,
@@ -508,6 +738,53 @@ const education = [
           margin: 0;
           size: A4;
         }
+
+        .cv-skill-group {
+          break-inside: avoid;
+        }
+
+        .cv-skills {
+          margin-bottom: 0.75rem;
+        }
+      }
+
+      .cv-skill-category {
+        margin-bottom: 1rem;
+      }
+
+      .cv-skill-category:last-child {
+        margin-bottom: 0;
+      }
+
+      .cv-skill-category-title {
+        font-size: 0.8rem;
+        font-weight: 600;
+        color: var(--text-secondary);
+        margin-bottom: 0.35rem;
+      }
+
+      .cv-name {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+        background: linear-gradient(
+          90deg,
+          var(--text-primary) 0%,
+          var(--accent-color) 100%
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .cv-role {
+        margin: 0;
+        font-size: 1.25rem;
+        color: var(--accent-color);
+        margin-bottom: 1rem;
+        font-weight: 400;
+        letter-spacing: 0.05em;
+        opacity: 0.9;
       }
     </style>
   </body>

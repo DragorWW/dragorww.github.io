@@ -602,6 +602,114 @@ export const translations: Translations = {
     ru: "Скачать PDF",
     en: "Download PDF",
   },
+  "cv.sections.profile": {
+    ru: "Профиль",
+    en: "Profile",
+  },
+  "cv.sections.experience": {
+    ru: "Опыт работы",
+    en: "Experience",
+  },
+  "cv.sections.education": {
+    ru: "Образование",
+    en: "Education",
+  },
+  "cv.sections.contacts": {
+    ru: "Контакты",
+    en: "Contacts",
+  },
+  "cv.sections.achievements": {
+    ru: "Достижения",
+    en: "Achievements",
+  },
+  "cv.sections.key_skills": {
+    ru: "Ключевые навыки",
+    en: "Key Skills",
+  },
+  "cv.skills.management": {
+    ru: "Управление",
+    en: "Management",
+  },
+  "cv.skills.development": {
+    ru: "Разработка",
+    en: "Development",
+  },
+  "cv.skills.analytics": {
+    ru: "Аналитика",
+    en: "Analytics",
+  },
+  "cv.skills.management.strategic_planning": {
+    ru: "Стратегическое планирование",
+    en: "Strategic Planning",
+  },
+  "cv.skills.management.team_management": {
+    ru: "Управление командами",
+    en: "Team Management",
+  },
+  "cv.skills.management.process_optimization": {
+    ru: "Оптимизация процессов",
+    en: "Process Optimization",
+  },
+  "cv.skills.management.budgeting": {
+    ru: "Бюджетирование",
+    en: "Budgeting",
+  },
+  "cv.skills.development.architecture": {
+    ru: "Архитектура приложений",
+    en: "Application Architecture",
+  },
+  "cv.skills.development.frontend": {
+    ru: "Frontend Development",
+    en: "Frontend Development",
+  },
+  "cv.skills.development.devops": {
+    ru: "DevOps практики",
+    en: "DevOps Practices",
+  },
+  "cv.skills.development.integration": {
+    ru: "Системная интеграция",
+    en: "System Integration",
+  },
+  "cv.skills.analytics.product": {
+    ru: "Продуктовая аналитика",
+    en: "Product Analytics",
+  },
+  "cv.skills.analytics.business": {
+    ru: "Бизнес-анализ",
+    en: "Business Analysis",
+  },
+  "cv.skills.analytics.data_driven": {
+    ru: "Data-driven подход",
+    en: "Data-driven Approach",
+  },
+  "cv.skills.analytics.metrics": {
+    ru: "Метрики эффективности",
+    en: "Performance Metrics",
+  },
+  "cv.role.title": {
+    ru: "Руководитель разработки / CTO",
+    en: "Head of Engineering / CTO",
+  },
+  "cv.profile.intro": {
+    ru: "IT-руководитель с более чем 10-летним опытом в разработке и управлении продуктовыми командами. Специализируюсь на построении эффективных процессов разработки и создании масштабируемых технических решений для растущего бизнеса.",
+    en: "IT leader with over 10 years of experience in development and product team management. I specialize in building effective development processes and creating scalable technical solutions for growing businesses.",
+  },
+  "cv.profile.experience": {
+    ru: "Имею успешный опыт оптимизации IT-процессов и внедрения технических инноваций, что позволило компаниям значительно сократить издержки и ускорить рост. Ищу возможность применить свой опыт в амбициозном проекте, где смогу помочь команде достичь новых высот.",
+    en: "I have successful experience in optimizing IT processes and implementing technical innovations, which has allowed companies to significantly reduce costs and accelerate growth. I'm looking for an opportunity to apply my experience in an ambitious project where I can help the team reach new heights.",
+  },
+  "cv.contacts.email": {
+    ru: "dragorww@gmail.com",
+    en: "dragorww@gmail.com",
+  },
+  "cv.contacts.telegram": {
+    ru: "telegram: @dragorww",
+    en: "telegram: @dragorww",
+  },
+  "cv.contacts.website": {
+    ru: "dragorww.github.io",
+    en: "dragorww.github.io",
+  },
 } as const;
 
 export function t(key: string, lang: string): string {
