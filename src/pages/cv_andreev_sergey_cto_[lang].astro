@@ -229,18 +229,20 @@ const education = [
 
       /* Base */
       :root {
-        --primary-color: #2d2d2d;
-        --secondary-color: #666;
-        --accent-color: #0366d6;
-        --border-color: #ddd;
-        --background-color: #fff;
+        --text-primary: #2d2d2d;
+        --text-secondary: #666;
+        --accent-color: #e2c08d;
+        --accent-color-rgb: 226, 192, 141;
+        --border-color: rgba(226, 192, 141, 0.2);
+        --card-bg: #fff;
+        --card-bg-rgb: 255, 255, 255;
       }
 
       body {
         font-family: "Fira Code", monospace;
         line-height: 1.6;
-        color: var(--primary-color);
-        background: var(--background-color);
+        color: var(--text-primary);
+        background: var(--card-bg);
         padding: 2rem;
         max-width: 210mm; /* A4 width */
         margin: 0 auto;
@@ -248,26 +250,52 @@ const education = [
 
       /* Container */
       .cv-container {
-        background: var(--background-color);
+        background: var(--card-bg);
       }
 
       /* Header */
       .cv-header {
         margin-bottom: 2rem;
         padding-bottom: 1rem;
-        border-bottom: 2px solid var(--border-color);
+        border-bottom: 1px solid var(--border-color);
+        position: relative;
+      }
+
+      .cv-header::after {
+        content: "";
+        position: absolute;
+        bottom: -1px;
+        left: 0;
+        width: 100%;
+        height: 1px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          var(--accent-color) 20%,
+          var(--accent-color) 80%,
+          transparent
+        );
       }
 
       .cv-name {
         font-size: 2.5rem;
         font-weight: 700;
         margin-bottom: 0.5rem;
+        background: linear-gradient(
+          90deg,
+          var(--text-primary) 0%,
+          var(--accent-color) 100%
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
       }
 
       .cv-title {
         font-size: 1.25rem;
         color: var(--accent-color);
         margin-bottom: 1rem;
+        font-weight: 500;
       }
 
       .cv-contacts {
@@ -277,20 +305,43 @@ const education = [
       }
 
       .cv-contacts a {
-        color: var(--primary-color);
+        color: var(--text-secondary);
         text-decoration: none;
+        transition: color 0.2s;
+      }
+
+      .cv-contacts a:hover {
+        color: var(--accent-color);
       }
 
       /* Sections */
       .cv-section {
         margin-bottom: 2rem;
+        padding: 1rem;
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        background: rgba(var(--card-bg-rgb), 0.5);
       }
 
       .cv-section-title {
         font-size: 1.5rem;
         font-weight: 600;
         margin-bottom: 1rem;
-        color: var(--primary-color);
+        color: var(--accent-color);
+        position: relative;
+        padding-left: 1rem;
+      }
+
+      .cv-section-title::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 4px;
+        height: 1.2em;
+        background: var(--accent-color);
+        border-radius: 2px;
       }
 
       /* Profile */
@@ -320,6 +371,15 @@ const education = [
       /* Experience */
       .cv-job {
         margin-bottom: 2rem;
+        padding: 1rem;
+        border: 1px solid var(--border-color);
+        border-radius: 6px;
+        transition: all 0.2s;
+      }
+
+      .cv-job:hover {
+        border-color: var(--accent-color);
+        box-shadow: 0 2px 8px rgba(var(--accent-color-rgb), 0.1);
       }
 
       .cv-job-header {
@@ -336,12 +396,12 @@ const education = [
 
       .cv-company {
         font-size: 0.9rem;
-        color: var(--secondary-color);
+        color: var(--text-secondary);
       }
 
       .cv-job-period {
         font-size: 0.9rem;
-        color: var(--secondary-color);
+        color: var(--text-secondary);
       }
 
       .cv-job-description {
@@ -378,9 +438,17 @@ const education = [
       .cv-skill-tag {
         font-size: 0.8rem;
         padding: 0.25rem 0.75rem;
-        background: #f6f8fa;
+        background: rgba(var(--accent-color-rgb), 0.1);
         border: 1px solid var(--border-color);
         border-radius: 12px;
+        color: var(--text-secondary);
+        transition: all 0.2s;
+      }
+
+      .cv-skill-tag:hover {
+        background: rgba(var(--accent-color-rgb), 0.2);
+        border-color: var(--accent-color);
+        color: var(--text-primary);
       }
 
       /* Education */
@@ -402,12 +470,12 @@ const education = [
 
       .cv-institution {
         font-size: 0.9rem;
-        color: var(--secondary-color);
+        color: var(--text-secondary);
       }
 
       .cv-education-year {
         font-size: 0.9rem;
-        color: var(--secondary-color);
+        color: var(--text-secondary);
       }
 
       /* Print styles */
@@ -420,6 +488,20 @@ const education = [
 
         .cv-container {
           padding: 20mm;
+        }
+
+        .cv-section,
+        .cv-job {
+          break-inside: avoid;
+        }
+
+        .cv-job:hover {
+          box-shadow: none;
+        }
+
+        .cv-skill-tag:hover {
+          background: rgba(var(--accent-color-rgb), 0.1);
+          border-color: var(--border-color);
         }
 
         @page {
