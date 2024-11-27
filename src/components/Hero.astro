@@ -1,4 +1,8 @@
 ---
+import { Picture } from "astro:assets";
+
+import profile from "../assets/profile.jpg";
+
 import Terminal from "./Terminal.astro";
 import { useTranslations } from "../utils/i18n";
 import { URLS } from "../constants/urls";
@@ -17,9 +21,10 @@ const { t, lang } = useTranslations(Astro);
         <div class="hero__intro">
           <div class="hero__photo">
             <div class="hero__photo-border"></div>
-            <img
+            <Picture
+              formats={["webp", "avif"]}
               class="hero__photo-image"
-              src="/assets/profile.jpg"
+              src={profile}
               alt={t("me.name")}
             />
           </div>

@@ -9,10 +9,23 @@ export default defineConfig({
   compressHTML: true,
   build: {
     assets: "assets",
+    inlineStylesheets: "auto",
+    minify: true,
+    splitting: true,
   },
   vite: {
     build: {
       cssMinify: true,
+      assetsInlineLimit: 4096,
+      rollupOptions: {
+        output: {
+          manualChunks(id) {
+            if (id.includes("node_modules")) {
+              return "vendor";
+            }
+          },
+        },
+      },
     },
   },
   server: {
