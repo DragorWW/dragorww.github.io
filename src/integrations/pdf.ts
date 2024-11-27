@@ -7,6 +7,8 @@ import puppeteer, {
   type WaitForOptions,
   type PaperFormat,
 } from "puppeteer";
+import { bold, cyan, dim, green, red, gray, bgGreen, blue } from "kleur/colors";
+import { performance } from "perf_hooks";
 
 // Константы
 const DEFAULT_PDF_OPTIONS: PuppeteerPDFOptions = {
@@ -99,7 +101,7 @@ const createPdfMiddleware = (urls: string[]) => {
   return async (req: any, res: any, next: any) => {
     const url = new URL(req.url!, `http://${req.headers.host}`);
     const isPdfRequest = urls.some(
-      (pdfUrl) => url.pathname === `/${pdfUrl}.pdf`,
+      (pdfUrl) => url.pathname === `${pdfUrl}.pdf`,
     );
 
     if (!isPdfRequest) return next();
@@ -125,36 +127,62 @@ const createPdfMiddleware = (urls: string[]) => {
   };
 };
 
+function getFormattedTime() {
+  return gray(new Date().toLocaleTimeString("ru-RU", { hour12: false }));
+}
+
 // Функция для генерации PDF в процессе сборки
 async function generatePDFsAtBuild(urls: string[], dir: URL) {
-  console.log(" Generating PDF versions of pages...");
+  const startTime = performance.now();
+  console.log(`\n${bgGreen(" generating PDFs ")}`);
 
   try {
     for (const url of urls) {
+      const startUrlTime = performance.now();
       const htmlPath = path.join(dir.pathname, url, "index.html");
       const pdfPath = path.join(dir.pathname, `${url}.pdf`);
 
       try {
+        console.log(`${getFormattedTime()}${green(" ▶ ")}src/pages/${url}`);
         await fs.access(htmlPath);
         await generatePDF({
           url: `file://${htmlPath}`,
           outputPath: pdfPath,
         });
-        console.log(`✅ Generated PDF: ${pdfPath}`);
+
+        const duration = Math.round(performance.now() - startUrlTime);
+
+        console.log(
+          `${getFormattedTime()}${blue("   └─ ")}${gray("/" + path.basename(pdfPath))} ${dim(`(+${duration}ms)`)}`,
+        );
       } catch (err) {
-        console.warn(`⚠️ Error processing ${url}:`, err);
+        console.log(
+          `${getFormattedTime()}   ${red("└─")} ${path.basename(pdfPath)} ${dim("(failed)")}`,
+        );
+        console.warn(
+          `${getFormattedTime()}     ${red("⚠")} Error: ${err instanceof Error ? err.message : String(err)}`,
+        );
       }
     }
-    console.log("✨ PDF generation complete!");
+
+    const totalDuration = Math.round(performance.now() - startTime);
+    console.log(
+      `${getFormattedTime()} ${green("✓")} ${green(`Completed in ${totalDuration}ms.`)}\n`,
+    );
   } catch (error) {
-    console.error("❌ Error generating PDFs:", error);
+    console.error(
+      `${getFormattedTime()} ${red("✗")} ${bold("PDF generation failed")}`,
+    );
+    if (error instanceof Error) {
+      console.error(`${getFormattedTime()}   ${red(error.message)}`);
+    }
   } finally {
     await closeBrowser();
   }
 }
 
 // Интеграция Astro
-export default function pdfIntegration(urls: string[]): AstroIntegration {
+export default function pdf(urls: string[]): AstroIntegration {
   return {
     name: "PDF",
     hooks: {

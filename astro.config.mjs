@@ -50,6 +50,9 @@ export default defineConfig({
         },
       },
     }),
-    pdf(["cv_andreev_sergey_cto_ru", "cv_andreev_sergey_cto_en"]),
+    pdf([
+      "/en/CV_Andreev-Sergey_CTO-Head-of-enginering",
+      "/ru/CV_Andreev-Sergey_CTO-Head-of-enginering",
+    ]),
   ],
 });
