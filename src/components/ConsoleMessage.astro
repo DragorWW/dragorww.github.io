@@ -25,7 +25,7 @@ const messages = {
 const t = messages[lang] || messages.en;
 ---
 
-<script define:vars={{ t }}>
+<script is:inline define:vars={{ t }}>
   (() => {
     const style = `
         color: #E2C08D;

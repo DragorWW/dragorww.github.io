@@ -218,7 +218,12 @@ const { t } = useTranslations(Astro);
     }
   }
 
-  class TerminalAnimation {
+  interface TerminalCommand {
+    name: string;
+    params?: Record<string, unknown>;
+  }
+
+  class Terminal {
     commandDelay = 50;
     commandPause = 1000;
 
@@ -789,7 +794,7 @@ const { t } = useTranslations(Astro);
 
       this.defaultResponses = [
         lang === "ru"
-          ? "Извините, не совсем понял вопр��с. Попробуйте спросить о моем опыте работы, проектах или технологиях."
+          ? "Извините, не совсем понял вопрс. Попробуйте спросить о моем опыте работы, проектах или технологиях."
           : "Sorry, I didn't quite understand the question. Try asking about my work experience, projects, or technologies.",
         lang === "ru"
           ? "Может быть, вас интересует мой опыт работы в образовательных проектах?"
@@ -825,7 +830,7 @@ const { t } = useTranslations(Astro);
       : text;
   };
 
-  new TerminalAnimation();
+  new Terminal();
 </script>
 
 <style is:global>
@@ -1129,7 +1134,7 @@ const { t } = useTranslations(Astro);
     }
   }
 
-  /* Стили д��я ошибок */
+  /* Стили дя ошибок */
   .terminal__output--error {
     color: #ff5f56;
   }

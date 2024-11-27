@@ -9,7 +9,7 @@ interface Props {
 }
 
 const { title, description, keywords } = Astro.props;
-const { t, lang } = useTranslations(Astro);
+const { lang } = useTranslations(Astro);
 
 // Получаем текущий URL
 const currentPath = Astro.url.pathname;
