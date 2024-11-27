@@ -372,6 +372,10 @@ export const translations: Translations = {
     ru: "исходный код",
     en: "source code",
   },
+  "footer.sourceUrl": {
+    ru: "https://github.com/DragorWW/dragorww.github.io",
+    en: "https://github.com/DragorWW/dragorww.github.io",
+  },
   "terminal.welcome": {
     ru: "Добро пожаловать в мой цифровой сад! 🌱",
     en: "Welcome to my digital garden! 🌱",
@@ -437,7 +441,7 @@ export const translations: Translations = {
     en: "Develop Business Analytics Platform",
   },
   "terminal.projects.education": {
-    ru: "Разработка образовательной платформы",
+    ru: "Разработка образовательной платфомы",
     en: "Develop Educational Platform",
   },
   "terminal.projects.devops": {

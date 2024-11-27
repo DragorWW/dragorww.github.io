@@ -131,6 +131,14 @@
       },
     };
 
+    interface Column {
+      x: number;
+      chars: string[];
+      y: number;
+      speed: number;
+      length: number;
+    }
+
     class MatrixAnimation {
       canvas: HTMLCanvasElement;
       ctx: any;
@@ -152,7 +160,7 @@
       speeds: any[];
       currentSymbols: Map<any, any>;
       symbolUpdateCounters: Map<any, any>;
-      constructor(canvasId, startDelay = 1000) {
+      constructor(canvasId: string, startDelay: number = 1000) {
         this.canvas = document.getElementById(canvasId) as HTMLCanvasElement;
         this.ctx = this.canvas.getContext("2d");
         this.startDelay = startDelay;
@@ -267,7 +275,7 @@
         );
       }
 
-      draw(currentTime) {
+      draw(currentTime: number) {
         requestAnimationFrame((time) => this.draw(time));
 
         const deltaTime = currentTime - this.lastTime;
@@ -284,10 +292,10 @@
         this.updateActiveColumns();
       }
 
-      isColumnAvailable(column) {
+      isColumnAvailable(column: Column) {
         const MIN_DISTANCE = 3;
         for (const activeColumn of this.activeColumns) {
-          if (Math.abs(Number(activeColumn) - column) < MIN_DISTANCE) {
+          if (Math.abs(Number(activeColumn) - column.x) < MIN_DISTANCE) {
             return false;
           }
         }
@@ -301,29 +309,35 @@
           Math.random() > ANIMATION_CONFIG.SPAWN_RATE
         ) {
           let attempts = 10;
-          let newColumn;
+          let newColumn: Column;
 
           do {
-            newColumn = Math.floor(Math.random() * this.columns);
+            newColumn = {
+              x: Math.floor(Math.random() * this.columns),
+              chars: [],
+              y: 0,
+              speed: 0,
+              length: 0,
+            };
             attempts--;
           } while (
-            (this.activeColumns.has(newColumn) ||
+            (this.activeColumns.has(newColumn.x) ||
               !this.isColumnAvailable(newColumn)) &&
             attempts > 0
           );
 
           if (
             attempts > 0 &&
-            !this.activeColumns.has(newColumn) &&
+            !this.activeColumns.has(newColumn.x) &&
             this.isColumnAvailable(newColumn)
           ) {
-            this.activeColumns.add(newColumn);
-            this.drops[newColumn] = 1;
-            this.speeds[newColumn] =
+            this.activeColumns.add(newColumn.x);
+            this.drops[newColumn.x] = 1;
+            this.speeds[newColumn.x] =
               SYMBOL_CONFIG.MIN_SPEED +
               Math.random() *
                 (SYMBOL_CONFIG.MAX_SPEED - SYMBOL_CONFIG.MIN_SPEED);
-            this.opacities[newColumn] =
+            this.opacities[newColumn.x] =
               SYMBOL_CONFIG.MIN_OPACITY +
               Math.random() *
                 (SYMBOL_CONFIG.MAX_OPACITY - SYMBOL_CONFIG.MIN_OPACITY);
@@ -459,7 +473,7 @@
       }
     }
 
-    const initMatrixAnimation = (canvasId, delay = 1000) => {
+    const initMatrixAnimation = (canvasId: string, delay: number = 1000) => {
       const matrixAnimation = new MatrixAnimation(canvasId, delay);
       matrixAnimation.start();
       return matrixAnimation;

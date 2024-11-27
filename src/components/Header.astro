@@ -133,8 +133,22 @@ const { t, lang } = useTranslations(Astro);
     }
   }
 
+  const THEMES = {
+    LIGHT: "light",
+    DARK: "dark",
+  } as const;
+
+  type Theme = (typeof THEMES)[keyof typeof THEMES];
+
+  function getTheme(theme: string): Theme {
+    if (theme in THEMES) {
+      return theme as Theme;
+    }
+    return THEMES.DARK;
+  }
+
   (() => {
-    function updateFavicon(theme) {
+    function updateFavicon(theme: Theme) {
       // Find all icons
       const favicons = document.querySelectorAll('link[rel="icon"]');
 
@@ -154,9 +168,11 @@ const { t, lang } = useTranslations(Astro);
     }
 
     function toggleTheme() {
-      const currentTheme =
-        document.documentElement.getAttribute("data-theme") || "dark";
-      const newTheme = currentTheme === "light" ? "dark" : "light";
+      const currentTheme: Theme = getTheme(
+        document.documentElement.getAttribute("data-theme"),
+      );
+      const newTheme: Theme =
+        currentTheme === THEMES.LIGHT ? THEMES.DARK : THEMES.LIGHT;
 
       document.documentElement.setAttribute("data-theme", newTheme);
       localStorage.setItem("theme", newTheme);
@@ -166,9 +182,8 @@ const { t, lang } = useTranslations(Astro);
     }
 
     function initTheme() {
-      const savedTheme = localStorage.getItem("theme") || "dark";
+      const savedTheme: Theme = getTheme(localStorage.getItem("theme"));
       document.documentElement.setAttribute("data-theme", savedTheme);
-      // Инициализируем favicon с сохраненной темой
       updateFavicon(savedTheme);
     }
 

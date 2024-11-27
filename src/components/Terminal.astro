@@ -143,12 +143,32 @@ const { t } = useTranslations(Astro);
     function gtag(...args: any[]): void;
   }
 
+  interface TerminalCommand {
+    name: string;
+    params?: Record<string, unknown>;
+    description?: string;
+    directory?: string;
+    branch?: string;
+    command?: string;
+    execute: () => string;
+  }
+
+  interface AnalyticsParams {
+    event_category?: string;
+    event_label?: string;
+    value?: number;
+    response_type?: string;
+    response_text?: string;
+    [key: string]: unknown;
+  }
+
   class TerminalScrollManager {
-    terminal: any;
+    terminal: HTMLElement;
     autoScrollEnabled: boolean;
     savedScrollTop: number;
     resizeObserver: ResizeObserver;
-    constructor(terminalContent) {
+
+    constructor(terminalContent: HTMLElement) {
       this.terminal = terminalContent;
       this.autoScrollEnabled = true;
       this.savedScrollTop = 0;
@@ -218,15 +238,15 @@ const { t } = useTranslations(Astro);
     }
   }
 
-  class TerminalAnimation {
+  class Terminal {
     commandDelay = 50;
     commandPause = 1000;
 
     currentDirectory = "";
     currentBranch = "";
-    currentInput = "";
-    commandHistory = [];
-    historyIndex = -1;
+    currentInput: string = "";
+    commandHistory: string[] = [];
+    historyIndex: number = -1;
 
     hints = {
       ru: [
@@ -265,16 +285,17 @@ const { t } = useTranslations(Astro);
     HF_API_TOKEN = "hf_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
     MODEL_URL =
       "https://api-inference.huggingface.co/models/facebook/blenderbot-400M-distill";
-    container: any;
-    terminalContent: any;
+    container: HTMLElement;
+    terminalContent: HTMLElement;
     scrollManager: TerminalScrollManager;
-    commands: {};
+    commands: Record<string, TerminalCommand>;
     lang: string;
 
-    constructor() {
+    constructor(terminalContent: HTMLElement) {
       this.container = document.querySelector(".terminal__history");
-      this.terminalContent = document.querySelector(".terminal__content");
+      this.terminalContent = terminalContent;
       this.scrollManager = new TerminalScrollManager(this.terminalContent);
+      this.commands = {};
       this.lang = document.documentElement.lang;
 
       this.initialize();
@@ -311,21 +332,24 @@ const { t } = useTranslations(Astro);
     }
 
     loadCommands() {
-      const commands = {};
+      const commands: Record<string, TerminalCommand> = {};
       document
         .querySelectorAll(".terminal__command")
         .forEach((cmd: HTMLElement) => {
           const commandName = cmd.dataset.command;
-          commands[commandName] = {
-            description: cmd.dataset.description || "",
-            directory: cmd.dataset.directory || "",
-            branch: cmd.dataset.branch || "",
-            command: cmd.dataset.command || commandName,
-            execute: () => {
-              const template = cmd.querySelector("template");
-              return template.innerHTML.trim();
-            },
-          };
+          if (commandName) {
+            commands[commandName] = {
+              name: commandName,
+              description: cmd.dataset.description || "",
+              directory: cmd.dataset.directory || "",
+              branch: cmd.dataset.branch || "",
+              command: cmd.dataset.command || commandName,
+              execute: () => {
+                const template = cmd.querySelector("template");
+                return template?.innerHTML.trim() || "";
+              },
+            };
+          }
         });
 
       this.commands = commands;
@@ -380,7 +404,7 @@ const { t } = useTranslations(Astro);
       }
     }
 
-    sendAnalytics(eventName, params) {
+    sendAnalytics(eventName: string, params?: AnalyticsParams) {
       if (typeof gtag === "function") {
         gtag("event", eventName, {
           event_category: "Terminal",
@@ -391,7 +415,7 @@ const { t } = useTranslations(Astro);
       }
     }
 
-    async runCommand(command) {
+    async runCommand(command: TerminalCommand) {
       if (command.command === "clear") {
         this.container.innerHTML = "";
         return;
@@ -425,7 +449,7 @@ const { t } = useTranslations(Astro);
       }
     }
 
-    async simulateCommand(commandName) {
+    async simulateCommand(commandName: string) {
       const command = this.commands[commandName];
       const text = command.command || commandName;
 
@@ -485,7 +509,7 @@ const { t } = useTranslations(Astro);
       this.startHintCycle();
     }
 
-    async tryAIResponse(command) {
+    async tryAIResponse(command: string) {
       try {
         // Создаем и добавляем элемент загрузки
         const loadingTemplate = document.getElementById(
@@ -559,7 +583,7 @@ const { t } = useTranslations(Astro);
       }
     }
 
-    sleep(ms) {
+    sleep(ms: number): Promise<void> {
       return new Promise((resolve) => setTimeout(resolve, ms));
     }
 
@@ -570,7 +594,7 @@ const { t } = useTranslations(Astro);
 
       this.terminalContent.setAttribute("tabindex", "0");
 
-      this.terminalContent.addEventListener("keydown", (e) => {
+      this.terminalContent.addEventListener("keydown", (e: KeyboardEvent) => {
         if (e.code === "Space") {
           e.preventDefault();
         }
@@ -598,7 +622,7 @@ const { t } = useTranslations(Astro);
       document.removeEventListener("keydown", this.handleKeyPress);
     }
 
-    handleKeyPress(e) {
+    handleKeyPress(e: KeyboardEvent) {
       if (this.isShowingHint) {
         this.isShowingHint = false;
         clearTimeout(this.hintTimeout);
@@ -617,9 +641,9 @@ const { t } = useTranslations(Astro);
           action: "update",
         });
       } else if (e.key === "ArrowUp") {
-        this.navigateHistory(-1);
+        this.navigateHistory("up");
       } else if (e.key === "ArrowDown") {
-        this.navigateHistory(1);
+        this.navigateHistory("down");
       } else if (e.key.length === 1) {
         this.currentInput += e.key;
         this.handlePrompt({
@@ -630,12 +654,15 @@ const { t } = useTranslations(Astro);
       }
     }
 
-    navigateHistory(direction) {
+    navigateHistory(direction: "up" | "down") {
       if (this.commandHistory.length === 0) return;
 
       this.historyIndex = Math.max(
         -1,
-        Math.min(this.commandHistory.length - 1, this.historyIndex + direction),
+        Math.min(
+          this.commandHistory.length - 1,
+          this.historyIndex + (direction === "down" ? 1 : -1),
+        ),
       );
 
       if (this.historyIndex === -1) {
@@ -738,7 +765,7 @@ const { t } = useTranslations(Astro);
       this.keywords = {
         "опыт|работа|карьера|experience|work|career": [
           lang === "ru"
-            ? "Более 10 лет опыта в разработке. Сейчас работаю CTO в Ultimate Education."
+            ? "Более 10 лет опыта в разработке. Сейчас работаю CTO  Ultimate Education."
             : "Over 10 years of development experience. Currently working as CTO at Ultimate Education.",
           lang === "ru"
             ? "Руковожу IT-стратегией образовательного холдинга из 7 компаний."
@@ -789,7 +816,7 @@ const { t } = useTranslations(Astro);
 
       this.defaultResponses = [
         lang === "ru"
-          ? "Извините, не совсем понял вопр��с. Попробуйте спросить о моем опыте работы, проектах или технологиях."
+          ? "Извините, не совсем понял вопрс. Попробуйте спросить о моем опыте работы, проектах или технологиях."
           : "Sorry, I didn't quite understand the question. Try asking about my work experience, projects, or technologies.",
         lang === "ru"
           ? "Может быть, вас интересует мой опыт работы в образовательных проектах?"
@@ -800,7 +827,7 @@ const { t } = useTranslations(Astro);
       ];
     }
 
-    generateResponse(input) {
+    generateResponse(input: string): string {
       const normalizedInput = input.toLowerCase();
 
       // Ищем совпадения по ключевым словам
@@ -819,13 +846,13 @@ const { t } = useTranslations(Astro);
     }
   }
 
-  const truncateText = (text, maxLength = 500) => {
+  const truncateText = (text: string, maxLength: number = 500): string => {
     return text.length > maxLength
       ? text.substring(0, maxLength) + "..."
       : text;
   };
 
-  new TerminalAnimation();
+  new Terminal(document.querySelector(".terminal__content"));
 </script>
 
 <style is:global>
@@ -1129,7 +1156,7 @@ const { t } = useTranslations(Astro);
     }
   }
 
-  /* Стили д��я ошибок */
+  /* Стили дя ошибок */
   .terminal__output--error {
     color: #ff5f56;
   }

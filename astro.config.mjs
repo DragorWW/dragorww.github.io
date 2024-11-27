@@ -4,7 +4,7 @@ import { LANGUAGES, DEFAULT_LANGUAGE } from "./src/constants/languages";
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://dragorww.github.io",
+  site: "https://dragorww.space",
   base: "/",
   compressHTML: true,
   build: {
