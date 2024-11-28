@@ -534,7 +534,7 @@ const education = [
       }
 
       .cv-sidebar {
-        font-size: 0.85rem;
+        font-size: 0.9rem;
         height: 100%;
         border-left: 2px solid var(--accent-color);
       }
@@ -551,9 +551,9 @@ const education = [
 
       .cv-sidebar-title {
         color: var(--card-bg);
-        font-size: 0.8rem;
+        font-size: 0.85rem;
         font-weight: 600;
-        padding: 0.35rem 1.5rem;
+        padding: 0.4rem 1.5rem;
         background: var(--accent-color);
         position: relative;
         letter-spacing: 0.05em;
@@ -616,8 +616,8 @@ const education = [
 
       .cv-highlights li {
         padding-left: 1rem;
-        margin-bottom: 0.5rem;
-        font-size: 0.7rem;
+        margin-bottom: 0.4rem;
+        font-size: 0.8rem;
         color: var(--text-secondary);
       }
 
@@ -704,7 +704,7 @@ const education = [
         display: flex;
         flex-direction: column;
         gap: 0.15rem;
-        margin-bottom: 0.35rem;
+        margin-bottom: 0.4rem;
       }
 
       .cv-skill-info {
@@ -715,7 +715,7 @@ const education = [
       }
 
       .cv-skill-name {
-        font-size: 0.7rem;
+        font-size: 0.8rem;
         color: var(--text-secondary);
       }
 
@@ -858,9 +858,10 @@ const education = [
       .cv-achievements li {
         position: relative;
         padding-left: 1.5rem;
-        margin-bottom: 0.75rem;
+        margin-bottom: 0.5rem;
         font-size: 0.95rem;
         color: var(--text-primary);
+        line-height: 1.5;
       }
 
       .cv-achievements li::before {
@@ -972,8 +973,9 @@ const education = [
       }
 
       .cv-skill-category-title {
+        font-size: 0.85rem;
         margin-bottom: 0.5rem;
-        font-size: 0.75rem;
+        font-weight: 600;
       }
 
       .cv-name {
@@ -1307,6 +1309,43 @@ const education = [
         height: 14px;
         flex-shrink: 0;
         color: var(--accent-color);
+      }
+
+      /* Общие стили для маркированных списков */
+      .cv-highlights,
+      .cv-achievements {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      .cv-highlights li,
+      .cv-achievements li {
+        position: relative;
+        padding-left: 1.25rem;
+        margin-bottom: 0.5rem;
+        color: var(--text-primary);
+        line-height: 1.5;
+      }
+
+      .cv-highlights li::before,
+      .cv-achievements li::before {
+        content: "•";
+        position: absolute;
+        left: 0;
+        color: var(--accent-color);
+        font-weight: bold;
+      }
+
+      /* Специфичные стили для highlights (в сайдбаре) */
+      .cv-highlights li {
+        font-size: 0.8rem;
+        color: var(--text-secondary);
+      }
+
+      /* Специфичные стили для achievements (в опыте работы) */
+      .cv-achievements li {
+        font-size: 0.95rem;
       }
     </style>
   </body>
