@@ -2,7 +2,7 @@
 import Layout from "../layouts/Layout.astro";
 import CoverPreview from "../components/CoverGenerator/CoverPreview.astro";
 import CoverForm from "../components/CoverGenerator/CoverForm.astro";
-import HeaderLogo from "../components/HeaderLogo.astro";
+import TechnicalPreview from "../components/CoverGenerator/TechnicalPreview.astro";
 import Header from "../components/Header.astro";
 
 const title = "Генератор обложек";
@@ -16,6 +16,10 @@ const keywords = "cover generator, social media, обложки, генерат�
     <div class="generator-container">
       <CoverForm />
       <CoverPreview />
+      <TechnicalPreview
+        defaultTitle={"Заголовок обложки"}
+        defaultDescription={"Описание обложки"}
+      />
     </div>
   </main>
 </Layout>
