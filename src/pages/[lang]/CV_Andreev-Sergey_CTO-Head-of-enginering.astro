@@ -137,6 +137,27 @@ const education = [
     />
   </head>
   <body>
+    <div class="cv-download-btn">
+      <a href={`/cv-${lang}.pdf`} download>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+          <polyline points="7 10 12 15 17 10"></polyline>
+          <line x1="12" y1="15" x2="12" y2="3"></line>
+        </svg>
+        <span>Download PDF</span>
+      </a>
+    </div>
+
     <main class="cv-container">
       <div class="cv-top-section">
         <div class="cv-main-content">
@@ -957,6 +978,73 @@ const education = [
           padding: 0.25rem 0.75rem;
           border: 1px solid var(--border-color);
           border-radius: 2px;
+        }
+      }
+
+      /* Стили для кнопки скачивания */
+      @media screen {
+        .cv-download-btn {
+          position: fixed;
+          top: 2rem;
+          right: 2rem;
+          z-index: 100;
+        }
+
+        .cv-download-btn a {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          padding: 0.75rem 1.25rem;
+          background: var(--accent-color);
+          color: var(--card-bg);
+          text-decoration: none;
+          border-radius: 4px;
+          font-size: 0.9rem;
+          font-weight: 500;
+          transition: all 0.2s ease;
+          box-shadow: 0 2px 8px rgba(var(--accent-color-rgb), 0.2);
+        }
+
+        .cv-download-btn a:hover {
+          background: var(--heading-color);
+          transform: translateY(-1px);
+          box-shadow: 0 4px 12px rgba(var(--accent-color-rgb), 0.3);
+        }
+
+        .cv-download-btn svg {
+          width: 18px;
+          height: 18px;
+        }
+
+        /* Добавляем анимацию при наведении */
+        .cv-download-btn a:hover svg {
+          animation: bounce 0.5s ease infinite;
+        }
+
+        @keyframes bounce {
+          0%,
+          100% {
+            transform: translateY(0);
+          }
+          50% {
+            transform: translateY(2px);
+          }
+        }
+
+        /* Адаптив для мобильных устройств */
+        @media (max-width: 768px) {
+          .cv-download-btn {
+            top: 1rem;
+            right: 1rem;
+          }
+
+          .cv-download-btn span {
+            display: none;
+          }
+
+          .cv-download-btn a {
+            padding: 0.5rem;
+          }
         }
       }
     </style>
