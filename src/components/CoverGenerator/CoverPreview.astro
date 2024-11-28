@@ -1,0 +1,508 @@
+---
+import { Image } from "astro:assets";
+import profileImage from "../../assets/profile.jpg";
+import HeaderLogo from "../HeaderLogo.astro";
+const defaultTitle = "Заголовок обложки";
+const defaultDescription = "Описание обложки";
+---
+
+<div class="preview-container">
+  <div class="preview-image-container">
+    <div class="preview-loader" id="previewLoader">
+      <div class="loader-spinner"></div>
+    </div>
+    <img id="previewImage" class="preview-image" alt="Preview" />
+    <div class="preview-info">
+      <span class="format-info">PNG • 1200×630px</span>
+      <button id="downloadBtn" class="download-btn">
+        <svg
+          class="download-icon"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+          <polyline points="7 10 12 15 17 10"></polyline>
+          <line x1="12" y1="15" x2="12" y2="3"></line>
+        </svg>
+        Скачать обложку
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Техническая верстка для генерации -->
+<div class="technical-preview" id="sourceContainer">
+  <div class="cover-preview">
+    <div class="cover-header">
+      <HeaderLogo />
+    </div>
+
+    <div class="content">
+      <div class="main-content">
+        <div class="profile-section">
+          <div class="photo-wrapper">
+            <div class="photo-border"></div>
+            <Image src={profileImage} alt="Avatar" class="avatar" />
+          </div>
+          <div class="title-section">
+            <h2 class="cover-title" id="coverTitle">{defaultTitle}</h2>
+            <p class="cover-description" id="coverDescription">
+              {defaultDescription}
+            </p>
+          </div>
+        </div>
+
+        <div class="author-info">
+          <div class="role">Head of Engineering</div>
+          <p class="description">
+            CTO, IT-архитектор и амбассадор продуктовой разработки
+          </p>
+          <div class="social-links">
+            <span class="social-link">
+              <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"
+                ></path>
+              </svg>
+              Twitter
+            </span>
+            <span class="social-link">
+              <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M24 12c0 6.627-5.373 12-12 12S0 18.627 0 12 5.373 0 12 0s12 5.373 12 12zM12.43 8.859c-1.167.485-3.5 1.49-6.998 3.014-.568.226-.866.447-.893.663-.046.366.412.51 1.034.705.085.027.173.054.263.084.613.199 1.437.432 1.865.441.389.008.823-.152 1.302-.48 3.268-2.207 4.955-3.322 5.061-3.346.075-.017.179-.039.249.024.07.062.063.18.056.212-.046.193-1.84 1.862-2.77 2.726-.29.269-.495.46-.537.504-.094.097-.19.19-.282.279-.57.548-.996.96.024 1.632.49.323.882.59 1.273.856.427.291.853.581 1.405.943.14.092.274.187.405.28.497.355.944.673 1.496.623.32-.03.652-.331.82-1.23.397-2.126 1.179-6.73 1.36-8.628a2.111 2.111 0 00-.02-.472.506.506 0 00-.172-.325c-.143-.117-.365-.142-.465-.14-.451.008-1.143.249-4.476 1.635z"
+                ></path>
+              </svg>
+              Telegram
+            </span>
+            <span class="social-link">
+              <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"
+                ></path>
+              </svg>
+              YouTube
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  /* Обновляем стили для контейнеров */
+  .preview-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    overflow: visible;
+  }
+
+  .preview-image-container {
+    width: 100%;
+    aspect-ratio: 1200/630;
+    position: relative;
+    border-radius: 12px;
+    overflow: visible;
+    border: 1px solid var(--accent-color);
+    background: var(--bg-color);
+    margin-bottom: 1rem;
+  }
+
+  .preview-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+    background: var(--bg-color);
+    border-radius: 12px;
+  }
+
+  /* Обновляем стили для технической верстки */
+  .technical-preview {
+    position: relative;
+    margin-top: 4rem;
+    padding: 2rem;
+    border-top: 1px solid var(--accent-color);
+    background: var(--bg-color);
+    width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    overflow: visible;
+  }
+
+  .technical-preview::before {
+    content: "Техническая верстка";
+    display: block;
+    text-align: center;
+    color: var(--accent-color);
+    font-size: 0.8rem;
+    margin-bottom: 1rem;
+  }
+
+  /* Обновляем стили для информации о превью */
+  .preview-info {
+    position: relative;
+    width: 100%;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 0.5rem;
+    gap: 1rem;
+  }
+
+  .format-info {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    font-family: "Fira Code", monospace;
+    white-space: nowrap;
+  }
+
+  /* Обновляем стили для превью */
+  .cover-preview {
+    width: 1200px;
+    height: 630px;
+    background: var(--bg-color);
+    border: 1px solid var(--accent-color);
+    border-radius: 12px;
+    position: relative;
+    overflow: hidden;
+    padding: 0;
+  }
+
+  .cover-header {
+    height: 80px;
+    background: var(--card-bg);
+    padding: 0 3rem;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid var(--accent-color);
+  }
+
+  .cover-header :global(.logo) {
+    transform: none;
+  }
+
+  .content {
+    padding: 3rem;
+    height: calc(100% - 80px);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .profile-section {
+    display: flex;
+    gap: 2rem;
+    align-items: flex-start;
+  }
+
+  .photo-wrapper {
+    position: relative;
+    width: 180px;
+    height: 180px;
+    border-radius: 12px;
+    background: var(--card-bg);
+    overflow: hidden;
+  }
+
+  .photo-border {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 2px;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      transparent 20%,
+      rgba(var(--accent-color-rgb), 1) 40%,
+      rgba(var(--accent-color-rgb), 1) 60%,
+      transparent 80%,
+      transparent 100%
+    );
+    background-size: 200% 100%;
+    -webkit-mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    animation: shine 3s linear infinite;
+  }
+
+  .avatar {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+  }
+
+  @keyframes shine {
+    to {
+      background-position: -200% 0;
+    }
+  }
+
+  .title-section {
+    flex: 1;
+  }
+
+  .cover-title {
+    font-size: 3.5rem;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+  }
+
+  .cover-description {
+    font-size: 1.8rem;
+    line-height: 1.4;
+    color: var(--text-secondary);
+    max-width: 80%;
+  }
+
+  .author-info {
+    margin-top: 2rem;
+    color: var(--text-secondary);
+  }
+
+  .role {
+    font-size: 2rem;
+    color: var(--accent-color);
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+  }
+
+  .description {
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+    color: var(--text-secondary);
+    line-height: 1.4;
+  }
+
+  .social-links {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .social-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 1rem;
+    border: 1px solid var(--accent-color);
+    border-radius: 4px;
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+  }
+
+  .social-icon {
+    width: 20px;
+    height: 20px;
+    color: var(--accent-color);
+  }
+
+  .preview-loader {
+    position: absolute;
+    inset: 0;
+    background: rgba(var(--bg-color-rgb), 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+  }
+
+  .preview-loader.loading {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .loader-spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid var(--accent-color);
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  .download-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: var(--card-bg);
+    color: var(--text-primary);
+    padding: 0.75rem 1.5rem;
+    border: 1px solid var(--accent-color);
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 0.9rem;
+    transition: all 0.2s;
+    font-family: inherit;
+    position: relative;
+    z-index: 20;
+  }
+
+  .download-btn:hover {
+    background: var(--accent-color);
+    color: var(--text-primary);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(var(--accent-color-rgb), 0.15);
+  }
+
+  .download-btn:active {
+    transform: translateY(0);
+  }
+
+  .download-icon {
+    width: 18px;
+    height: 18px;
+    stroke: currentColor;
+    transition: transform 0.2s;
+  }
+
+  .download-btn:hover .download-icon {
+    transform: translateY(2px);
+  }
+
+  /* Добавляем стили для логотипа */
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .logo-svg {
+    color: var(--accent-color);
+  }
+
+  .logo-text {
+    color: var(--accent-color);
+    font-size: 1.5rem;
+    font-weight: 500;
+  }
+
+  /* Добавляем медиа-запрос для адаптивности */
+  @media (max-width: 1200px) {
+    .preview-container {
+      padding: 0 1rem;
+      overflow-x: hidden;
+    }
+
+    .technical-preview {
+      width: 100%;
+      overflow-x: auto;
+      padding: 2rem 0;
+    }
+
+    .cover-preview {
+      margin: 0 auto;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .preview-info {
+      flex-direction: column-reverse;
+      align-items: stretch;
+      text-align: center;
+      gap: 0.75rem;
+    }
+
+    .download-btn {
+      width: 100%;
+      justify-content: center;
+      padding: 1rem;
+    }
+  }
+</style>
+
+<script>
+  import html2canvas from "html2canvas";
+
+  const sourceContainer = document.getElementById("sourceContainer");
+  const previewImage = document.getElementById(
+    "previewImage",
+  ) as HTMLImageElement;
+  const downloadBtn = document.getElementById("downloadBtn");
+  const loader = document.getElementById("previewLoader");
+  let currentDataUrl: string | null = null;
+
+  const renderPreview = async () => {
+    if (!sourceContainer || !previewImage) return;
+
+    try {
+      loader?.classList.add("loading");
+
+      // Рендерим напрямую из source контейнера
+      const canvas = await html2canvas(
+        sourceContainer.querySelector(".cover-preview")!,
+        {
+          width: 1200,
+          height: 630,
+          scale: 2, // Используем scale: 2 для лучшего качества
+          useCORS: true,
+          allowTaint: true,
+          backgroundColor: getComputedStyle(document.documentElement)
+            .getPropertyValue("--bg-color")
+            .trim(),
+        },
+      );
+
+      // Сохраняем data URL
+      currentDataUrl = canvas.toDataURL("image/png", 1.0);
+
+      // Обновляем превью
+      previewImage.src = currentDataUrl;
+    } catch (error) {
+      console.error("Ошибка при создании превью:", error);
+    } finally {
+      loader?.classList.remove("loading");
+    }
+  };
+
+  // Слушаем событие обновления от формы
+  document.addEventListener("preview-update", ((e: CustomEvent) => {
+    const titleEl = document.getElementById("coverTitle");
+    const descEl = document.getElementById("coverDescription");
+
+    if (titleEl) titleEl.textContent = e.detail.title || "Заголовок обложки";
+    if (descEl) descEl.textContent = e.detail.description || "Описание обложки";
+
+    requestAnimationFrame(() => {
+      setTimeout(renderPreview, 100);
+    });
+  }) as EventListener);
+
+  // Инициализируем превью после полной загрузки страницы
+  window.addEventListener("load", () => {
+    setTimeout(renderPreview, 500);
+  });
+
+  // Обработчик скачивания
+  downloadBtn?.addEventListener("click", () => {
+    if (!currentDataUrl) return;
+    const link = document.createElement("a");
+    link.download = "cover.png";
+    link.href = currentDataUrl;
+    link.click();
+  });
+</script>

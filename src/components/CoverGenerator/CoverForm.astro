@@ -1,0 +1,93 @@
+---
+
+---
+
+<div class="cover-form">
+  <form id="coverForm">
+    <div class="form-group">
+      <label for="title">Заголовок</label>
+      <input
+        type="text"
+        id="title"
+        name="title"
+        placeholder="Введите заголовок обложки"
+        required
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="description">Описание</label>
+      <textarea
+        id="description"
+        name="description"
+        rows="4"
+        placeholder="Введите описание"
+        required></textarea>
+    </div>
+  </form>
+</div>
+
+<style>
+  .cover-form {
+    background: var(--card-bg);
+    padding: 2rem;
+    border-radius: 12px;
+    border: 1px solid var(--accent-color);
+  }
+
+  .form-group {
+    margin-bottom: 1.5rem;
+  }
+
+  label {
+    display: block;
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+  }
+
+  input,
+  textarea {
+    width: 100%;
+    padding: 1rem;
+    border: 1px solid var(--accent-color);
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    border-radius: 8px;
+    font-size: 1rem;
+  }
+
+  input:focus,
+  textarea:focus {
+    outline: none;
+    border-color: var(--text-primary);
+  }
+</style>
+
+<script>
+  const form = document.getElementById("coverForm");
+  const titleInput = document.getElementById("title") as HTMLInputElement;
+  const descriptionInput = document.getElementById(
+    "description",
+  ) as HTMLTextAreaElement;
+
+  const updatePreview = () => {
+    // Создаем кастомное событие с данными формы
+    const event = new CustomEvent("preview-update", {
+      detail: {
+        title: titleInput.value || "Заголовок обложки",
+        description: descriptionInput.value || "Описание обложки",
+      },
+    });
+    document.dispatchEvent(event);
+  };
+
+  // Обновляем превью при вводе текста
+  titleInput?.addEventListener("input", updatePreview);
+  descriptionInput?.addEventListener("input", updatePreview);
+
+  // Предотвращаем отправку формы
+  form?.addEventListener("submit", (e) => {
+    e.preventDefault();
+  });
+</script>
