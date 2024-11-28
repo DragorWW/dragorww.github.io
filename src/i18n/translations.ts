@@ -8,6 +8,10 @@ type Translations = {
 };
 
 export const translations: Translations = {
+  "cv.location": {
+    ru: "Пхукет, Тайланд",
+    en: "Phuket, Thailand",
+  },
   "cv.download": {
     ru: "Скачать PDF",
     en: "Download PDF",

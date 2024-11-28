@@ -169,8 +169,86 @@ const education = [
           <header class="cv-header">
             <div class="cv-header-content">
               <div class="cv-header-main">
-                <div class="cv-photo">
-                  <Image src={profileImage} alt={t("me.name")} />
+                <div class="cv-left-column">
+                  <div class="cv-photo">
+                    <Image src={profileImage} alt={t("me.name")} />
+                  </div>
+                  <div class="cv-contacts">
+                    <a href="mailto:dragorww@gmail.com">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <path
+                          d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"
+                        ></path>
+                        <polyline points="22,6 12,13 2,6"></polyline>
+                      </svg>
+                      DragorWW@gmail.com
+                    </a>
+                    <a href="https://t.me/dragorww">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <path d="M21.5 2L2 9.5l7 4L18 6l-5 9.5 6.5 4L21.5 2z"
+                        ></path>
+                      </svg>
+                      @DragorWW
+                    </a>
+                    <a href="https://dragorww.space">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="2" y1="12" x2="22" y2="12"></line>
+                        <path
+                          d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"
+                        ></path>
+                      </svg>
+                      DragorWW.space
+                    </a>
+                    <div class="cv-location">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"
+                        ></path>
+                        <circle cx="12" cy="10" r="3"></circle>
+                      </svg>
+                      {t("cv.location")}
+                    </div>
+                  </div>
                 </div>
                 <div class="cv-titles">
                   <h1 class="cv-name">{t("me.name")}</h1>
@@ -199,16 +277,6 @@ const education = [
         </div>
 
         <aside class="cv-sidebar">
-          <h3 class="cv-sidebar-title">{t("cv.sections.contacts")}</h3>
-          <div class="cv-sidebar-section">
-            <div class="cv-contacts">
-              <a href="mailto:dragorww@gmail.com">{t("cv.contacts.email")}</a>
-              <a href="https://t.me/dragorww">{t("cv.contacts.telegram")}</a>
-              <a href="https://dragorww.github.io">{t("cv.contacts.website")}</a
-              >
-            </div>
-          </div>
-
           <h3 class="cv-sidebar-title">{t("cv.sections.achievements")}</h3>
           <div class="cv-sidebar-section">
             <ul class="cv-highlights">
@@ -440,20 +508,18 @@ const education = [
         display: flex;
         flex-direction: column;
         gap: 0;
-        padding: 20mm 15mm;
+        padding: 15mm;
         background: var(--card-bg);
       }
 
       .cv-top-section {
         display: grid;
         grid-template-columns: 1fr 200px;
-        min-height: 257mm;
-        max-height: 257mm;
         position: relative;
-        page-break-after: always;
         break-after: page;
+        page-break-after: always;
         overflow: hidden;
-        padding: 2rem 0 3rem;
+        padding: 2rem 0;
       }
 
       .cv-main-content {
@@ -509,15 +575,37 @@ const education = [
       }
 
       .cv-contacts a {
-        color: var(--accent-color);
+        color: var(--text-secondary);
         text-decoration: none;
-        font-size: 0.75rem;
         font-weight: 500;
-        transition: color 0.2s;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        transition: all 0.2s ease;
+        font-size: 0.85rem;
+      }
+
+      .cv-contacts svg {
+        width: 14px;
+        height: 14px;
+        flex-shrink: 0;
+        color: var(--accent-color);
+        transition: transform 0.2s ease;
       }
 
       .cv-contacts a:hover {
-        color: var(--text-primary);
+        color: var(--accent-color);
+      }
+
+      .cv-contacts a:hover svg {
+        transform: scale(1.2);
+      }
+
+      @media print {
+        .cv-contacts svg {
+          print-color-adjust: exact;
+          -webkit-print-color-adjust: exact;
+        }
       }
 
       .cv-highlights {
@@ -813,18 +901,28 @@ const education = [
       /* Print styles */
       @media print {
         body {
+          margin: 0;
           padding: 0;
-          background: var(--card-bg);
-          print-color-adjust: exact;
-          -webkit-print-color-adjust: exact;
         }
 
         .cv-container {
           margin: 0;
-          padding: 20mm 15mm;
-          max-width: none;
-          box-shadow: none;
-          border-radius: 0;
+          padding: 15mm;
+        }
+
+        .cv-top-section {
+          margin: 0;
+          padding: 0 0 2rem 0;
+        }
+
+        .cv-full-width-content {
+          margin-top: 0;
+          padding-top: 2rem;
+        }
+
+        @page {
+          margin: 0;
+          padding: 0;
         }
 
         .cv-section,
@@ -839,19 +937,6 @@ const education = [
         .cv-skill-tag:hover {
           background: rgba(var(--accent-color-rgb), 0.1);
           border-color: var(--border-color);
-        }
-
-        @page {
-          margin: 0;
-          size: A4;
-        }
-
-        .cv-skill-group {
-          break-inside: avoid;
-        }
-
-        .cv-skills {
-          margin-bottom: 0.75rem;
         }
 
         .cv-top-section {
@@ -1030,7 +1115,7 @@ const education = [
           height: 18px;
         }
 
-        /* Добавляем анимацию при наведении */
+        /* Добавляем анимцию при наведении */
         .cv-download-btn a:hover svg {
           animation: bounce 0.5s ease infinite;
         }
@@ -1162,6 +1247,66 @@ const education = [
           print-color-adjust: exact;
           -webkit-print-color-adjust: exact;
         }
+      }
+
+      .cv-left-column {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+      }
+
+      .cv-contacts {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        padding: 0;
+        font-size: 0.85rem;
+      }
+
+      .cv-contacts a {
+        color: var(--text-secondary);
+        text-decoration: none;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        transition: color 0.2s ease;
+      }
+
+      .cv-contacts a:hover {
+        color: var(--accent-color);
+      }
+
+      /* Обновляем размеры фото */
+      .cv-photo {
+        width: 160px;
+        height: 160px;
+      }
+
+      /* Обновляем отступы в header */
+      .cv-header-main {
+        gap: 3rem;
+      }
+
+      /* Убираем старые стили контактов из сайдбара */
+      .cv-sidebar .cv-contacts {
+        display: none;
+      }
+
+      .cv-location {
+        color: var(--text-secondary);
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        font-size: 0.85rem;
+        font-weight: 500;
+      }
+
+      .cv-location svg {
+        width: 14px;
+        height: 14px;
+        flex-shrink: 0;
+        color: var(--accent-color);
       }
     </style>
   </body>
