@@ -364,19 +364,23 @@ const education = [
     <style>
       /* Base */
       :root {
-        --text-primary: #2d2d2d;
-        --text-secondary: #666;
-        --accent-color: #e2c08d;
-        --accent-color-rgb: 226, 192, 141;
-        --border-color: rgba(226, 192, 141, 0.2);
-        --card-bg: #fff;
+        --text-primary: #111111;
+        --text-secondary: #444444;
+        --border-color: rgba(212, 168, 83, 0.2);
+        --card-bg: #ffffff;
         --card-bg-rgb: 255, 255, 255;
+        --section-gap: 2.5rem;
+        --heading-color: #000000;
+        --accent-color: #b38c45;
+        --accent-color-rgb: 179, 140, 69;
       }
 
       body {
         font-family: "Fira Code", monospace;
-        line-height: 1.6;
+        line-height: 1.7;
         color: var(--text-primary);
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
         background: var(--card-bg);
         padding: 0;
         margin: 0 auto;
@@ -387,7 +391,7 @@ const education = [
       .cv-container {
         display: flex;
         flex-direction: column;
-        gap: 2rem;
+        gap: 0;
         padding: 20mm 15mm;
         background: var(--card-bg);
       }
@@ -396,32 +400,44 @@ const education = [
         display: grid;
         grid-template-columns: 1fr 180px;
         gap: 2rem;
+        min-height: 257mm;
+        max-height: 257mm;
+        position: relative;
+        page-break-after: always;
+        break-after: page;
+        overflow: hidden;
+        padding-bottom: 20mm;
       }
 
       .cv-main-content {
-        border-right: 1px solid var(--border-color);
+        border-right: 2px solid var(--border-color);
         padding-right: 1.5rem;
+        height: 100%;
+        overflow: hidden;
       }
 
       .cv-full-width-content {
         width: 100%;
+        padding-top: var(--section-gap);
       }
 
       .cv-sidebar {
-        font-size: 0.9rem;
+        font-size: 0.85rem;
+        height: 100%;
+        overflow: hidden;
       }
 
       .cv-sidebar-section {
-        margin-bottom: 1.5rem;
+        margin-bottom: 1rem;
       }
 
       .cv-sidebar-title {
-        color: var(--accent-color);
+        color: var(--heading-color);
         font-size: 0.9rem;
         font-weight: 600;
         margin-bottom: 0.75rem;
         padding-bottom: 0.5rem;
-        border-bottom: 1px solid var(--border-color);
+        border-bottom: 2px solid var(--border-color);
       }
 
       .cv-contacts {
@@ -431,9 +447,15 @@ const education = [
       }
 
       .cv-contacts a {
-        color: var(--text-secondary);
+        color: var(--accent-color);
         text-decoration: none;
         font-size: 0.75rem;
+        font-weight: 500;
+        transition: color 0.2s;
+      }
+
+      .cv-contacts a:hover {
+        color: var(--text-primary);
       }
 
       .cv-highlights {
@@ -446,7 +468,7 @@ const education = [
         padding-left: 1rem;
         position: relative;
         margin-bottom: 0.35rem;
-        font-size: 0.75rem;
+        font-size: 0.7rem;
         color: var(--text-secondary);
       }
 
@@ -459,15 +481,15 @@ const education = [
 
       /* Sections */
       .cv-section {
-        margin-bottom: 2rem;
+        margin-bottom: var(--section-gap);
         padding: 0.75rem 0;
       }
 
       .cv-section-title {
+        color: var(--heading-color);
         font-size: 1.5rem;
         font-weight: 600;
-        margin-bottom: 1rem;
-        color: var(--accent-color);
+        margin-bottom: 1.5rem;
         position: relative;
         padding-left: 1rem;
       }
@@ -478,7 +500,7 @@ const education = [
         left: 0;
         top: 50%;
         transform: translateY(-50%);
-        width: 4px;
+        width: 3px;
         height: 1.2em;
         background: var(--accent-color);
         border-radius: 2px;
@@ -486,9 +508,9 @@ const education = [
 
       /* Profile */
       .cv-profile {
-        font-size: 1rem;
-        margin-bottom: 1rem;
-        line-height: 1.6;
+        font-size: 0.95rem;
+        margin-bottom: 0.75rem;
+        line-height: 1.5;
       }
 
       .cv-key-skills {
@@ -532,7 +554,8 @@ const education = [
       .cv-skill-item {
         display: flex;
         flex-direction: column;
-        gap: 0.2rem;
+        gap: 0.15rem;
+        margin-bottom: 0.35rem;
       }
 
       .cv-skill-info {
@@ -543,7 +566,7 @@ const education = [
       }
 
       .cv-skill-name {
-        font-size: 0.75rem;
+        font-size: 0.7rem;
         color: var(--text-secondary);
       }
 
@@ -553,7 +576,7 @@ const education = [
       }
 
       .cv-skill-bar {
-        height: 2px;
+        height: 3px;
         background: var(--border-color);
         border-radius: 1px;
         overflow: hidden;
@@ -595,6 +618,8 @@ const education = [
         margin-bottom: 2rem;
         padding: 0.75rem;
         position: relative;
+        break-inside: avoid-page;
+        page-break-inside: avoid;
       }
 
       .cv-job:not(:last-child)::after {
@@ -603,14 +628,14 @@ const education = [
         bottom: -1rem;
         left: 0;
         right: 0;
-        height: 1px;
-        background: linear-gradient(
-          90deg,
-          transparent,
-          var(--border-color) 20%,
-          var(--border-color) 80%,
-          transparent
-        );
+        height: 2px;
+        background: var(--border-color);
+        break-after: avoid-page;
+        page-break-after: avoid;
+      }
+
+      .cv-job:first-child {
+        margin-top: 0;
       }
 
       .cv-job-header {
@@ -629,12 +654,14 @@ const education = [
         font-size: 1.1rem;
         font-weight: 600;
         margin: 0 0 0.25rem 0;
+        color: var(--heading-color);
       }
 
       .cv-company {
         font-size: 0.9rem;
-        color: var(--text-secondary);
+        color: var(--accent-color);
         margin: 0;
+        font-weight: 500;
       }
 
       .cv-job-period {
@@ -642,6 +669,7 @@ const education = [
         color: var(--text-secondary);
         white-space: nowrap;
         text-align: right;
+        font-weight: 500;
       }
 
       .cv-job-description {
@@ -659,9 +687,10 @@ const education = [
       .cv-skill-tag {
         font-size: 0.8rem;
         padding: 0.15rem 0;
-        color: var(--text-secondary);
+        color: var(--text-primary);
         position: relative;
         margin-right: 1rem;
+        font-weight: 500;
       }
 
       .cv-skill-tag:not(:last-child)::after {
@@ -680,8 +709,9 @@ const education = [
       .cv-achievements li {
         position: relative;
         padding-left: 1.5rem;
-        margin-bottom: 0.5rem;
-        font-size: 0.9rem;
+        margin-bottom: 0.75rem;
+        font-size: 0.95rem;
+        color: var(--text-primary);
       }
 
       .cv-achievements li::before {
@@ -689,6 +719,7 @@ const education = [
         position: absolute;
         left: 0;
         color: var(--accent-color);
+        font-weight: bold;
       }
 
       /* Education */
@@ -761,10 +792,32 @@ const education = [
         .cv-skills {
           margin-bottom: 0.75rem;
         }
+
+        .cv-top-section {
+          height: 257mm;
+          overflow: hidden;
+        }
+
+        .cv-full-width-content {
+          page-break-before: always;
+          break-before: page;
+        }
+
+        .cv-section {
+          break-inside: avoid;
+        }
+
+        .cv-job {
+          break-inside: avoid;
+        }
+
+        .cv-education {
+          break-inside: avoid;
+        }
       }
 
       .cv-skill-category {
-        margin-bottom: 1rem;
+        margin-bottom: 0.75rem;
       }
 
       .cv-skill-category:last-child {
@@ -775,21 +828,15 @@ const education = [
         font-size: 0.8rem;
         font-weight: 600;
         color: var(--text-secondary);
-        margin-bottom: 0.35rem;
+        margin-bottom: 0.25rem;
       }
 
       .cv-name {
         font-size: 2.5rem;
         font-weight: 700;
         margin-bottom: 0.5rem;
-        background: linear-gradient(
-          90deg,
-          var(--text-primary) 0%,
-          var(--accent-color) 100%
-        );
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
+        color: var(--heading-color);
+        letter-spacing: -0.02em;
       }
 
       .cv-role {
