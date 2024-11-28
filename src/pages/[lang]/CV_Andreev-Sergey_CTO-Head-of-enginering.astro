@@ -138,24 +138,174 @@ const education = [
   </head>
   <body>
     <main class="cv-container">
-      <div class="cv-main-content">
-        <header class="cv-header">
-          <div class="cv-header-content">
-            <h1 class="cv-name">{t("me.name")}</h1>
-            <h2 class="cv-role">{t("cv.role.title")}</h2>
+      <div class="cv-top-section">
+        <div class="cv-main-content">
+          <header class="cv-header">
+            <div class="cv-header-content">
+              <h1 class="cv-name">{t("me.name")}</h1>
+              <h2 class="cv-role">{t("cv.role.title")}</h2>
+            </div>
+          </header>
+
+          <section class="cv-section cv-profile-section">
+            <h2 class="cv-section-title">{t("cv.sections.profile")}</h2>
+            <p class="cv-profile">
+              {t("cv.profile.intro")}
+            </p>
+            <p class="cv-profile">
+              {t("cv.profile.experience")}
+            </p>
+          </section>
+        </div>
+
+        <aside class="cv-sidebar">
+          <div class="cv-sidebar-section">
+            <h3 class="cv-sidebar-title">{t("cv.sections.contacts")}</h3>
+            <div class="cv-contacts">
+              <a href="mailto:dragorww@gmail.com">{t("cv.contacts.email")}</a>
+              <a href="https://t.me/dragorww">{t("cv.contacts.telegram")}</a>
+              <a href="https://dragorww.github.io">{t("cv.contacts.website")}</a
+              >
+            </div>
           </div>
-        </header>
 
-        <section class="cv-section cv-profile-section">
-          <h2 class="cv-section-title">{t("cv.sections.profile")}</h2>
-          <p class="cv-profile">
-            {t("cv.profile.intro")}
-          </p>
-          <p class="cv-profile">
-            {t("cv.profile.experience")}
-          </p>
-        </section>
+          <div class="cv-sidebar-section">
+            <h3 class="cv-sidebar-title">{t("cv.sections.achievements")}</h3>
+            <ul class="cv-highlights">
+              <li>{t("hero.stats.experience")}</li>
+              <li>{t("hero.stats.delivery")}</li>
+              <li>{t("hero.stats.solutions")}</li>
+            </ul>
+          </div>
 
+          <div class="cv-sidebar-section">
+            <h3 class="cv-sidebar-title">{t("cv.sections.key_skills")}</h3>
+            <div class="cv-key-skills">
+              <div class="cv-skill-list">
+                <div class="cv-skill-category">
+                  <h4 class="cv-skill-category-title">
+                    {t("cv.skills.management")}
+                  </h4>
+                  <div class="cv-skill-items">
+                    <div class="cv-skill-item">
+                      <div class="cv-skill-name">
+                        {t("cv.skills.management.strategic_planning")}
+                      </div>
+                      <div class="cv-skill-bar">
+                        <div class="cv-skill-progress" style="width: 95%"></div>
+                      </div>
+                    </div>
+                    <div class="cv-skill-item">
+                      <div class="cv-skill-name">
+                        {t("cv.skills.management.team_management")}
+                      </div>
+                      <div class="cv-skill-bar">
+                        <div class="cv-skill-progress" style="width: 90%"></div>
+                      </div>
+                    </div>
+                    <div class="cv-skill-item">
+                      <div class="cv-skill-name">
+                        {t("cv.skills.management.process_optimization")}
+                      </div>
+                      <div class="cv-skill-bar">
+                        <div class="cv-skill-progress" style="width: 85%"></div>
+                      </div>
+                    </div>
+                    <div class="cv-skill-item">
+                      <div class="cv-skill-name">
+                        {t("cv.skills.management.budgeting")}
+                      </div>
+                      <div class="cv-skill-bar">
+                        <div class="cv-skill-progress" style="width: 80%"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="cv-skill-category">
+                  <h4 class="cv-skill-category-title">
+                    {t("cv.skills.development")}
+                  </h4>
+                  <div class="cv-skill-items">
+                    <div class="cv-skill-item">
+                      <div class="cv-skill-name">
+                        {t("cv.skills.development.architecture")}
+                      </div>
+                      <div class="cv-skill-bar">
+                        <div class="cv-skill-progress" style="width: 95%"></div>
+                      </div>
+                    </div>
+                    <div class="cv-skill-item">
+                      <div class="cv-skill-name">
+                        {t("cv.skills.development.frontend")}
+                      </div>
+                      <div class="cv-skill-bar">
+                        <div class="cv-skill-progress" style="width: 90%"></div>
+                      </div>
+                    </div>
+                    <div class="cv-skill-item">
+                      <div class="cv-skill-name">
+                        {t("cv.skills.development.devops")}
+                      </div>
+                      <div class="cv-skill-bar">
+                        <div class="cv-skill-progress" style="width: 85%"></div>
+                      </div>
+                    </div>
+                    <div class="cv-skill-item">
+                      <div class="cv-skill-name">
+                        {t("cv.skills.development.integration")}
+                      </div>
+                      <div class="cv-skill-bar">
+                        <div class="cv-skill-progress" style="width: 85%"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="cv-skill-category">
+                  <h4 class="cv-skill-category-title">
+                    {t("cv.skills.analytics")}
+                  </h4>
+                  <div class="cv-skill-items">
+                    <div class="cv-skill-item">
+                      <div class="cv-skill-name">
+                        {t("cv.skills.analytics.product")}
+                      </div>
+                      <div class="cv-skill-bar">
+                        <div class="cv-skill-progress" style="width: 90%"></div>
+                      </div>
+                    </div>
+                    <div class="cv-skill-item">
+                      <div class="cv-skill-name">
+                        {t("cv.skills.analytics.business")}
+                      </div>
+                      <div class="cv-skill-bar">
+                        <div class="cv-skill-progress" style="width: 90%"></div>
+                      </div>
+                    </div>
+                    <div class="cv-skill-item">
+                      <div class="cv-skill-name">
+                        {t("cv.skills.analytics.data_driven")}
+                      </div>
+                      <div class="cv-skill-bar">
+                        <div class="cv-skill-progress" style="width: 85%"></div>
+                      </div>
+                    </div>
+                    <div class="cv-skill-item">
+                      <div class="cv-skill-name">
+                        {t("cv.skills.analytics.metrics")}
+                      </div>
+                      <div class="cv-skill-bar">
+                        <div class="cv-skill-progress" style="width: 85%"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </aside>
+      </div>
+
+      <div class="cv-full-width-content">
         <section class="cv-section">
           <h2 class="cv-section-title">{t("cv.sections.experience")}</h2>
           {
@@ -209,151 +359,6 @@ const education = [
           }
         </section>
       </div>
-
-      <aside class="cv-sidebar">
-        <div class="cv-sidebar-section">
-          <h3 class="cv-sidebar-title">{t("cv.sections.contacts")}</h3>
-          <div class="cv-contacts">
-            <a href="mailto:dragorww@gmail.com">{t("cv.contacts.email")}</a>
-            <a href="https://t.me/dragorww">{t("cv.contacts.telegram")}</a>
-            <a href="https://dragorww.github.io">{t("cv.contacts.website")}</a>
-          </div>
-        </div>
-
-        <div class="cv-sidebar-section">
-          <h3 class="cv-sidebar-title">{t("cv.sections.achievements")}</h3>
-          <ul class="cv-highlights">
-            <li>{t("hero.stats.experience")}</li>
-            <li>{t("hero.stats.delivery")}</li>
-            <li>{t("hero.stats.solutions")}</li>
-          </ul>
-        </div>
-
-        <div class="cv-sidebar-section">
-          <h3 class="cv-sidebar-title">{t("cv.sections.key_skills")}</h3>
-          <div class="cv-key-skills">
-            <div class="cv-skill-list">
-              <div class="cv-skill-category">
-                <h4 class="cv-skill-category-title">
-                  {t("cv.skills.management")}
-                </h4>
-                <div class="cv-skill-items">
-                  <div class="cv-skill-item">
-                    <div class="cv-skill-name">
-                      {t("cv.skills.management.strategic_planning")}
-                    </div>
-                    <div class="cv-skill-bar">
-                      <div class="cv-skill-progress" style="width: 95%"></div>
-                    </div>
-                  </div>
-                  <div class="cv-skill-item">
-                    <div class="cv-skill-name">
-                      {t("cv.skills.management.team_management")}
-                    </div>
-                    <div class="cv-skill-bar">
-                      <div class="cv-skill-progress" style="width: 90%"></div>
-                    </div>
-                  </div>
-                  <div class="cv-skill-item">
-                    <div class="cv-skill-name">
-                      {t("cv.skills.management.process_optimization")}
-                    </div>
-                    <div class="cv-skill-bar">
-                      <div class="cv-skill-progress" style="width: 85%"></div>
-                    </div>
-                  </div>
-                  <div class="cv-skill-item">
-                    <div class="cv-skill-name">
-                      {t("cv.skills.management.budgeting")}
-                    </div>
-                    <div class="cv-skill-bar">
-                      <div class="cv-skill-progress" style="width: 80%"></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="cv-skill-category">
-                <h4 class="cv-skill-category-title">
-                  {t("cv.skills.development")}
-                </h4>
-                <div class="cv-skill-items">
-                  <div class="cv-skill-item">
-                    <div class="cv-skill-name">
-                      {t("cv.skills.development.architecture")}
-                    </div>
-                    <div class="cv-skill-bar">
-                      <div class="cv-skill-progress" style="width: 95%"></div>
-                    </div>
-                  </div>
-                  <div class="cv-skill-item">
-                    <div class="cv-skill-name">
-                      {t("cv.skills.development.frontend")}
-                    </div>
-                    <div class="cv-skill-bar">
-                      <div class="cv-skill-progress" style="width: 90%"></div>
-                    </div>
-                  </div>
-                  <div class="cv-skill-item">
-                    <div class="cv-skill-name">
-                      {t("cv.skills.development.devops")}
-                    </div>
-                    <div class="cv-skill-bar">
-                      <div class="cv-skill-progress" style="width: 85%"></div>
-                    </div>
-                  </div>
-                  <div class="cv-skill-item">
-                    <div class="cv-skill-name">
-                      {t("cv.skills.development.integration")}
-                    </div>
-                    <div class="cv-skill-bar">
-                      <div class="cv-skill-progress" style="width: 85%"></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="cv-skill-category">
-                <h4 class="cv-skill-category-title">
-                  {t("cv.skills.analytics")}
-                </h4>
-                <div class="cv-skill-items">
-                  <div class="cv-skill-item">
-                    <div class="cv-skill-name">
-                      {t("cv.skills.analytics.product")}
-                    </div>
-                    <div class="cv-skill-bar">
-                      <div class="cv-skill-progress" style="width: 90%"></div>
-                    </div>
-                  </div>
-                  <div class="cv-skill-item">
-                    <div class="cv-skill-name">
-                      {t("cv.skills.analytics.business")}
-                    </div>
-                    <div class="cv-skill-bar">
-                      <div class="cv-skill-progress" style="width: 90%"></div>
-                    </div>
-                  </div>
-                  <div class="cv-skill-item">
-                    <div class="cv-skill-name">
-                      {t("cv.skills.analytics.data_driven")}
-                    </div>
-                    <div class="cv-skill-bar">
-                      <div class="cv-skill-progress" style="width: 85%"></div>
-                    </div>
-                  </div>
-                  <div class="cv-skill-item">
-                    <div class="cv-skill-name">
-                      {t("cv.skills.analytics.metrics")}
-                    </div>
-                    <div class="cv-skill-bar">
-                      <div class="cv-skill-progress" style="width: 85%"></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </aside>
     </main>
 
     <style>
@@ -380,16 +385,26 @@ const education = [
 
       /* Container */
       .cv-container {
-        display: grid;
-        grid-template-columns: 1fr 180px;
+        display: flex;
+        flex-direction: column;
         gap: 2rem;
         padding: 20mm 15mm;
         background: var(--card-bg);
       }
 
+      .cv-top-section {
+        display: grid;
+        grid-template-columns: 1fr 180px;
+        gap: 2rem;
+      }
+
       .cv-main-content {
         border-right: 1px solid var(--border-color);
         padding-right: 1.5rem;
+      }
+
+      .cv-full-width-content {
+        width: 100%;
       }
 
       .cv-sidebar {
