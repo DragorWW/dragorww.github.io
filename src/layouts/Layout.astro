@@ -1,6 +1,8 @@
 ---
 import SEO from "../components/SEO.astro";
 import { useTranslations } from "../utils/i18n";
+import MatrixBackground from "../components/MatrixBackground.astro";
+import Container from "../components/Container.astro";
 
 interface Props {
   title: string;
@@ -40,9 +42,10 @@ const { lang } = useTranslations(Astro);
     />
   </head>
   <body>
-    <main>
+    <Container>
+      <MatrixBackground />
       <slot />
-    </main>
+    </Container>
   </body>
 </html>
 <style is:global is:inline>

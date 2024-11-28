@@ -1,0 +1,89 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import CoverPreview from "../../components/CoverGenerator/CoverPreview.astro";
+import CoverForm from "../../components/CoverGenerator/CoverForm.astro";
+import TechnicalPreview from "../../components/CoverGenerator/TechnicalPreview.astro";
+import Header from "../../components/Header.astro";
+import { LANGUAGES } from "../../constants/languages";
+
+const title = "Генератор обложек";
+const description = "Создавайте красивые обложки для социальных сетей";
+const keywords = "cover generator, social media, обложки, генератор";
+
+export function getStaticPaths() {
+  return [
+    { params: { lang: LANGUAGES.RU } },
+    { params: { lang: LANGUAGES.EN } },
+  ];
+}
+---
+
+<Layout title={title} description={description} keywords={keywords}>
+  <Header activeHash="cover generator" />
+  <main class="cover-generator">
+    <div class="generator-container">
+      <CoverForm />
+      <CoverPreview />
+      <TechnicalPreview
+        defaultTitle={"Заголовок обложки"}
+        defaultDescription={"Описание обложки"}
+      />
+    </div>
+  </main>
+</Layout>
+
+<style>
+  .header {
+    padding: 1rem 2rem;
+    border-bottom: 1px solid var(--border-color);
+    background: var(--card-bg);
+  }
+
+  .header-content {
+    max-width: var(--container-max-width);
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .header-logo {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .header-title {
+    font-size: 1.5rem;
+    color: var(--text-primary);
+    font-weight: 500;
+  }
+
+  .cover-generator {
+    padding: 2rem;
+    max-width: var(--container-max-width);
+    margin: 0 auto;
+  }
+
+  .generator-container {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 2rem;
+    align-items: start;
+  }
+
+  @media (max-width: 1024px) {
+    .generator-container {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .header {
+      padding: 1rem;
+    }
+
+    .cover-generator {
+      padding: 1rem;
+    }
+  }
+</style>

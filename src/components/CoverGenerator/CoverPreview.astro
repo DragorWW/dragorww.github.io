@@ -1,0 +1,233 @@
+<div class="preview-container">
+  <div class="preview-image-container">
+    <div class="preview-loader" id="previewLoader">
+      <div class="loader-spinner"></div>
+    </div>
+    <img id="previewImage" class="preview-image" alt="Preview" />
+    <div class="preview-info">
+      <span class="format-info">PNG • 1200×630px</span>
+      <button id="downloadBtn" class="download-btn">
+        <svg
+          class="download-icon"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+          <polyline points="7 10 12 15 17 10"></polyline>
+          <line x1="12" y1="15" x2="12" y2="3"></line>
+        </svg>
+        Скачать обложку
+      </button>
+    </div>
+  </div>
+</div>
+
+<style>
+  /* Оставляем только стили для preview-container и связанных с ним элементов */
+  .preview-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    overflow: visible;
+  }
+
+  .preview-image-container {
+    width: 100%;
+    aspect-ratio: 1200/630;
+    position: relative;
+    border-radius: 12px;
+    overflow: visible;
+    border: 1px solid var(--accent-color);
+    background: var(--bg-color);
+    margin-bottom: 1rem;
+  }
+
+  .preview-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+    background: var(--bg-color);
+    border-radius: 12px;
+  }
+
+  .preview-info {
+    position: relative;
+    width: 100%;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 0.5rem;
+    gap: 1rem;
+  }
+
+  .format-info {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    font-family: "Fira Code", monospace;
+    white-space: nowrap;
+  }
+
+  .preview-loader {
+    position: absolute;
+    inset: 0;
+    background: rgba(var(--bg-color-rgb), 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+  }
+
+  .preview-loader.loading {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .loader-spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid var(--accent-color);
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  .download-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: var(--card-bg);
+    color: var(--text-primary);
+    padding: 0.75rem 1.5rem;
+    border: 1px solid var(--accent-color);
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 0.9rem;
+    transition: all 0.2s;
+    font-family: inherit;
+    position: relative;
+    z-index: 20;
+  }
+
+  .download-btn:hover {
+    background: var(--accent-color);
+    color: var(--text-primary);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(var(--accent-color-rgb), 0.15);
+  }
+
+  .download-btn:active {
+    transform: translateY(0);
+  }
+
+  .download-icon {
+    width: 18px;
+    height: 18px;
+    stroke: currentColor;
+    transition: transform 0.2s;
+  }
+
+  .download-btn:hover .download-icon {
+    transform: translateY(2px);
+  }
+</style>
+
+<script>
+  import html2canvas from "html2canvas";
+
+  const sourceContainer = document.getElementById("sourceContainer");
+  const previewImage = document.getElementById(
+    "previewImage",
+  ) as HTMLImageElement;
+  const downloadBtn = document.getElementById("downloadBtn");
+  const loader = document.getElementById("previewLoader");
+  let currentDataUrl: string | null = null;
+
+  // Добавляем функцию debounce
+  const debounce = <T extends (...args: any[]) => void>(
+    fn: T,
+    delay: number,
+  ) => {
+    let timeoutId: ReturnType<typeof setTimeout>;
+
+    return (...args: Parameters<T>) => {
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
+
+      timeoutId = setTimeout(() => {
+        fn(...args);
+      }, delay);
+    };
+  };
+
+  const renderPreview = async () => {
+    if (!sourceContainer || !previewImage) return;
+
+    try {
+      loader?.classList.add("loading");
+
+      const canvas = await html2canvas(
+        sourceContainer.querySelector(".cover-preview")!,
+        {
+          width: 1200,
+          height: 630,
+          scale: 2,
+          useCORS: true,
+          allowTaint: true,
+          backgroundColor: getComputedStyle(document.documentElement)
+            .getPropertyValue("--bg-color")
+            .trim(),
+        },
+      );
+
+      currentDataUrl = canvas.toDataURL("image/png", 1.0);
+      previewImage.src = currentDataUrl;
+    } catch (error) {
+      console.error("Ошибка при создании превью:", error);
+    } finally {
+      loader?.classList.remove("loading");
+    }
+  };
+
+  // Создаем дебаунсированную версию renderPreview
+  const debouncedRenderPreview = debounce(renderPreview, 500);
+
+  // Обновляем обработчик события
+  document.addEventListener("preview-update", ((e: CustomEvent) => {
+    const titleEl = document.getElementById("coverTitle");
+    const descEl = document.getElementById("coverDescription");
+
+    if (titleEl) titleEl.textContent = e.detail.title || "Заголовок обложки";
+    if (descEl) descEl.textContent = e.detail.description || "Описание обложки";
+
+    // Используем дебаунсированную версию
+    debouncedRenderPreview();
+  }) as EventListener);
+
+  // Инициализируем превью после полной загрузки страницы
+  window.addEventListener("load", renderPreview);
+
+  // Обработчик скачивания
+  downloadBtn?.addEventListener("click", () => {
+    if (!currentDataUrl) return;
+    const link = document.createElement("a");
+    link.download = "cover.png";
+    link.href = currentDataUrl;
+    link.click();
+  });
+</script>

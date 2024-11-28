@@ -20,6 +20,10 @@ export const translations: Translations = {
     ru: "Мой опыт",
     en: "Experience",
   },
+  "nav.cover-generator": {
+    ru: "Генератор обложек",
+    en: "Cover Generator",
+  },
   "nav.contacts": {
     ru: "Контакты",
     en: "Contacts",
