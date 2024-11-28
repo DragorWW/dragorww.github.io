@@ -4,13 +4,27 @@ import { useTranslations } from "../utils/i18n";
 import { LANGUAGES } from "../constants/languages";
 import { URLS } from "../constants/urls";
 
+interface Props {
+  activeHash?: string;
+}
+
+const { activeHash = "" } = Astro.props;
 const { t, lang } = useTranslations(Astro);
 ---
 
 <header class="header">
   <div class="container">
     <div class="header__content">
-      <HeaderLogo />
+      <div class="header__logo-container">
+        <a href="/" class="header__logo-link">
+          <HeaderLogo />
+        </a>
+        {
+          activeHash && (
+            <div class="header__hashtag">#{activeHash.replace(" ", "_")}</div>
+          )
+        }
+      </div>
       <div class="header__right">
         <nav class="header__nav">
           <a href="#home" class="header__nav-link header__nav-link--active">
@@ -217,6 +231,11 @@ const { t, lang } = useTranslations(Astro);
     align-items: center;
   }
 
+  .header__logo-link {
+    text-decoration: none;
+    color: currentColor;
+  }
+
   /* Стили для правой части */
   .header__right {
     display: flex;
@@ -418,5 +437,35 @@ const { t, lang } = useTranslations(Astro);
   .header__lang-btn:focus {
     outline: none;
     box-shadow: 0 0 0 2px rgba(226, 192, 141, 0.2);
+  }
+
+  /* Добавляем стили для хэш-тега */
+  .header__hashtag {
+    opacity: 0.5;
+    font-size: 1.4em;
+    color: var(--accent-color);
+    font-family: var(--font-mono);
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    color: var(--text-tertiary);
+    transition: all 0.2s ease;
+    align-self: flex-end;
+  }
+
+  /* Изменяем стили контейнера логотипа */
+  .header__logo-container {
+    display: flex;
+    align-items: center;
+    position: relative;
+  }
+
+  .header__logo-container:hover .header__hashtag {
+    color: var(--text-secondary);
+  }
+
+  @media screen and (max-width: 768px) {
+    .header__hashtag {
+      display: none;
+    }
   }
 </style>
