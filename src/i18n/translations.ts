@@ -8,6 +8,10 @@ type Translations = {
 };
 
 export const translations: Translations = {
+  "cv.download": {
+    ru: "Скачать PDF",
+    en: "Download PDF",
+  },
   "me.name": {
     ru: "Сергей Андреев",
     en: "Sergey Andreev",

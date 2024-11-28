@@ -1,6 +1,8 @@
 ---
 import { useTranslations } from "../../utils/i18n";
 import { LANGUAGES } from "../../constants/languages";
+import { Image } from "astro:assets";
+import profileImage from "../../assets/profile.jpg";
 
 export function getStaticPaths() {
   return [
@@ -138,7 +140,10 @@ const education = [
   </head>
   <body>
     <div class="cv-download-btn">
-      <a href={`/cv-${lang}.pdf`} download>
+      <a
+        href={`/${lang}/CV_Andreev-Sergey_CTO-Head-of-enginering.pdf`}
+        download
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"
@@ -154,7 +159,7 @@ const education = [
           <polyline points="7 10 12 15 17 10"></polyline>
           <line x1="12" y1="15" x2="12" y2="3"></line>
         </svg>
-        <span>Download PDF</span>
+        <span>{t("cv.download")}</span>
       </a>
     </div>
 
@@ -163,14 +168,21 @@ const education = [
         <div class="cv-main-content">
           <header class="cv-header">
             <div class="cv-header-content">
-              <h1 class="cv-name">{t("me.name")}</h1>
-              <div class="cv-roles">
-                <h2 class="cv-role-primary">
-                  <strong>C</strong>hief<br />
-                  <strong>T</strong>echnical<br />
-                  <strong>O</strong>fficer
-                </h2>
-                <h2 class="cv-role-secondary">Head of Engineering</h2>
+              <div class="cv-header-main">
+                <div class="cv-photo">
+                  <Image src={profileImage} alt={t("me.name")} />
+                </div>
+                <div class="cv-titles">
+                  <h1 class="cv-name">{t("me.name")}</h1>
+                  <div class="cv-roles">
+                    <h2 class="cv-role-primary">
+                      <strong>C</strong>hief<br />
+                      <strong>T</strong>echnical<br />
+                      <strong>O</strong>fficer
+                    </h2>
+                    <h2 class="cv-role-secondary">Head of Engineering</h2>
+                  </div>
+                </div>
               </div>
             </div>
           </header>
@@ -980,7 +992,9 @@ const education = [
           border-radius: 2px;
         }
       }
-
+      .cv-download-btn {
+        display: none;
+      }
       /* Стили для кнопки скачивания */
       @media screen {
         .cv-download-btn {
@@ -1045,6 +1059,108 @@ const education = [
           .cv-download-btn a {
             padding: 0.5rem;
           }
+        }
+      }
+
+      /* Обновляем стили для шапки */
+      .cv-header {
+        margin-bottom: 3rem;
+        position: relative;
+      }
+
+      .cv-header-main {
+        display: flex;
+        gap: 2.5rem;
+        align-items: flex-start;
+      }
+
+      .cv-photo {
+        flex-shrink: 0;
+        width: 180px;
+        height: 180px;
+        border-radius: 4px;
+        overflow: hidden;
+        position: relative;
+        box-shadow: 0 4px 12px rgba(var(--accent-color-rgb), 0.15);
+      }
+
+      .cv-photo::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border: 2px solid var(--accent-color);
+        border-radius: 4px;
+        opacity: 0.5;
+      }
+
+      .cv-photo img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+
+      .cv-titles {
+        flex-grow: 1;
+      }
+
+      .cv-name {
+        font-size: 3.5rem;
+        font-weight: 700;
+        margin: 0 0 1.5rem;
+        line-height: 1;
+        color: var(--heading-color);
+        letter-spacing: -0.02em;
+        text-transform: uppercase;
+        position: relative;
+      }
+
+      /* Добавляем декоративный элемент под именем */
+      .cv-name::after {
+        content: "";
+        position: absolute;
+        bottom: -0.5rem;
+        left: 0;
+        width: 3rem;
+        height: 3px;
+        background: var(--accent-color);
+        border-radius: 2px;
+      }
+
+      .cv-roles {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+      }
+
+      .cv-role-primary {
+        font-size: 2rem;
+        font-weight: 500;
+        line-height: 1.1;
+        color: var(--heading-color);
+        margin: 0;
+        text-transform: uppercase;
+      }
+
+      .cv-role-primary strong {
+        font-weight: 700;
+        color: var(--accent-color);
+      }
+
+      .cv-role-secondary {
+        font-size: 1.5rem;
+        color: var(--accent-color);
+        font-weight: 500;
+        margin: 0;
+        text-transform: uppercase;
+        opacity: 0.9;
+      }
+
+      /* Обновляем стили для печати */
+      @media print {
+        .cv-photo {
+          print-color-adjust: exact;
+          -webkit-print-color-adjust: exact;
         }
       }
     </style>
