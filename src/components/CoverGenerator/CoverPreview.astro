@@ -446,19 +446,36 @@ const defaultDescription = "Описание обложки";
   const loader = document.getElementById("previewLoader");
   let currentDataUrl: string | null = null;
 
+  // Добавляем функцию debounce
+  const debounce = <T extends (...args: any[]) => void>(
+    fn: T,
+    delay: number,
+  ) => {
+    let timeoutId: ReturnType<typeof setTimeout>;
+
+    return (...args: Parameters<T>) => {
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
+
+      timeoutId = setTimeout(() => {
+        fn(...args);
+      }, delay);
+    };
+  };
+
   const renderPreview = async () => {
     if (!sourceContainer || !previewImage) return;
 
     try {
       loader?.classList.add("loading");
 
-      // Рендерим напрямую из source контейнера
       const canvas = await html2canvas(
         sourceContainer.querySelector(".cover-preview")!,
         {
           width: 1200,
           height: 630,
-          scale: 2, // Используем scale: 2 для лучшего качества
+          scale: 2,
           useCORS: true,
           allowTaint: true,
           backgroundColor: getComputedStyle(document.documentElement)
@@ -467,10 +484,7 @@ const defaultDescription = "Описание обложки";
         },
       );
 
-      // Сохраняем data URL
       currentDataUrl = canvas.toDataURL("image/png", 1.0);
-
-      // Обновляем превью
       previewImage.src = currentDataUrl;
     } catch (error) {
       console.error("Ошибка при создании превью:", error);
@@ -479,7 +493,10 @@ const defaultDescription = "Описание обложки";
     }
   };
 
-  // Слушаем событие обновления от формы
+  // Создаем дебаунсированную версию renderPreview
+  const debouncedRenderPreview = debounce(renderPreview, 500);
+
+  // Обновляем обработчик события
   document.addEventListener("preview-update", ((e: CustomEvent) => {
     const titleEl = document.getElementById("coverTitle");
     const descEl = document.getElementById("coverDescription");
@@ -487,15 +504,12 @@ const defaultDescription = "Описание обложки";
     if (titleEl) titleEl.textContent = e.detail.title || "Заголовок обложки";
     if (descEl) descEl.textContent = e.detail.description || "Описание обложки";
 
-    requestAnimationFrame(() => {
-      setTimeout(renderPreview, 100);
-    });
+    // Используем дебаунсированную версию
+    debouncedRenderPreview();
   }) as EventListener);
 
   // Инициализируем превью после полной загрузки страницы
-  window.addEventListener("load", () => {
-    setTimeout(renderPreview, 500);
-  });
+  window.addEventListener("load", renderPreview);
 
   // Обработчик скачивания
   downloadBtn?.addEventListener("click", () => {
