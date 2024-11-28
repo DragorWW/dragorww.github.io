@@ -2,6 +2,7 @@
 import { Image } from "astro:assets";
 import profileImage from "../../assets/profile.jpg";
 import HeaderLogo from "../HeaderLogo.astro";
+import MatrixBackground from "../MatrixBackground.astro";
 
 interface Props {
   defaultTitle: string;
@@ -13,6 +14,7 @@ const { defaultTitle, defaultDescription } = Astro.props;
 
 <div class="technical-preview" id="sourceContainer">
   <div class="cover-preview">
+    <MatrixBackground static={true} startDelay={0} />
     <!-- Основной контент -->
     <div class="content">
       <!-- Основная часть с фото и информацией -->
@@ -69,7 +71,6 @@ const { defaultTitle, defaultDescription } = Astro.props;
   /* Обновляем стили для технической верстки */
   .technical-preview {
     position: relative;
-    background: var(--bg-color);
     width: 1200px;
     margin-left: auto;
     margin-right: auto;
@@ -89,12 +90,13 @@ const { defaultTitle, defaultDescription } = Astro.props;
   .cover-preview {
     width: 1200px;
     height: 630px;
-    background: var(--bg-color);
     border: 1px solid var(--accent-color);
+    background: var(--card-bg);
     border-radius: 12px;
     position: relative;
     overflow: hidden;
     padding: 2.5rem;
+    position: relative;
   }
 
   /* Обновляем структуру контента */
@@ -104,6 +106,8 @@ const { defaultTitle, defaultDescription } = Astro.props;
     flex-direction: column;
     justify-content: space-between;
     gap: 2rem;
+    z-index: 1;
+    position: relative;
   }
 
   .profile-info {
@@ -196,7 +200,6 @@ const { defaultTitle, defaultDescription } = Astro.props;
       linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
     mask-composite: exclude;
-    animation: shine 3s linear infinite;
   }
 
   .avatar {

@@ -10,6 +10,11 @@ interface Props {
 
 const { activeHash = "" } = Astro.props;
 const { t, lang } = useTranslations(Astro);
+
+const menuItems = [
+  { href: `#experience`, text: t("nav.experience") },
+  { href: `/${lang}/cover-generator`, text: t("nav.cover-generator") },
+];
 ---
 
 <header class="header">
@@ -27,15 +32,23 @@ const { t, lang } = useTranslations(Astro);
       </div>
       <div class="header__right">
         <nav class="header__nav">
-          <a href="#home" class="header__nav-link header__nav-link--active">
-            {t("nav.home")}
-          </a>
-          <a href="#experience" class="header__nav-link">
-            {t("nav.experience")}
-          </a>
-          <a href="#contacts" class="header__nav-link">
-            {t("nav.contacts")}
-          </a>
+          <ul class="header__menu">
+            {
+              menuItems.map(({ href, text }) => (
+                <li class="header__menu-item">
+                  <a
+                    href={href}
+                    class="header__menu-link"
+                    aria-current={
+                      Astro.url.pathname === href ? "page" : undefined
+                    }
+                  >
+                    {text}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
         </nav>
         <div class="header__social">
           <a
@@ -89,11 +102,10 @@ const { t, lang } = useTranslations(Astro);
         </div>
         <div class="header__lang-switcher">
           <a
-            href={`/${lang === LANGUAGES.RU ? LANGUAGES.EN : LANGUAGES.RU}`}
+            href="#"
             class="header__lang-btn"
             aria-label={t("aria.switchLang")}
             data-lang={lang === LANGUAGES.RU ? LANGUAGES.EN : LANGUAGES.RU}
-            onclick="localStorage.setItem('lang', this.dataset.lang)"
           >
             <span class="header__current-lang">
               {
@@ -154,25 +166,21 @@ const { t, lang } = useTranslations(Astro);
 
   type Theme = (typeof THEMES)[keyof typeof THEMES];
 
-  function getTheme(theme: string): Theme {
-    if (theme in THEMES) {
-      return theme as Theme;
+  function getTheme(theme: string | null): Theme {
+    if (theme === THEMES.LIGHT || theme === THEMES.DARK) {
+      return theme;
     }
     return THEMES.DARK;
   }
 
   (() => {
     function updateFavicon(theme: Theme) {
-      // Find all icons
       const favicons = document.querySelectorAll('link[rel="icon"]');
-
-      // Hide all icons
       favicons.forEach((icon) => {
         icon.setAttribute("media", "none");
         icon.setAttribute("rel", "icon");
       });
 
-      // Show active icon
       const activeIcon = document.querySelector(
         `link[rel="icon"][data-theme="${theme}"]`,
       );
@@ -182,31 +190,57 @@ const { t, lang } = useTranslations(Astro);
     }
 
     function toggleTheme() {
-      const currentTheme: Theme = getTheme(
-        document.documentElement.getAttribute("data-theme"),
-      );
-      const newTheme: Theme =
+      const html = document.documentElement;
+      const currentTheme = getTheme(html.getAttribute("data-theme"));
+      const newTheme =
         currentTheme === THEMES.LIGHT ? THEMES.DARK : THEMES.LIGHT;
 
-      document.documentElement.setAttribute("data-theme", newTheme);
+      html.setAttribute("data-theme", newTheme);
       localStorage.setItem("theme", newTheme);
-
-      // Обновляем favicon используя существующие теги
       updateFavicon(newTheme);
     }
 
     function initTheme() {
-      const savedTheme: Theme = getTheme(localStorage.getItem("theme"));
+      const savedTheme = getTheme(localStorage.getItem("theme"));
       document.documentElement.setAttribute("data-theme", savedTheme);
       updateFavicon(savedTheme);
     }
 
-    document.addEventListener("DOMContentLoaded", () => {
+    // Инициализируем тему при загрузке
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", initTheme);
+    } else {
       initTheme();
-    });
+    }
 
     window.toggleTheme = toggleTheme;
   })();
+
+  function switchLanguage(event: Event) {
+    const link = event.currentTarget as HTMLAnchorElement;
+    const newLang = link.dataset.lang;
+    if (!newLang) return;
+
+    // Сохраняем выбранный язык
+    localStorage.setItem("lang", newLang);
+
+    // Получаем текущий путь
+    const currentPath = window.location.pathname;
+
+    // Заменяем язык в пути
+    const newPath = currentPath.replace(/\/(ru|en)\//, `/${newLang}/`);
+
+    // Если путь не изменился (возможно мы на главной), просто добавляем язык
+    const finalPath = newPath === currentPath ? `/${newLang}/` : newPath;
+
+    // Переходим по новому пути
+    window.location.href = finalPath;
+  }
+
+  // Добавляем обработчик на все переключатели языка
+  document.querySelectorAll(".header__lang-btn").forEach((btn) => {
+    btn.addEventListener("click", switchLanguage);
+  });
 </script>
 
 <style>
@@ -254,7 +288,19 @@ const { t, lang } = useTranslations(Astro);
     }
   }
 
-  .header__nav-link {
+  .header__menu {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .header__menu-item {
+    margin: 0;
+  }
+
+  .header__menu-link {
     color: var(--text-primary);
     text-decoration: none;
     font-size: 0.875rem;
@@ -264,8 +310,8 @@ const { t, lang } = useTranslations(Astro);
     opacity: 0.8;
   }
 
-  .header__nav-link:hover,
-  .header__nav-link--active {
+  .header__menu-link:hover,
+  .header__menu-link[aria-current="page"] {
     color: var(--accent-color);
     border-bottom-color: var(--accent-color);
     opacity: 1;

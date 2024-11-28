@@ -1,13 +1,21 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import CoverPreview from "../components/CoverGenerator/CoverPreview.astro";
-import CoverForm from "../components/CoverGenerator/CoverForm.astro";
-import TechnicalPreview from "../components/CoverGenerator/TechnicalPreview.astro";
-import Header from "../components/Header.astro";
+import Layout from "../../layouts/Layout.astro";
+import CoverPreview from "../../components/CoverGenerator/CoverPreview.astro";
+import CoverForm from "../../components/CoverGenerator/CoverForm.astro";
+import TechnicalPreview from "../../components/CoverGenerator/TechnicalPreview.astro";
+import Header from "../../components/Header.astro";
+import { LANGUAGES } from "../../constants/languages";
 
 const title = "Генератор обложек";
 const description = "Создавайте красивые обложки для социальных сетей";
 const keywords = "cover generator, social media, обложки, генератор";
+
+export function getStaticPaths() {
+  return [
+    { params: { lang: LANGUAGES.RU } },
+    { params: { lang: LANGUAGES.EN } },
+  ];
+}
 ---
 
 <Layout title={title} description={description} keywords={keywords}>
