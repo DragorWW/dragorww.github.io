@@ -39,9 +39,15 @@ const defaultDescription = "Описание обложки";
     <div class="content">
       <!-- Основная часть с фото и информацией -->
       <div class="profile-info">
-        <div class="photo-wrapper">
-          <div class="photo-border"></div>
-          <Image src={profileImage} alt="Avatar" class="avatar" />
+        <div class="photo-section">
+          <div class="photo-wrapper">
+            <div class="photo-border"></div>
+            <Image src={profileImage} alt="Avatar" class="avatar" />
+          </div>
+          <div class="author-info">
+            <div class="author-name">Sergey Andreev</div>
+            <div class="author-role">Head of Engineering</div>
+          </div>
         </div>
         <div class="info">
           <div class="title-section">
@@ -55,14 +61,8 @@ const defaultDescription = "Описание обложки";
 
       <!-- Нижняя часть с логотипом и соц. сетями -->
       <div class="bottom-section">
-        <div class="logo-section">
-          <div class="logo-wrapper">
-            <HeaderLogo />
-          </div>
-          <div class="author-info">
-            <div class="author-name">Sergey Andreev</div>
-            <div class="author-role">Head of Engineering</div>
-          </div>
+        <div class="logo-wrapper">
+          <HeaderLogo />
         </div>
         <div class="social-links">
           <span class="social-link">
@@ -191,15 +191,9 @@ const defaultDescription = "Описание обложки";
   .bottom-section {
     display: flex;
     justify-content: space-between;
-    align-items: flex-end;
+    align-items: center;
     width: 100%;
     padding: 0 1rem;
-  }
-
-  .logo-section {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
   }
 
   .logo-wrapper {
@@ -207,20 +201,18 @@ const defaultDescription = "Описание обложки";
   }
 
   .author-info {
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
-    padding-left: 0.5rem;
+    text-align: center;
   }
 
   .author-name {
-    font-size: 1.4rem;
+    font-size: 1.6rem;
     color: var(--text-primary);
     font-weight: 500;
+    margin-bottom: 0.25rem;
   }
 
   .author-role {
-    font-size: 1rem;
+    font-size: 1.1rem;
     color: var(--accent-color);
   }
 
@@ -438,6 +430,14 @@ const defaultDescription = "Описание обложки";
     color: var(--text-secondary);
     margin-bottom: 2rem;
     word-wrap: break-word;
+  }
+
+  /* Обновляем стили для фото и информации об авторе */
+  .photo-section {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    align-items: center;
   }
 </style>
 
