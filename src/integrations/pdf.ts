@@ -7,7 +7,7 @@ import puppeteer, {
   type WaitForOptions,
   type PaperFormat,
 } from "puppeteer";
-import { bold, cyan, dim, green, red, gray, bgGreen, blue } from "kleur/colors";
+import { bold, dim, green, red, gray, bgGreen, blue } from "kleur/colors";
 import { performance } from "perf_hooks";
 
 // Константы
@@ -38,6 +38,9 @@ const PAGE_NAVIGATION_OPTIONS: WaitForOptions = {
   timeout: 30000,
 };
 
+const MAX_RETRIES = 3;
+const RETRY_DELAY = 1000; // 1 секунда
+
 // Интерфейсы
 interface GeneratePDFOptions {
   url: string;
@@ -49,17 +52,37 @@ interface GeneratePDFOptions {
 // Синглтон для браузера
 let browserInstance: Browser | null = null;
 
-async function getBrowser(): Promise<Browser> {
-  if (!browserInstance) {
-    browserInstance = await puppeteer.launch(BROWSER_CONFIG);
-  }
-  return browserInstance;
-}
+async function getBrowserWithRetry(retries = MAX_RETRIES): Promise<Browser> {
+  try {
+    if (!browserInstance || !browserInstance.connected) {
+      if (browserInstance) {
+        try {
+          await browserInstance.close();
+        } catch (e) {
+          console.warn("Failed to close existing browser instance:", e);
+        }
+        browserInstance = null;
+      }
 
-async function closeBrowser(): Promise<void> {
-  if (browserInstance) {
-    await browserInstance.close();
-    browserInstance = null;
+      browserInstance = await puppeteer.launch({
+        ...BROWSER_CONFIG,
+        args: [
+          "--no-sandbox",
+          "--disable-setuid-sandbox",
+          "--disable-dev-shm-usage",
+        ],
+      });
+    }
+    return browserInstance;
+  } catch (error) {
+    if (retries > 0) {
+      console.warn(
+        `Browser launch failed, retrying... (${retries} attempts left)`,
+      );
+      await new Promise((resolve) => setTimeout(resolve, RETRY_DELAY));
+      return getBrowserWithRetry(retries - 1);
+    }
+    throw error;
   }
 }
 
@@ -70,30 +93,55 @@ export async function generatePDF({
   margin = DEFAULT_PDF_OPTIONS.margin,
   outputPath,
 }: GeneratePDFOptions): Promise<Buffer> {
-  const browser = await getBrowser();
-  const page = await browser.newPage();
+  let page = null;
+  let retries = MAX_RETRIES;
 
-  try {
-    await page.setViewport(VIEWPORT_CONFIG);
-    await page.goto(url, PAGE_NAVIGATION_OPTIONS);
+  while (retries > 0) {
+    try {
+      const browser = await getBrowserWithRetry();
+      page = await browser.newPage();
 
-    const pdfOptions: PuppeteerPDFOptions = {
-      ...DEFAULT_PDF_OPTIONS,
-      format,
-      margin,
-    };
+      await page.setViewport(VIEWPORT_CONFIG);
+      await page.goto(url, PAGE_NAVIGATION_OPTIONS);
 
-    const pdf = await page.pdf(pdfOptions);
+      // Ждем загрузки шрифтов
+      await page.evaluateHandle("document.fonts.ready");
 
-    if (outputPath) {
-      await fs.mkdir(path.dirname(outputPath), { recursive: true });
-      await fs.writeFile(outputPath, pdf);
+      const pdfOptions: PuppeteerPDFOptions = {
+        ...DEFAULT_PDF_OPTIONS,
+        format,
+        margin,
+      };
+
+      const pdf = await page.pdf(pdfOptions);
+
+      if (outputPath) {
+        await fs.mkdir(path.dirname(outputPath), { recursive: true });
+        await fs.writeFile(outputPath, pdf);
+      }
+
+      return Buffer.from(pdf);
+    } catch (error) {
+      retries--;
+      console.error(`PDF generation failed, ${retries} retries left:`, error);
+
+      if (page) {
+        try {
+          await page.close();
+        } catch (e) {
+          console.warn("Failed to close page:", e);
+        }
+      }
+
+      if (retries <= 0) {
+        throw error;
+      }
+
+      await new Promise((resolve) => setTimeout(resolve, RETRY_DELAY));
     }
-
-    return Buffer.from(pdf);
-  } finally {
-    await page.close();
   }
+
+  throw new Error("Failed to generate PDF after all retries");
 }
 
 // Middleware для обработки PDF запросов
@@ -143,7 +191,7 @@ async function generatePDFsAtBuild(urls: string[], dir: URL) {
       const pdfPath = path.join(dir.pathname, `${url}.pdf`);
 
       try {
-        console.log(`${getFormattedTime()}${green(" ▶ ")}src/pages/${url}`);
+        console.log(`${getFormattedTime()}${green(" ▶ ")}src/pages${url}`);
         await fs.access(htmlPath);
         await generatePDF({
           url: `file://${htmlPath}`,
@@ -153,7 +201,7 @@ async function generatePDFsAtBuild(urls: string[], dir: URL) {
         const duration = Math.round(performance.now() - startUrlTime);
 
         console.log(
-          `${getFormattedTime()}${blue("   └─ ")}${gray("/" + path.basename(pdfPath))} ${dim(`(+${duration}ms)`)}`,
+          `${getFormattedTime()}${blue("   └─ ")}${gray(path.basename(pdfPath))} ${dim(`(+${duration}ms)`)}`,
         );
       } catch (err) {
         console.log(
@@ -181,13 +229,26 @@ async function generatePDFsAtBuild(urls: string[], dir: URL) {
   }
 }
 
+// Обновляем функцию закрытия браузера
+async function closeBrowser(): Promise<void> {
+  if (browserInstance) {
+    try {
+      await browserInstance.close();
+    } catch (e) {
+      console.warn("Error closing browser:", e);
+    } finally {
+      browserInstance = null;
+    }
+  }
+}
+
 // Интеграция Astro
 export default function pdf(urls: string[]): AstroIntegration {
   return {
     name: "PDF",
     hooks: {
       "astro:server:setup": async ({ server }) => {
-        await getBrowser();
+        await getBrowserWithRetry();
         server.middlewares.use(createPdfMiddleware(urls));
       },
       "astro:build:done": async ({ dir }) => {
