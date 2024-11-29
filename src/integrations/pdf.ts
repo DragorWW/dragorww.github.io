@@ -9,6 +9,8 @@ import puppeteer, {
 } from "puppeteer";
 import { bold, dim, green, red, gray, bgGreen, blue } from "kleur/colors";
 import { performance } from "perf_hooks";
+import http from "http";
+import { fileURLToPath } from "url";
 
 // Константы
 const DEFAULT_PDF_OPTIONS: PuppeteerPDFOptions = {
@@ -179,27 +181,79 @@ function getFormattedTime() {
   return gray(new Date().toLocaleTimeString("ru-RU", { hour12: false }));
 }
 
-// Функция для генерации PDF в процессе сборки
+async function createServer(dir: string) {
+  const mimeTypes = {
+    ".html": "text/html",
+    ".css": "text/css",
+    ".js": "text/javascript",
+    ".png": "image/png",
+    ".jpg": "image/jpeg",
+    ".svg": "image/svg+xml",
+    ".woff": "font/woff",
+    ".woff2": "font/woff2",
+  };
+
+  const server = http.createServer((req, res) => {
+    if (req.url === "/favicon.ico") {
+      res.writeHead(204); // No Content
+      res.end();
+      return;
+    }
+
+    const cleanUrl = decodeURIComponent(req.url?.split("?")[0] ?? "");
+    const filePath = path.join(
+      dir,
+      cleanUrl.endsWith("/") || !path.extname(cleanUrl)
+        ? path.join(cleanUrl, "index.html")
+        : cleanUrl,
+    );
+
+    fs.readFile(filePath)
+      .then((content) => {
+        const ext = path.extname(filePath);
+        res.writeHead(200, {
+          "Content-Type": mimeTypes[ext] || "application/octet-stream",
+        });
+        res.end(content);
+      })
+      .catch((err) => {
+        if (!req.url?.includes("favicon.ico")) {
+          console.error(`Error serving ${filePath}:`, err);
+        }
+        res.writeHead(404);
+        res.end("Not found");
+      });
+  });
+
+  return new Promise<number>((resolve) => {
+    server.listen(0, () => {
+      const address = server.address();
+      const port = typeof address === "object" ? address?.port : 0;
+      resolve(port);
+    });
+  }).then((port) => ({ server, port }));
+}
+
 async function generatePDFsAtBuild(urls: string[], dir: URL) {
   const startTime = performance.now();
   console.log(`\n${bgGreen(" generating PDFs ")}`);
 
+  const { server, port } = await createServer(dir.pathname);
+
   try {
     for (const url of urls) {
       const startUrlTime = performance.now();
-      const htmlPath = path.join(dir.pathname, url, "index.html");
       const pdfPath = path.join(dir.pathname, `${url}.pdf`);
 
       try {
         console.log(`${getFormattedTime()}${green(" ▶ ")}src/pages${url}`);
-        await fs.access(htmlPath);
+
         await generatePDF({
-          url: `file://${htmlPath}`,
+          url: `http://localhost:${port}${url}`,
           outputPath: pdfPath,
         });
 
         const duration = Math.round(performance.now() - startUrlTime);
-
         console.log(
           `${getFormattedTime()}${blue("   └─ ")}${gray(path.basename(pdfPath))} ${dim(`(+${duration}ms)`)}`,
         );
@@ -217,14 +271,8 @@ async function generatePDFsAtBuild(urls: string[], dir: URL) {
     console.log(
       `${getFormattedTime()} ${green("✓")} ${green(`Completed in ${totalDuration}ms.`)}\n`,
     );
-  } catch (error) {
-    console.error(
-      `${getFormattedTime()} ${red("✗")} ${bold("PDF generation failed")}`,
-    );
-    if (error instanceof Error) {
-      console.error(`${getFormattedTime()}   ${red(error.message)}`);
-    }
   } finally {
+    server.close();
     await closeBrowser();
   }
 }
