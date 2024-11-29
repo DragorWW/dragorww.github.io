@@ -4,7 +4,8 @@ import { LANGUAGES } from "../constants/languages";
 
 export function useTranslations(Astro: AstroGlobal) {
   return {
-    t: (key: string, lang: string = LANGUAGES.EN) => {
+    t: (key: string, forceLang?: string) => {
+      const lang = forceLang || Astro.params.lang || LANGUAGES.EN;
       const translation = translations[key]?.[lang];
       if (!translation) {
         console.warn(
