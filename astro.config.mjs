@@ -1,5 +1,6 @@
 import { defineConfig } from "astro/config";
 import sitemap from "@astrojs/sitemap";
+import pdf from "./src/integrations/pdf";
 import { LANGUAGES, DEFAULT_LANGUAGE } from "./src/constants/languages";
 
 // https://astro.build/config
@@ -49,5 +50,9 @@ export default defineConfig({
         },
       },
     }),
+    pdf([
+      "/en/CV_Andreev-Sergey_CTO-Head-of-enginering",
+      "/ru/CV_Andreev-Sergey_CTO-Head-of-enginering",
+    ]),
   ],
 });
