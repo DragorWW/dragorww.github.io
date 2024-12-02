@@ -264,6 +264,29 @@ const { defaultTitle, defaultDescription } = Astro.props;
     color: var(--text-secondary);
     margin-bottom: 2rem;
     word-wrap: break-word;
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
+    max-height: 200px;
+    overflow-y: auto;
+  }
+
+  /* Стилизуем скроллбар для описания */
+  .cover-description::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .cover-description::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .cover-description::-webkit-scrollbar-thumb {
+    background-color: var(--accent-color);
+    border-radius: 3px;
+    opacity: 0.5;
+  }
+
+  .cover-description::-webkit-scrollbar-thumb:hover {
+    opacity: 0.7;
   }
 
   /* Стили для фото и информации об авторе */
