@@ -12,14 +12,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v1
         with:
-          node-version: "20"
-          cache: "npm"
+          bun-version: latest
 
       - name: Install Dependencies
-        run: npm ci
+        run: bun install
 
       - name: Run Astro Check
-        run: npm run check
+        run: bun run check

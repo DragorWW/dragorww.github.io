@@ -1,0 +1,9 @@
+framework = "astro"
+target = "browser"
+entrypoints = ["src/pages/**/*.astro"]
+
+[install]
+exact = true
+
+[install.scopes]
+astro = "https://registry.npmjs.org/" 
