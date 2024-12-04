@@ -15,6 +15,9 @@ const { lang } = useTranslations(Astro);
 const currentPath = Astro.url.pathname;
 const baseUrl = Astro.site?.toString() || "https://dragorww.space";
 
+// Добавляем путь к OG изображению
+const ogImageUrl = new URL("/assets/og-image.png", baseUrl).toString();
+
 // Формируем ссылки для разных языков
 const alternateLinks = [
   {
@@ -53,11 +56,15 @@ const canonicalUrl = new URL(
 <meta property="og:description" content={description} />
 <meta property="og:type" content="website" />
 <meta property="og:url" content={canonicalUrl} />
+<meta property="og:image" content={ogImageUrl} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
 
 <!-- Twitter теги -->
-<meta name="twitter:card" content="summary" />
+<meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content={title} />
 <meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogImageUrl} />
 
 <!-- Альтернативные языковые версии -->
 {
