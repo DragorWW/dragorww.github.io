@@ -1,18 +1,17 @@
+---
+import SEO from "../components/SEO.astro";
+---
+
 <html>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Redirecting...</title>
 
-    <!-- SEO мета-теги для редиректа -->
-    <meta name="robots" content="noindex, follow" />
-    <link rel="canonical" href="/ru" />
-    <meta name="description" content="Redirecting to the main page" />
-
-    <!-- Для разных языков -->
-    <link rel="alternate" hreflang="ru" href="/ru" />
-    <link rel="alternate" hreflang="en" href="/en" />
-    <link rel="alternate" hreflang="x-default" href="/ru" />
+    <SEO
+      title="DragorWW - Redirecting..."
+      description="Blog about software development, team management, and tech leadership"
+      keywords="software development, team management, tech leadership, engineering"
+    />
 
     <style>
       :root {
