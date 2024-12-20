@@ -9,7 +9,7 @@ type Translations = {
 
 export const translations: Translations = {
   "cv.location": {
-    ru: "Пхукет, Тайланд",
+    ru: "Пхукет, Таиланд",
     en: "Phuket, Thailand",
   },
   "cv.download": {
@@ -45,7 +45,7 @@ export const translations: Translations = {
     en: "Switch theme",
   },
   "hero.title": {
-    ru: "CTO и IT-Архитектор",
+    ru: "CTO и IT-архитектор",
     en: "CTO and IT Architect",
   },
   "hero.subtitle": {
@@ -153,8 +153,8 @@ export const translations: Translations = {
     en: "Hi, I'm",
   },
   "hero.role": {
-    ru: "CTO, IT-архитектор и амбассадор продуктовой разработки.",
-    en: "CTO, IT Architect and Product Development Ambassador.",
+    ru: "CTO, IT-архитектор и амбассадор продуктовой разработки",
+    en: "CTO, IT Architect and Product Development Ambassador",
   },
   "hero.stats.experience": {
     ru: "Создаю успешные команды и продукты 10+ лет",
@@ -201,7 +201,7 @@ export const translations: Translations = {
     en: "Tomsk",
   },
   "education.description": {
-    ru: "Факультет психологии, Связи с общественностью",
+    ru: "Факультет психологии, специальность «Связи с общественностью»",
     en: "Faculty of Psychology, Public Relations",
   },
   "experience.role.cto": {
@@ -253,12 +253,12 @@ export const translations: Translations = {
     en: "Leading IT strategy for a holding of 7 companies:",
   },
   "experience.ultimate.achievement1": {
-    ru: "Масштабирование IT-решений для холдинга из 7 компаний",
-    en: "Scaling IT solutions for a holding of 7 companies",
+    ru: "Масштабирование IT-решений для холдинга из 7 компаний;",
+    en: "Scaling IT solutions for a holding of 7 companies;",
   },
   "experience.ultimate.achievement2": {
-    ru: "Разработка и внедрение единой IT-стратегии",
-    en: "Development and implementation of unified IT strategy",
+    ru: "Разработка и внедрение единой IT-стратегии;",
+    en: "Development and implementation of unified IT strategy;",
   },
   "experience.ultimate.achievement3": {
     ru: "Оптимизация бюджета и ресурсов через централизацию систем",
@@ -269,7 +269,7 @@ export const translations: Translations = {
     en: "Creation of comprehensive analytics platform",
   },
   "experience.xyz.description": {
-    ru: "Ключевые достижения за 3 года 10 месяцев:",
+    ru: "Ключевые достижения за 3 года и 10 месяцев:",
     en: "Key achievements over 3 years and 10 months:",
   },
   "experience.xyz.achievement1": {
@@ -277,8 +277,8 @@ export const translations: Translations = {
     en: "Development and implementation of LMS system",
   },
   "experience.xyz.achievement2": {
-    ru: "Внедрее продуктовой аналитики на базе Metabase",
-    en: "Implementation of product analytics based on Metabase",
+    ru: "Внедрение бизнес-процессов и бизнес-аналитики",
+    en: "Implementation of business processes and business analytics",
   },
   "experience.xyz.achievement3": {
     ru: "Автоматизация бизнес-процессов и интеграция систем",
@@ -341,7 +341,7 @@ export const translations: Translations = {
     en: "On immigrant life in Almaty and a smart approach to business, work and life",
   },
   "videos.1.description": {
-    ru: "В этом подкасте поговорил с Сергеем, который в 2022 году переехал вместе с беременной женой в Алматы. В подкасте Сергей поделился своим опытом эмиграции и жизни в Казахстане. Также обсудили с ним важный вопрос: как живется женам айтишников в эмиграции? И, конечно же, затронули темы бизнеса, IT и работы продуктовой команды.",
+    ru: "В этом подкасте поговорил с Сергеем, который в 2022 году переехал вместе с беременной женой в Алматы. В подкасте Сергей поделился своим опытом эмиграции и жизни в Казахстане. Также обсудили важный вопрос: как живётся жёнам айтишников в эмиграции? И, конечно же, затронули темы бизнеса, IT и работы продуктовой команды.",
     en: "In this podcast, I talked with Sergey, who moved to Almaty with his pregnant wife in 2022. Sergey shared his experience of emigration and life in Kazakhstan. We also discussed an important question: how do IT specialists' wives live in emigration? And, of course, we touched upon topics of business, IT and product team work.",
   },
   "videos.2.title": {
@@ -453,12 +453,12 @@ export const translations: Translations = {
     en: "Develop Business Analytics Platform",
   },
   "terminal.projects.education": {
-    ru: "Разработка образовательной платфомы",
+    ru: "Разработка образовательной платформы",
     en: "Develop Educational Platform",
   },
   "terminal.projects.devops": {
-    ru: "Разработка DevOps CD/CD инструментов (клон Jenkins)",
-    en: "Develop DevOps CD/CD Tools (clone Jenkins)",
+    ru: "Разработка DevOps CI/CD-инструментов",
+    en: "Develop DevOps CI/CD Tools",
   },
   "terminal.projects.cargo": {
     ru: "Разработка грузовой площадки",
@@ -533,16 +533,16 @@ export const translations: Translations = {
     en: "Show work experience",
   },
   "terminal.response.about": {
-    ru: `Привет! Я Сергей Андреев, CTO и IT-архитектор.
-    • 10+ лет опыта в разработке
-    • Специализация: масштабируемые образовательные проекты
-    • Текущая позиция: CTO в Ultimate Education
+    ru: `Привет! Я Сергей Андреев — CTO и IT-архитектор.
+    • 10+ лет опыта в разработке;
+    • Специализация: масштабируемые образовательные проекты;
+    • Текущая позиция: CTO в Ultimate Education.
     
     Подробнее: используйте команды 'experience' или 'skills'`,
-    en: `Hi! I'm Sergey Andreev, CTO and IT architect.
-    • 10+ years of development experience
-    • Specialization: scalable educational projects
-    • Current position: CTO at Ultimate Education
+    en: `Hi! I'm Sergey Andreev — CTO and IT architect.
+    • 10+ years of development experience;
+    • Specialization: scalable educational projects;
+    • Current position: CTO at Ultimate Education.
     
     More info: use 'experience' or 'skills' commands`,
   },
@@ -572,15 +572,13 @@ export const translations: Translations = {
   },
   "terminal.system.welcome": {
     ru: `Добро пожаловать в интерактивный терминал!
+    
     Введите 'help' для списка команд.
-    
-    Версия: 1.0.0
-    `,
+    Версия: 1.0.0`,
     en: `Welcome to interactive terminal!
-    Type 'help' for available commands.
     
-    Version: 1.0.0
-    `,
+    Type 'help' for available commands.
+    Version: 1.0.0`,
   },
   "terminal.hint.type_help": {
     ru: "Подсказка: введите 'help' для списка команд",
@@ -703,7 +701,7 @@ export const translations: Translations = {
     en: "IT leader with over 10 years of experience in development and product team management. I specialize in building effective development processes and creating scalable technical solutions for growing businesses.",
   },
   "cv.profile.experience": {
-    ru: "Имею успешный опыт оптимизации IT-процессов и внедрения технических инноваций, что позволило компаниям значительно сократить издержки и ускорить рост. Ищу возможность применить свой опыт в амбициозном проекте, где смогу помочь команде достичь новых высот.",
+    ru: "Имею успешный опыт оптимизации IT-процессов и внедрения технических инноваций, благодаря чему компаниям удалось значительно сократить издержки и ускорить рост. Ищу возможность применить свой опыт в амбициозном проекте, где смогу помочь команде достичь новых высот.",
     en: "I have successful experience in optimizing IT processes and implementing technical innovations, which has allowed companies to significantly reduce costs and accelerate growth. I'm looking for an opportunity to apply my experience in an ambitious project where I can help the team reach new heights.",
   },
   "cv.contacts.email": {
